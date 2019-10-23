@@ -7,13 +7,7 @@ var password = document.getElementById("password");
 
 
 //引用hint()在最上方弹出提示
-function hint() {
-    let hit = document.getElementById("hint")
-    hit.style.display = "block"
-    setTimeout("hit.style.opacity = 1", 0);
-    setTimeout("hit.style.opacity = 0", 2000);
-    setTimeout('hit.style.display = "block"', 3000);
-}
+
 
 //回调函数
 /*function submit(callback) {
