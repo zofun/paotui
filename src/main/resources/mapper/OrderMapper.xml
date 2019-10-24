@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.runningman.paotui.mapper.OrderMapper">
+    <insert id="insertOrder" parameterType="order">
+      INSERT INTO `order`( `titile`, `user`, `begin`, `end`, `start_Lnglat`, `end_lnglat`, `reward`, `endtime`) VALUES (#{titile},#{user},#{begin},#{end},#{start_Lnglat},#{end_lnglat},#{reward},#{endtime})
+    </insert>
+
+    <select id="selectOrderByUser" parameterType="String" resultType="order">
+        select * from `order` where user = #{0}
+    </select>
+</mapper>
