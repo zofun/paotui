@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/order")
 public class OrderController {
     @Autowired
-    OrderService orderService;
+    private OrderService orderService;
 
 
     @RequestMapping(value = "/makeorder",method = RequestMethod.POST)
