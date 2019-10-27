@@ -4,5 +4,9 @@
     <select id="getUserByUsername" parameterType="string" resultType="user">
         select * from user  where username=#{username}
     </select>
+    <insert id="insert" parameterType="user">
+        insert into user (`name`,username,password,auth)
+        values(#{name},#{username},#{password},#{auth})
+    </insert>
 
 </mapper>

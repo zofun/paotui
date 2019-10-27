@@ -10,4 +10,12 @@ import org.springframework.stereotype.Repository;
 public interface UserMapper {
 
     User getUserByUsername(String username);
+
+    /**
+     * 插入新的用户记录
+     * @param user
+     */
+    void insert(User user);
+
+
 }
