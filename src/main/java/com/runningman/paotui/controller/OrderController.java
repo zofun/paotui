@@ -1,11 +1,13 @@
 package com.runningman.paotui.controller;
 
+import com.runningman.paotui.dto.Result;
 import com.runningman.paotui.pojo.Order;
 import com.runningman.paotui.pojo.User;
 import com.runningman.paotui.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -23,17 +25,17 @@ public class OrderController {
     OrderService orderService;
 
 
-    @RequestMapping("/makeorder")
-    public String makeOrder(HttpSession session, Order order){
+    @RequestMapping(value = "/makeorder",method = RequestMethod.POST)
+    public Result makeOrder(HttpSession session, Order order){
         User user = (User)session.getAttribute("user");
         if(user==null){
-            return "2";
+            return new Result().fail("nologin","未登录",0);
         }else{
             if(orderService.makeOrder(user.getUsername(),order)) {
-                return "1";
+                return new Result().success("ok",0,"发布成功");
             }
             else {
-                return "0";
+                return new Result().fail("error","网络出错",0);
             }
         }
     }
