@@ -1542,5 +1542,7 @@ a.shop {
 	float: right;
 	padding: 0;
 }
-
+.shop-f-top{
+	padding: 2em 2em 2em 2em;
+}
 /*--// header-middle --*/
