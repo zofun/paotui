@@ -1,21 +1,22 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>发布订单</title>
+    <title>查看订单详情</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Simplified Contact Form template Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login sign up Responsive web template, SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-    <script type="application/x-javascript">
-        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
-    </script>
     <link href="css/makeorder.css" rel="stylesheet" type="text/css" media="all" />
     <link rel="stylesheet" href="font/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="css/bootstrap.css">
-</head>
+    <style>
+        .main-row {
+            width: 50%;
+            margin: 8em auto;
+        }
+    </style>
 <body>
-<!-- main -->
-<!--发布订单，我用的表格的形式-->
+
+<!--查看，我用的表格的形式-->
 <div class="bg">
     <div id="hint"><!-- 提示框 -->
         <p id="hintmsg">提示信息</p>
@@ -37,22 +38,25 @@
     <div class="main">
         <!--<h1>订单发布</h1>-->
         <div class="main-row">
-            <h2>订单发布</h2>
-            <p>请根据您的要求填写信息表! </p>
+            <h2>具体信息</h2>
+            <p>查看具体信息更能帮助您决定是否接单哦。</p>
             <div class="w3ls-contact">
                 <form action="#" method="get">
-                    <h4>您的需求是？</h4>
-                    <input type="text" name="Name" id="title" required="">
-                    <h4>您的起点位置是？</h4>
-                    <input type="text" name="Mobile Number" id="start" required="">
-                    <h4>您的终点位置是？</h4>
-                    <input type="email" name="Email" id="end" required="">
-                    <h4>您的酬金是？</h4>
-                    <input type="text" id="reward" required="">
-                    <h4>具体任务说明</h4>
-                    <textarea name="Message" id="info" required=""> </textarea>
-                    <input type="submit" value="提交">
-                    <input type="reset" value="取消">
+                    <h4>任务需求：</h4>
+                    <div id="name">------------</div>
+                    <h4>起点位置：</h4>
+                    <div class="start">-----------</div>
+                    <h4>终点位置：</h4>
+                    <div class="end">---------</div>
+                    <h4>酬金：</h4>
+                    <div class="reward">---------</div>
+                    <h4>具体任务说明：</h4>
+                    <div class="info">
+                        显示具体任务显示具体任务显示具体任务显示具体任务显
+                        示具体任务显示具体任务显示具体任务显示具体任务显示具体任务
+                    </div>
+                    <input type="submit" value="我要接单">
+                    <input type="reset" value="我再看看">
                     <div class="clear"> </div>
                 </form>
             </div>
@@ -60,6 +64,5 @@
     </div>
 </div>
 
-<!-- //main -->
 </body>
 </html>

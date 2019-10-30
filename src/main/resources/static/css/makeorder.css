@@ -2,12 +2,18 @@
 /*--reset--*/
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
 article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, section {display: block;}
-ol,ul{list-style:none;margin:0px;padding:0px;}
-blockquote,q{quotes:none;}
-blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
+ol,ul
+{list-style:none;margin:0px;padding:0px;}
+blockquote,q{
+    quotes:none;}
+blockquote:before,blockquote:after,q:before,q:after
+{content:'';content:none;}
 table{border-collapse:collapse;border-spacing:0;}
 /*--start editing from here--*/
 a{text-decoration:none;}
+a:hover{
+    text-decoration: none;
+}
 .txt-rt{text-align:right;}/* text align right */
 .txt-lt{text-align:left;}/* text align left */
 .txt-center{text-align:center;}/* text align center */
@@ -22,18 +28,23 @@ nav.vertical ul li{	display:block;}/* vertical menu */
 nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
 /*--end reset--*/
+*{
+    margin:0px;
+    padding: 0px;
+}
 @font-face {
     font-family: 'neo';
     src: url("../font/印品工版宋.ttf");
 }
 body {
     font-family: 'Roboto', sans-serif;
-    /*background: url(../images/overlay.png) repeat center;*/
     /*background-size: inherit;*/
     /*background-attachment: fixed;*/
-    /*background-color: #9370DB;*/
-    background: linear-gradient(45deg, #211136, #bf5853);
-    height: 100%;
+
+}
+.bg{
+    background: linear-gradient(0deg, #211136, #bf5853);
+    height: 2000%;
 }
 
 h1 {
@@ -70,11 +81,10 @@ p {
 /*--main--*/
 .main {
     padding: 3em 0 0;
-
+    min-height: 800px;
 }
 body a{
     color: white;
-
 }
 .main-row {
     width: 30%;
@@ -82,6 +92,7 @@ body a{
     background: #fff;
     padding: 4em;
     border-radius: 10px;
+    min-height: 500px;
 }
 /*--contact-form--*/
 .w3ls-contact input[type="text"],.w3ls-contact input[type="email"] {
@@ -323,4 +334,21 @@ body a{
     color: #e06267;
     height: 30px;
     width: 100px;
+}
+
+/*提示*/
+#hint{
+    width: 100%;
+    line-height: 70px;
+    background: linear-gradient(-90deg, #9b494d, #bf5853);
+    text-align: center;
+    font-size: 25px;
+    color: #fff;
+    box-shadow: 0 0 20px #733544;
+    display: none;
+    opacity: 0;
+    transition: .5s;
+    position: absolute;
+    top: 0;
+    z-index: 999;
 }
