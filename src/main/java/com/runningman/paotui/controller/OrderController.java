@@ -39,4 +39,17 @@ public class OrderController {
             }
         }
     }
+
+    @RequestMapping(value = "/getAllOrder",produces = "application/json;charset=utf-8")
+    public String getAllOrder(int page,int limit){
+        String json = orderService.getAllOrderList(page,limit);
+        return json;
+    }
+
+    @RequestMapping(value = "/getUserOrders" ,produces = "application/json;charset=utf-8")
+    public String getUserOrders(HttpSession session, int page, int limit){
+        User user = (User)session.getAttribute("user");
+        String json = orderService.getUserOrders(user.getUsername(),page,limit);
+        return json;
+    }
 }

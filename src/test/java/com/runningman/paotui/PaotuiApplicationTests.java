@@ -62,8 +62,10 @@ class PaotuiApplicationTests {
         order.setReward("Reward");
         order.setEnd_lnglat("End_lnglat");
         order.setEndtime(now());
-        orderService.makeOrder("1",order);*/
-
-        orderService.selectOrderByUser("1");
+        orderService.makeOrder("1",order);
+        System.out.println(order.getId());*/
+        //orderService.selectOrderByUser("1");
+        System.out.println(orderService.getAllOrderList(1,1));
+        System.out.println(orderService.getUserOrders("1",1,1));
     }
 }
