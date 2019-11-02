@@ -1,6 +1,7 @@
 package com.runningman.paotui.service;
 
 import com.runningman.paotui.pojo.Order;
+import com.runningman.paotui.pojo.OrderTitle;
 import org.hibernate.validator.constraints.EAN;
 
 import java.util.List;
@@ -29,4 +30,18 @@ public interface OrderService {
      * @return
      */
     List<Order> selectOrderByUser(String user);
+
+    /**
+     * 显示所有的订单列表
+     * @return
+     */
+    String getAllOrderList(int page,int limit);
+
+    /**
+     * 用户查看自己发布的订单列表
+     * @param page
+     * @param limit
+     * @return
+     */
+    String getUserOrders(String user,int page,int limit);
 }
