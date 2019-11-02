@@ -17,7 +17,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class OrdersUser {
     private int id;
-    private String titile;
+    private String title;
     private String begin;
     private String end;
     private String reward;

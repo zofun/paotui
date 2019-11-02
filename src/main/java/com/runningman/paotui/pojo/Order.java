@@ -22,7 +22,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Order {
     private int id;  //订单id
-    private String titile;
+    private String title;
     private String user;
     private String delivery;
     private String begin;

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.runningman.paotui.mapper.OrderMapper">
     <insert id="insertOrder" parameterType="order" useGeneratedKeys="true" keyProperty="id">
-      INSERT INTO `order`( `titile`, `user`, `begin`, `end`, `start_Lnglat`, `end_lnglat`, `reward`, `endtime`) VALUES (#{titile},#{user},#{begin},#{end},#{start_Lnglat},#{end_lnglat},#{reward},#{endtime})
+      INSERT INTO `order`( `title`, `user`, `begin`, `end`, `start_Lnglat`, `end_lnglat`, `reward`, `endtime`) VALUES (#{title},#{user},#{begin},#{end},#{start_Lnglat},#{end_lnglat},#{reward},#{endtime})
     </insert>
 
     <select id="selectOrderByUser" parameterType="String" resultType="Order">
@@ -18,7 +18,7 @@
     </select>
 
     <select id="getUserOrders" resultType="OrdersUser">
-        select o.id,o.titile,o.begin,o.end,o.reward,s.info
+        select o.id,o.title,o.begin,o.end,o.reward,s.info
         from `order` o join `status` s on o.id = s.order_id
         where o.user=#{arg0}
         order by id limit #{arg1},#{arg2}
