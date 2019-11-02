@@ -10,6 +10,7 @@ import com.runningman.paotui.pojo.Status;
 import com.runningman.paotui.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -30,22 +31,19 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private StatusMapper statusMapper;
 
+
+    @Transactional(rollbackFor={RuntimeException.class, Exception.class})
     @Override
     public boolean makeOrder(String user,Order order) {
-        try{
-            order.setUser(user);
-            orderMapper.insertOrder(order);
-            Status status = new Status();
-            status.setOrder_id(order.getId());
-            status.setInfo("已发布");
-            Date date = new Date();
-            status.setTime(date);
-            statusMapper.insertStatus(status);
-            return true;
-        }catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        order.setUser(user);
+        orderMapper.insertOrder(order);
+        Status status = new Status();
+        status.setOrder_id(order.getId());
+        status.setInfo("已发布");
+        Date date = new Date();
+        status.setTime(date);
+        statusMapper.insertStatus(status);
+        return true;
     }
 
     @Override
