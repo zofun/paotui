@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.runningman.paotui.mapper.OrderMapper">
-    <insert id="insertOrder" parameterType="order">
+    <insert id="insertOrder" parameterType="order" useGeneratedKeys="true" keyProperty="id">
       INSERT INTO `order`( `title`, `user`, `begin`, `end`, `start_Lnglat`, `end_lnglat`, `reward`, `endtime`) VALUES (#{title},#{user},#{begin},#{end},#{start_Lnglat},#{end_lnglat},#{reward},#{endtime})
     </insert>
 

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -40,8 +41,14 @@ public class OrderServiceImpl implements OrderService {
         Status status = new Status();
         status.setOrder_id(order.getId());
         status.setInfo("已发布");
-        Date date = new Date();
-        status.setTime(date);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date time = null;
+        try{
+            time = dateFormat.parse(dateFormat.format(new Date()));
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+        status.setTime(time);
         statusMapper.insertStatus(status);
         return true;
     }
