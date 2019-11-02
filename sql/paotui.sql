@@ -68,7 +68,7 @@ CREATE TABLE `comment` (
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `titile` varchar(50) NOT NULL,
+  `title` varchar(50) NOT NULL,
   `user` varchar(20) NOT NULL,
   `delivery` varchar(20) DEFAULT NULL,
   `begin` varchar(60) NOT NULL,

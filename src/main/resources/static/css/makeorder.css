@@ -81,7 +81,7 @@ p {
 /*--main--*/
 .main {
     padding: 3em 0 0;
-    min-height: 800px;
+    min-height: 840px;
 }
 body a{
     color: white;
@@ -92,7 +92,7 @@ body a{
     background: #fff;
     padding: 4em;
     border-radius: 10px;
-    min-height: 500px;
+    min-height: 540px;
 }
 /*--contact-form--*/
 .w3ls-contact input[type="text"],.w3ls-contact input[type="email"] {
@@ -117,7 +117,7 @@ body a{
     outline: none;
     padding: .6em 1em;
     border: 1px solid #e06267;
-    min-height: 10em;
+    min-height: 8em;
     -webkit-appearance: none;
     border-radius: 8px;
 }
@@ -351,4 +351,22 @@ body a{
     position: absolute;
     top: 0;
     z-index: 999;
+}
+
+button{
+    height: 40px;
+    outline: none;
+    color: #FFFFFF;
+    padding: 0.5em 0;
+    font-size: 1em;
+    margin: 1em 0 0 0;
+    -webkit-appearance: none;
+    background: #e06267;
+    transition: 0.5s all;
+    border: 2px solid #e06267;
+    -webkit-transition: 0.5s all;
+    transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    width: 47%;
+    cursor: pointer;
 }

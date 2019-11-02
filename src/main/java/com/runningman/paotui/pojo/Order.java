@@ -1,11 +1,13 @@
 package com.runningman.paotui.pojo;
 
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
+
 import lombok.AllArgsConstructor;
-import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
@@ -22,7 +24,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Order {
     private int id;  //订单id
-    private String titile;
+    private String title;
     private String user;
     private String delivery;
     private String begin;
@@ -31,6 +33,7 @@ public class Order {
     private String end_lnglat;
     private String reward;
     //private Date orderTime; //下单时间
+
     private Date endtime;
 
 }

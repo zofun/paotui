@@ -33,7 +33,7 @@ class PaotuiApplicationTests {
     @Test
     void makeOrderTest(){
         Order order = new Order();
-        order.setTitile("Titile");
+        order.setTitle("Titile");
         order.setUser("1");
         order.setBegin("Begin");
         order.setEnd("End");

@@ -30,7 +30,7 @@ public class UserController {
     public Result register(User user){
         try {
             userService.addUser(user);
-            return new Result().success("ok",0,"注册成功");
+            return new Result().success("注册成功",0,"ok");
         }catch (Exception e){
             //捕获主键重复异常，即电话已被注册
             return new Result().fail("error","注册失败,电话被占用",0);

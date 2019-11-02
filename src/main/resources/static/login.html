@@ -67,7 +67,6 @@
 
 
     var onoff = true;
-    var logOnOff=true;
     var confirm=$('.confirm');
     var hit = document.getElementById("hint");
     /**
@@ -103,8 +102,18 @@
                         //根据返回，进行下一步的处理
                         if (d.data === 'pass') {
                             //登录成功的处理逻辑
+                            hit.innerText = "登录成功，正在跳转到首页...";
+                            hint();
+                            setInterval(function() {
+                                window.location.href='/index.html';
+                            }, 2000);
+
+
+
                         } else {
                             //登录失败的处理逻辑
+                            hit.innerText = d.message;
+                            hint();
                         }
 
                     }
@@ -169,8 +178,21 @@
                         //根据返回，进行下一步的处理
                         if (d.data === 'ok') {
                             //注册成功的处理逻辑
+                            hit.innerText = "注册成功，正在跳转到登录...";
+                            hint();
+
+                            setInterval(function() {
+                                /*页面切换*/
+                                confirm.css("height","0px");
+                                $('#p1').css("top","0px");
+                                $('#p2').css("top","35px");
+                                onoff = !onoff;
+                            }, 2000);
+
                         } else {
                             //登录失败的处理逻辑
+                            hit.innerText = d.message;
+                            hint();
                         }
 
                     }
@@ -189,6 +211,8 @@
         setTimeout("hit.style.opacity = 0", 2000);
         setTimeout('hit.style.display = "block"', 3000);
     }
+
+
 </script>
 
 </html>

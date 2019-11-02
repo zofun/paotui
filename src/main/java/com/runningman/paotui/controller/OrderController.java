@@ -5,12 +5,18 @@ import com.runningman.paotui.pojo.Order;
 import com.runningman.paotui.pojo.User;
 import com.runningman.paotui.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @Auther: http://www.tanwei.com
@@ -23,6 +29,14 @@ import javax.servlet.http.HttpSession;
 public class OrderController {
     @Autowired
     private OrderService orderService;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.setLenient(true);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(
+                dateFormat, true));
+    }
 
 
     @RequestMapping(value = "/makeorder",method = RequestMethod.POST)
