@@ -370,3 +370,20 @@ button{
     width: 47%;
     cursor: pointer;
 }
+
+button{
+    outline: none;
+    color: #FFFFFF;
+    padding: 0.5em 0;
+    font-size: 1em;
+    margin: 1em 0 0 0;
+    -webkit-appearance: none;
+    background: #e06267;
+    transition: 0.5s all;
+    border: 2px solid #e06267;
+    -webkit-transition: 0.5s all;
+    transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    width: 47%;
+    cursor: pointer;
+}
