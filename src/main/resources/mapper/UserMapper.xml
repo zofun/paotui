@@ -9,4 +9,8 @@
         values(#{name},#{username},#{password},#{auth})
     </insert>
 
+    <update id="updateAuth">
+        update user set auth=#{authId} where username=#{username}
+    </update>
+
 </mapper>
