@@ -18,12 +18,6 @@ import javax.servlet.http.HttpSession;
 /**
  * 
  * 功能描述：简单版单人聊天
- *
- * <p> 创建时间：Jan 4, 2018 </p> 
- * <p> 贡献者：小D学院, 官网：www.xdclass.net </p>
- *
- * @author <a href="mailto:xd@xdclass.net">小D老师</a>
- * @since 0.0.1
  */
 @Controller
 public class ChatRoomContoller {
