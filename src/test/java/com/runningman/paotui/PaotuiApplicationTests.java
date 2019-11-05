@@ -53,7 +53,7 @@ class PaotuiApplicationTests {
 
     @Test
     void orderServiceTest(){
-        Order order = new Order();
+        /*Order order = new Order();
         order.setTitle("Titile");
         //order.setUser("1");
         order.setBegin("Begin");
@@ -64,8 +64,10 @@ class PaotuiApplicationTests {
         order.setEndtime(now());
         orderService.makeOrder("1",order);
         System.out.println(order.getId());
-        //orderService.selectOrderByUser("1");
-        System.out.println(orderService.getAllOrderList(1,1));
-        System.out.println(orderService.getUserOrders("2",1,1));
+        //orderService.selectOrderByUser("1");*/
+        System.out.println(orderService.getAllOrderList(1,10));
+        System.out.println(orderService.getUserOrders("2",1,10));
+
+        System.out.println(orderService.getOrderInfo(16));
     }
 }

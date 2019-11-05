@@ -66,4 +66,10 @@ public class OrderController {
         String json = orderService.getUserOrders(user.getUsername(),page,limit);
         return json;
     }
+
+    @RequestMapping(value = "/getInfo",produces = "application/json;charset=utf-8")
+    public String getOrderInfo(int id){
+        String json = orderService.getOrderInfo(id);
+        return json;
+    }
 }

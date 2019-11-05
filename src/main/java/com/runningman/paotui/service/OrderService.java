@@ -44,4 +44,11 @@ public interface OrderService {
      * @return
      */
     String getUserOrders(String user,int page,int limit);
+
+    /**
+     * 根据id在接单之前查看订单的详细内容
+     * @param id
+     * @return
+     */
+    String getOrderInfo(int id);
 }

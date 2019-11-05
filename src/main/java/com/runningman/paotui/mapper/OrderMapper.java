@@ -1,6 +1,7 @@
 package com.runningman.paotui.mapper;
 
 import com.runningman.paotui.pojo.Order;
+import com.runningman.paotui.pojo.OrderInfo;
 import com.runningman.paotui.pojo.OrderTitle;
 import com.runningman.paotui.pojo.OrdersUser;
 import org.apache.ibatis.annotations.Mapper;
@@ -59,4 +60,11 @@ public interface OrderMapper {
      * @return
      */
     int getUserOrderCount(String user);
+
+    /**
+     * 接单之前查看订单的详细内容
+     * @param id
+     * @return
+     */
+    OrderInfo getOrderInfo(int id);
 }
