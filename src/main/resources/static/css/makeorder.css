@@ -156,8 +156,7 @@ body a{
 :-ms-input-placeholder {
     color:#e06267 !important;
 }
-/*--//contact-form--*/
-/*---- responsive-design -----*/
+
 @media(max-width:1440px){
     .main-row {
         width: 28%;
@@ -291,7 +290,6 @@ body a{
         letter-spacing: 3px;
     }
 }
-/*--//responsive-design---*/
 
 /*顶部*/
 .top-right{
