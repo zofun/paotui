@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--<html lang="en">-->
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <base target="_blank">
+    <title>会话</title>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/chat.css">
+    <script src="libs/jquery-2.1.4/jquery.min.js"></script>
+    <script src="js/chat.js"></script>
+</head>
+<body lang="zh">
+<img style="width:100%;height:100%" src="images/bg.jpg">
+<div class="abs cover contaniner">
+    <div class="abs cover pnl">
+        <div class="top pnl-head"></div>
+        <div class="abs cover pnl-body" id="pnlBody">
+            <div class="abs cover pnl-left">
+                <div class="abs cover pnl-msgs scroll" id="show">
+                    <div class="msg min time" id="histStart">加载历史消息</div>
+                    <div class="pnl-list" id="hists">
+                        <!-- 历史消息 -->
+                    </div>
+                    <div class="pnl-list" id="msgs">
+                        <div class="msg robot">
+                            <!--worker就是对方的用户名-->
+                            <div class="msg-left" worker="蓝猫">
+                                <div class="msg-ball" title="今天 17:52:06">你好</div>
+                            </div>
+                        </div>
+                        <div class="msg guest">
+                            <div class="msg-right">
+                                <div class="msg-host headDefault"></div>
+                                <div class="msg-ball" title="今天 17:52:06">你好</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pnl-list hide" id="unreadLine">
+                        <div class="msg min time unread">未读消息</div>
+                    </div>
+                </div>
+                <div class="abs bottom pnl-text">
+                    <div class="abs top pnl-warn" id="pnlWarn">
+                        <div class="fl btns rel pnl-warn-free">
+                            <img src="images/icon-smile.png" class="kh warn-btn" title="表情" id="emojiBtn" />
+                        </div>
+                    </div>
+                    <div class="abs cover pnl-input">
+                        <textarea class="scroll" id="text" wrap="hard" placeholder="在此输入文字信息..."></textarea>
+                        <div class="abs atcom-pnl scroll hide" id="atcomPnl">
+                            <ul class="atcom" id="atcom"></ul>
+                        </div>
+                    </div>
+                    <div class="abs br pnl-btn" id="submit" style="background-color: rgb(32, 196, 202); color: rgb(255, 255, 255);" onclick="SendMsg()">发送</div>
+                    <div class="pnl-support" id="copyright"><a href="#">请不要发送违反的字节</a></div>
+                </div>
+            </div>
+            <div class="abs right pnl-right">
+                <div class="pnl-right-msg">
+                    <!--弄个图片在这里好看-->
+                    <div class="chat-head"><img src="images/2.jpg" alt=""></div>
+                    <br>
+                    <div class="chat-username">用户：</div>
+                    <br>
+                    <div class="chat-xinyu">信誉积分:</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="js/chat.js"></script>
+</html>
