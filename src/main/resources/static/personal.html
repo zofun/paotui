@@ -122,31 +122,31 @@
             <h2 class="mb-5">跑腿员认证</h2>
             <div class="subheading mb-5"> ·用学生身份认证成为跑腿员 ·</div>
             <div class="login-box">
-                <form class="layui-form layui-form-pane" method="get" action="">
+                <form class="layui-form layui-form-pane" method="get" action="/auth/auth">
                     <div class="layui-form-item">
                         <label class="layui-form-label">学校：</label>
 
                         <div class="layui-input-inline">
-                            <input type="text" name="account" class="layui-input" lay-verify="account" placeholder="学校" autocomplete="on" maxlength="20"/>
+                            <input type="text" name="account" class="layui-input" lay-verify="school" placeholder="学校" autocomplete="on" maxlength="20"/>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">姓名：</label>
 
                         <div class="layui-input-inline">
-                            <input type="password" name="password" class="layui-input" lay-verify="password" placeholder="姓名" maxlength="20"/>
+                            <input type="text" id="real_name" class="layui-input"  placeholder="姓名" maxlength="20"/>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">学号：</label>
 
                         <div class="layui-input-inline">
-                            <input type="number" name="code" class="layui-input" lay-verify="code" placeholder="学号" maxlength="4"/><img src="img/v.png" onclick="getImage()" title="单击刷新验证码" id="img_rand_code" alt="">
+                            <input type="text" id="student_id" class="layui-input"  placeholder="学号" maxlength="20"/>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <button type="reset" class="layui-btn layui-btn-danger btn-reset">重置</button>
-                        <button type="button" class="layui-btn btn-submit" lay-submit="" lay-filter="sub">立即认证</button>
+                        <button type="button" class="layui-btn btn-submit" lay-submit="" lay-filter="sub" onclick="submitAuthInfo()">立即认证</button>
                     </div>
                 </form>
             </div>
@@ -202,9 +202,12 @@
 <script src="js/resume.js"></script>
 <script src="layui/layui.js"></script>
 <script>
+
+    var layer;
     // 订单部分的js
-    layui.use('table', function(){
+    layui.use(['table','layer'], function(){
         var table = layui.table;
+        layer=layui.layer;
         table.render({
             elem: '#demo'
             ,height: 350
@@ -241,6 +244,39 @@
     });
 
     // 认证成为跑腿员部分js
+
+
+    function submitAuthInfo() {
+        var real_name=$('#real_name').val();
+        var student_id=$('#student_id').val();
+        if(real_name===''||student_id===''){
+            layer.open({
+                title: '提示'
+                ,content: '请填写完整的信息'
+            });
+        }
+        $.ajax({
+            type:'post',
+            url:'/auth/auth',
+            data:{
+                real_name:real_name,
+                student_id:student_id
+            },
+            success:function (d) {
+                layer.open({
+                    title: '提示'
+                    ,content: d.message
+                });
+                
+            },
+            error: function () {
+                layer.open({
+                    title: '提示'
+                    ,content: '网络错误'
+                });
+            }
+        })
+    }
 
     // 会话窗口js
 </script>
