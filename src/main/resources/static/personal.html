@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>个人订单</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/resume.css" rel="stylesheet">
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <!--<link rel="stylesheet" href="css/login.css">-->
+    <!--<link rel="stylesheet" href="css/makeorder.css">-->
+
+</head>
+
+<body id="page-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+    <a class="navbar-brand js-scroll-trigger" href="#index">
+        <span class="d-none d-lg-block">
+          <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="images/profile.jpg" alt="">
+        </span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#searchOrder-now">当前订单</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#mymsg">消息中心</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#myreputation">个人信誉</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#mine">认证成为跑腿员</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#awards">修改资料</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid px-6">
+
+    <section class="resume-section p-3 p-lg-5 d-flex d-column" id="searchOrder-now">
+        <div class="my-auto">
+            <h1 class="mb-0">订单
+                <span class="text-primary">Order</span>
+            </h1>
+            <div class="subheading mb-5"> ·查看自己当前的订单的状态 ·
+                <div class="searchOrder-now">
+                    <a href="#">当前的订单状态为：<span>未接单</span></a>
+                </div>
+            </div>
+            <div class="subheading mb-5"> ·查看自己的历史订单 ·</div>
+            <table id="demo" lay-filter="test"></table>
+        </div>
+    </section>
+
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="mymsg">
+        <div class="my-auto">
+            <h2 class="mb-5">会话窗口</h2>
+
+            <div class="resume-item d-flex flex-column flex-md-row mb-5">
+                <div class="resume-content mr-auto">
+                    <h3 class="mb-0">收到了一条新消息</h3>
+                    <div class="subheading mb-3">来自  <span id="mymsg_name">张三</span></div>
+                    <p id="text">合作愉快。感谢你的帮助，下次有需要希望还能帮忙。</p>
+                </div>
+                <div class="resume-date text-md-right">
+                    <span class="text-primary" id="mymsg_time">Nov 2019 - 8:00</span>
+                </div>
+            </div>
+
+            <div class="resume-item d-flex flex-column flex-md-row mb-5">
+                <div class="resume-content mr-auto">
+                    <h3 class="mb-0">Web Developer</h3>
+                    <div class="subheading mb-3">Intelitec Solutions</div>
+                    <p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p>
+                </div>
+                <div class="resume-date text-md-right">
+                    <span class="text-primary">December 2011 - March 2013</span>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="myreputation">
+        <div class="my-auto">
+            <h1 class="mb-0">信誉
+                <span class="text-primary">reputation</span>
+            </h1>
+            <div class="resume-item d-flex flex-column flex-md-row mb-5">
+                <div class="myreputation">
+                    <h3> <a href="#">当前的信誉为：<span>150</span></a></h3>
+                </div>
+            </div>
+
+            <div class="resume-item d-flex flex-column flex-md-row">
+                <div class="resume-content mr-auto">
+                    <h3 class="mb-0">信誉得分明细如下：</h3>
+                    <table id="demo1" lay-filter="test"></table>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="mine">
+        <div class="my-auto">
+            <h2 class="mb-5">跑腿员认证</h2>
+            <div class="subheading mb-5"> ·用学生身份认证成为跑腿员 ·</div>
+            <div class="login-box">
+                <form class="layui-form layui-form-pane" method="get" action="">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">学校：</label>
+
+                        <div class="layui-input-inline">
+                            <input type="text" name="account" class="layui-input" lay-verify="account" placeholder="学校" autocomplete="on" maxlength="20"/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">姓名：</label>
+
+                        <div class="layui-input-inline">
+                            <input type="password" name="password" class="layui-input" lay-verify="password" placeholder="姓名" maxlength="20"/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">学号：</label>
+
+                        <div class="layui-input-inline">
+                            <input type="number" name="code" class="layui-input" lay-verify="code" placeholder="学号" maxlength="4"/><img src="img/v.png" onclick="getImage()" title="单击刷新验证码" id="img_rand_code" alt="">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <button type="reset" class="layui-btn layui-btn-danger btn-reset">重置</button>
+                        <button type="button" class="layui-btn btn-submit" lay-submit="" lay-filter="sub">立即认证</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="awards">
+        <div class="my-auto">
+            <h2 class="mb-5">Awards &amp; Certifications</h2>
+            <ul class="fa-ul mb-0">
+                <li>
+                    <i class="fa-li fa fa-trophy text-warning"></i>
+                    Google Analytics Certified Developer</li>
+                <li>
+                    <i class="fa-li fa fa-trophy text-warning"></i>
+                    Mobile Web Specialist - Google Certification</li>
+                <li>
+                    <i class="fa-li fa fa-trophy text-warning"></i>
+                    1<sup>st</sup>
+                    Place - University of Colorado Boulder - Emerging Tech Competition 2009</li>
+                <li>
+                    <i class="fa-li fa fa-trophy text-warning"></i>
+                    1<sup>st</sup>
+                    Place - University of Colorado Boulder - Adobe Creative Jam 2008 (UI Design Category)</li>
+                <li>
+                    <i class="fa-li fa fa-trophy text-warning"></i>
+                    2<sup>nd</sup>
+                    Place - University of Colorado Boulder - Emerging Tech Competition 2008</li>
+                <li>
+                <li>
+                    <i class="fa-li fa fa-trophy text-warning"></i>
+                    1<sup>st</sup>
+                    Place - James Buchanan High School - Hackathon 2006</li>
+                <li>
+                    <i class="fa-li fa fa-trophy text-warning"></i>
+                    3<sup>rd</sup>
+                    Place - James Buchanan High School - Hackathon 2005</li>
+                <li>More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></li>
+            </ul>
+        </div>
+    </section>
+
+</div>
+
+<!-- Bootstrap core JavaScript -->
+<script src="libs/jquery-2.1.4/jquery.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="js/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="js/resume.js"></script>
+<script src="layui/layui.js"></script>
+<script>
+    // 订单部分的js
+    layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+            elem: '#demo'
+            ,height: 350
+            ,url: '/demo/table/user/' //数据接口
+            ,page: true //开启分页
+            ,cols: [[ //表头
+                {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+                ,{field: 'username', title: '订单内容', width:177}
+                ,{field: 'sex', title: '时间', width:80, sort: true}
+                ,{field: 'city', title: '目的地', width:80}
+                // 订单类型为发布订单方和接受订单方两个
+                ,{field: 'sign', title: '接单形式', width: 120}
+                ,{field: 'experience', title: '酬金', width: 80, sort: true}
+            ]]
+        });
+    });
+
+    // 信誉部分的js
+    layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+            elem: '#demo1'
+            ,height: 312
+            ,url: '/demo1/table/user/' //数据接口
+            ,page: true //开启分页
+            ,cols: [[ //表头
+                {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+                ,{field: 'username', title: '订单内容', width:120}
+                ,{field: 'sex', title: '时间', width:80, sort: true}
+                ,{field: 'experience', title: '酬金', width: 80, sort: true}
+                ,{field: 'score', title: '评分', width: 80, sort: true}
+            ]]
+        });
+    });
+
+    // 认证成为跑腿员部分js
+
+    // 会话窗口js
+</script>
+
+</body>
+
+</html>
