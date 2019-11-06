@@ -12,7 +12,6 @@
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/chat.css">
     <script src="libs/jquery-2.1.4/jquery.min.js"></script>
-    <script src="js/chat.js"></script>
 </head>
 <body lang="zh">
 <img style="width:100%;height:100%" src="images/bg.jpg">
@@ -56,7 +55,7 @@
                             <ul class="atcom" id="atcom"></ul>
                         </div>
                     </div>
-                    <div class="abs br pnl-btn" id="submit" style="background-color: rgb(32, 196, 202); color: rgb(255, 255, 255);" onclick="SendMsg()">发送</div>
+                    <div class="abs br pnl-btn" id="submit" style="background-color: rgb(32, 196, 202); color: rgb(255, 255, 255);" onclick="send()">发送</div>
                     <div class="pnl-support" id="copyright"><a href="#">请不要发送违反的字节</a></div>
                 </div>
             </div>
@@ -74,5 +73,85 @@
     </div>
 </div>
 </body>
+<script src="libs/jquery-2.1.4/jquery.js"></script>
 <script src="js/chat.js"></script>
+<script>
+    $(document).ready(function () {
+        connect();
+    });
+    var websocket=null;
+    function connect() {
+        if ('WebSocket'in window) {
+            //判断是否支持websocket
+            websocket = new WebSocket("ws://localhost:8080/chat/tom/sessionID5");
+        } else {
+            alert('Not support websocket')
+        }
+
+        websocket.onerror = function() {
+            alert('error')
+        };
+
+        /**
+         * 连接关闭的回调
+         */
+        websocket.onclose = function() {
+            alert("Loc MSG:关闭连接");
+        };
+
+
+        /**
+         * 窗口关闭，断开连接
+         */
+        window.onbeforeunload = function() {
+            websocket.close();
+        };
+
+        /**
+         * 连接成功建立
+         * @param event
+         */
+        websocket.onopen = function(event) {
+            alert("Loc MSG: 成功建立连接");
+        };
+
+        /**
+         *接收到消息的回调
+         */
+        websocket.onmessage = function (event) {
+            var obj=JSON.parse(event.data);
+            AddMsg(obj.senderId,obj.message);
+        }
+
+    }
+
+    /**
+     * 发送消息
+     */
+    function send() {
+       var message =$('#text').val();
+       if(message===''){
+           alert("发送信息为空，请输入！");
+           return;
+       }
+       //构造消息格式
+       var msg={
+           senderId:'2017',
+           sessionId:'sessionID5',
+           message:message,
+           addressee:'tom'
+
+       };
+        websocket.send(JSON.stringify(msg));
+        AddMsg('default',message);
+        document.getElementById("text").value='';
+    }
+
+
+
+
+
+
+
+</script>
 </html>

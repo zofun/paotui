@@ -1,6 +1,8 @@
 package com.runningman.paotui;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.runningman.paotui.mapper.OrderMapper;
 import com.runningman.paotui.pojo.Order;
 import com.runningman.paotui.pojo.User;
@@ -12,12 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.assertj.core.util.DateUtil.now;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes={PaotuiApplication.class})
+@SpringBootTest(classes={PaotuiApplication.class},webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+
 class PaotuiApplicationTests {
 
     @Autowired
@@ -70,4 +74,5 @@ class PaotuiApplicationTests {
 
         System.out.println(orderService.getOrderInfo(16));
     }
+
 }
