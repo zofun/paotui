@@ -211,16 +211,16 @@
         table.render({
             elem: '#demo'
             ,height: 350
-            ,url: '/demo/table/user/' //数据接口
+            ,url: 'order/getUserOrders' //数据接口
             ,page: true //开启分页
             ,cols: [[ //表头
                 {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
-                ,{field: 'username', title: '订单内容', width:177}
-                ,{field: 'sex', title: '时间', width:80, sort: true}
-                ,{field: 'city', title: '目的地', width:80}
+                ,{field: 'title', title: '订单内容', width:177}
+                ,{field: 'begin', title: '起点', width:80, sort: true}
+                ,{field: 'end', title: '目的地', width:80}
                 // 订单类型为发布订单方和接受订单方两个
-                ,{field: 'sign', title: '接单形式', width: 120}
-                ,{field: 'experience', title: '酬金', width: 80, sort: true}
+                ,{field: 'status', title: '订单状态', width: 120}
+                ,{field: 'reward', title: '酬金', width: 80, sort: true}
             ]]
         });
     });
