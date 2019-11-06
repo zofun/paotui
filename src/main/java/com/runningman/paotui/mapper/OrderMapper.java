@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -67,4 +68,17 @@ public interface OrderMapper {
      * @return
      */
     OrderInfo getOrderInfo(int id);
+
+    /**
+     * 设置订单的配送员
+     * @param id
+     */
+    void setDelivery(int id,String delivery);
+
+    /**
+     * 获取订单截止时间
+     * @param id
+     * @return
+     */
+    Date getOrderEndTime(int id);
 }

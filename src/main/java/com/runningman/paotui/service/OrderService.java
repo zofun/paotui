@@ -1,9 +1,12 @@
 package com.runningman.paotui.service;
 
 import com.runningman.paotui.pojo.Order;
+import com.runningman.paotui.pojo.OrderInfo;
 import com.runningman.paotui.pojo.OrderTitle;
+import com.runningman.paotui.pojo.OrdersUser;
 import org.hibernate.validator.constraints.EAN;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -35,7 +38,7 @@ public interface OrderService {
      * 显示所有的订单列表
      * @return
      */
-    String getAllOrderList(int page,int limit);
+    List<Order> getAllOrderList(int page,int limit);
 
     /**
      * 用户查看自己发布的订单列表
@@ -43,12 +46,27 @@ public interface OrderService {
      * @param limit
      * @return
      */
-    String getUserOrders(String user,int page,int limit);
+    List<OrdersUser> getUserOrders(String user, int page, int limit);
 
     /**
      * 根据id在接单之前查看订单的详细内容
      * @param id
      * @return
      */
-    String getOrderInfo(int id);
+    OrderInfo getOrderInfo(int id);
+
+    int getOrderCount();
+
+    int getUserOrderCount(String user);
+
+    /**
+     * 设置订单的配送员
+     * @param id
+     * @param delivery
+     * @return
+     */
+    void setDelivery(int id,String delivery);
+
+
+    Date getOrderEndTime(int id);
 }

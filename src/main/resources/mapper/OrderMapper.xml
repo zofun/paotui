@@ -33,4 +33,12 @@
         from `order` o join `user` u on o.user = u.username
         where o.id = #{0}
     </select>
+
+    <update id="setDelivery">
+        update `order` set delivery = #{arg1} where id = #{arg0}
+    </update>
+
+    <select id="getOrderEndTime" parameterType="int" resultType="Date">
+        select endtime from `order` where id = #{id}
+    </select>
 </mapper>
