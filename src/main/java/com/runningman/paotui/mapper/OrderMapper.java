@@ -1,9 +1,6 @@
 package com.runningman.paotui.mapper;
 
-import com.runningman.paotui.pojo.Order;
-import com.runningman.paotui.pojo.OrderInfo;
-import com.runningman.paotui.pojo.OrderTitle;
-import com.runningman.paotui.pojo.OrdersUser;
+import com.runningman.paotui.pojo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -81,4 +78,11 @@ public interface OrderMapper {
      * @return
      */
     Date getOrderEndTime(int id);
+
+    /**
+     * 获取跑腿员接了的单
+     * @param username
+     * @return
+     */
+    List<OrderStatus> getOrderStatus(@Param("username") String username);
 }

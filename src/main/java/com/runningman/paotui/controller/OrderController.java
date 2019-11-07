@@ -120,4 +120,13 @@ public class OrderController {
         statusService.changeStatusInfo("已接单",id);
         return new Result().success("接单成功，请及时完成",0,null);
     }
+
+    @RequestMapping(value = "/getStatus",method = RequestMethod.GET)
+    public Result getStatus(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if(user==null){
+            return new Result().fail("notpass","你不是该接单员",0);
+        }
+        return new Result().success("订单状态",0,orderService.getOrderStatus(user.getUsername()));
+    }
 }

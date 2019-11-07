@@ -1,9 +1,6 @@
 package com.runningman.paotui.service;
 
-import com.runningman.paotui.pojo.Order;
-import com.runningman.paotui.pojo.OrderInfo;
-import com.runningman.paotui.pojo.OrderTitle;
-import com.runningman.paotui.pojo.OrdersUser;
+import com.runningman.paotui.pojo.*;
 import org.hibernate.validator.constraints.EAN;
 
 import java.util.Date;
@@ -69,4 +66,6 @@ public interface OrderService {
 
 
     Date getOrderEndTime(int id);
+
+    List<OrderStatus> getOrderStatus(String username);
 }

@@ -86,7 +86,7 @@ class PaotuiApplicationTests {
         orderService.makeOrder("1",order);
         System.out.println(order.getId());
         //orderService.selectOrderByUser("1");*/
-        System.out.println(orderService.getAllOrderList(1,10));
+        /*System.out.println(orderService.getAllOrderList(1,10));
         System.out.println(orderService.getUserOrders("2",1,10));
         orderService.setDelivery(1,"1");
         statusService.changeStatusInfo("已发布",13);
@@ -95,7 +95,9 @@ class PaotuiApplicationTests {
         System.out.println(endtime);
         System.out.println(orderService.getOrderInfo(16));
         System.out.println(userService.getUserAuth("1"));
-        System.out.println(statusService.getStatusInfo(10));
+        System.out.println(statusService.getStatusInfo(10));*/
+
+        System.out.println(orderService.getOrderStatus("1"));
     }
 
 

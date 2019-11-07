@@ -129,6 +129,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<OrderStatus> getOrderStatus(String username) {
+        return orderMapper.getOrderStatus(username);
+    }
+
+    @Override
     public int getOrderCount() {
         return orderMapper.getOrderCount();
     }

@@ -43,4 +43,10 @@
     <select id="getOrderEndTime" parameterType="int" resultType="Date">
         select endtime from `order` where id = #{id}
     </select>
+
+    <select id="getOrderStatus" parameterType="String" resultType="OrderStatus">
+        select o.id,s.info
+        from `order` o join `status` s on o.id = s.order_id
+        where o.delivery = #{username} and s.info != "已完成"
+    </select>
 </mapper>
