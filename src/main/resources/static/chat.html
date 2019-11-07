@@ -101,8 +101,11 @@
     var username;
     var targetUsername;
     $(document).ready(function () {
+
         connect();
     });
+
+
     var websocket=null;
     function connect() {
         var hit = document.getElementById("hint").getElementsByTagName("p")[0];
@@ -190,7 +193,7 @@
         hit.style.display = "block";
         setTimeout("hit.style.opacity = 1", 0);
         setTimeout("hit.style.opacity = 0", 2000);
-        setTimeout('hit.style.display = "block"', 3000);
+        setTimeout('hit.style.display = "none"', 3000);
     }
 
 
