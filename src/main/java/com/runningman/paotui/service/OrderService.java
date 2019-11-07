@@ -38,7 +38,7 @@ public interface OrderService {
      * 显示所有的订单列表
      * @return
      */
-    List<Order> getAllOrderList(int page,int limit);
+    List<OrderTitle> getAllOrderList(int page,int limit);
 
     /**
      * 用户查看自己发布的订单列表

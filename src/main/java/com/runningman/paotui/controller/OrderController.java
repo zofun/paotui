@@ -1,10 +1,7 @@
 package com.runningman.paotui.controller;
 
 import com.runningman.paotui.dto.Result;
-import com.runningman.paotui.pojo.Order;
-import com.runningman.paotui.pojo.OrderInfo;
-import com.runningman.paotui.pojo.OrdersUser;
-import com.runningman.paotui.pojo.User;
+import com.runningman.paotui.pojo.*;
 import com.runningman.paotui.service.OrderService;
 import com.runningman.paotui.service.StatusService;
 import com.runningman.paotui.service.UserService;
@@ -68,10 +65,10 @@ public class OrderController {
 
     @RequestMapping(value = "/getAllOrder",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     public Result getAllOrder(int page,int limit){
-        List<Order> order = orderService.getAllOrderList(page,limit);
+        List<OrderTitle> orderTitles = orderService.getAllOrderList(page,limit);
         int count = orderService.getOrderCount();
         Result result = new Result();
-        return result.success("其它数据",0,order,count);
+        return result.success("其它数据",0,orderTitles,count);
 
     }
 

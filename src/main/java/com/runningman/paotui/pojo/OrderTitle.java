@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 @AllArgsConstructor
 public class OrderTitle {
     private int id;
-    private String user;
+    private String name;
+    private String username;
+    private String title;
     private String begin;
     private String end;
     private String reward;

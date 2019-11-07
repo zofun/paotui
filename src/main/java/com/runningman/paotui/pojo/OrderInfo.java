@@ -22,6 +22,7 @@ public class OrderInfo {
     //private String info;
     private String begin;
     private String end;
+    private String reward;
     private String start_Lnglat;
     private String end_lnghat;
     private Date endtime;

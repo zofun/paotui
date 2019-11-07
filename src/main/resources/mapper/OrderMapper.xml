@@ -9,8 +9,10 @@
         select * from `order` where user = #{0}
     </select>
 
-    <select id="getAllOrder" resultType="Order">
-        select * from `order` order by id limit #{arg0},#{arg1}
+    <select id="getAllOrder" resultType="OrderTitle">
+        select o.id,u.name,u.username,o.title,o.reward,o.begin,o.end
+        from `order` o join user u on o.user = u.username
+        order by id limit #{arg0},#{arg1}
     </select>
 
     <select id="getOrderCount" resultType="int">
@@ -29,7 +31,7 @@
     </select>
 
     <select id="getOrderInfo" parameterType="int" resultType="OrderInfo">
-        select u.username,u.name,o.title,o.begin,o.end,o.start_Lnglat,o.end_lnglat,o.endtime
+        select u.username,u.name,o.title,o.begin,o.end,o.reward,o.start_Lnglat,o.end_lnglat,o.endtime
         from `order` o join `user` u on o.user = u.username
         where o.id = #{0}
     </select>

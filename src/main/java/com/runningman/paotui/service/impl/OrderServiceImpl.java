@@ -56,8 +56,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getAllOrderList(int page,int limit) {
-        List<Order> orders = orderMapper.getAllOrder((page-1)*limit,limit);
+    public List<OrderTitle> getAllOrderList(int page,int limit) {
+        List<OrderTitle> orderTitles = orderMapper.getAllOrder((page-1)*limit,limit);
 
         /*int count= orderMapper.getOrderCount();
 
@@ -75,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
             e.printStackTrace();
             return "";
         }*/
-        return orders;
+        return orderTitles;
     }
 
     @Override

@@ -39,7 +39,7 @@ public interface OrderMapper {
      * @param limit
      * @return
      */
-    List<Order> getAllOrder(int page,int limit);
+    List<OrderTitle> getAllOrder(int page,int limit);
 
     /**
      * 显示订单数
