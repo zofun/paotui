@@ -4,11 +4,10 @@ import ch.qos.logback.core.net.SyslogOutputStream;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.runningman.paotui.mapper.OrderMapper;
+import com.runningman.paotui.pojo.Comment;
 import com.runningman.paotui.pojo.Order;
 import com.runningman.paotui.pojo.User;
-import com.runningman.paotui.service.OrderService;
-import com.runningman.paotui.service.StatusService;
-import com.runningman.paotui.service.UserService;
+import com.runningman.paotui.service.*;
 import org.hibernate.validator.constraints.EAN;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +16,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.util.DateUtil.now;
@@ -38,6 +39,13 @@ class PaotuiApplicationTests {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CommentService commentService;
+
+
+    @Autowired
+    private AuthService authService;
 
     @Test
     void contextLoads() {
@@ -89,5 +97,29 @@ class PaotuiApplicationTests {
         System.out.println(userService.getUserAuth("1"));
         System.out.println(statusService.getStatusInfo(10));
     }
+
+
+    @Test
+    void testComment(){
+        /*Comment comment = new Comment();
+        comment.setInfo("不错");
+        comment.setOrder_id(3);
+        comment.setStart(2);
+        comment.setUser("1");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date time = null;
+        try{
+            time = dateFormat.parse(dateFormat.format(new Date()));
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+        comment.setTime(time);
+        commentService.insertComment(comment);*/
+
+        //authService.changeAuthStart("1",-2);
+
+        System.out.println(authService.getAuthStart("1"));
+    }
+
 
 }

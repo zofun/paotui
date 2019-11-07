@@ -1,13 +1,13 @@
 package com.runningman.paotui.pojo;
 
 import lombok.*;
-import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
 /**
  * @Auther: http://www.tanwei.com
- * @Date: 2019/10/31
+ * @Date: 2019/11/7
  * @Description: com.runningman.paotui.pojo
  * @versio: 1.0
  */
@@ -16,9 +16,11 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Status {
+public class Comment {
     private int id;
+    private String user;
     private int order_id;
     private String info;
     private Date time;
+    private int start;
 }

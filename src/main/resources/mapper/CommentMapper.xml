@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.runningman.paotui.mapper.CommentMapper">
+
+    <insert id="insertComment" parameterType="Comment" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `comment`( `user`, `order_id`, `info`, `time`, `start`)
+        VALUES (#{user},#{order_id},#{info},#{time},#{start})
+    </insert>
+</mapper>
