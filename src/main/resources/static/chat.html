@@ -12,8 +12,29 @@
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/chat.css">
     <script src="libs/jquery-2.1.4/jquery.min.js"></script>
+    <style>
+        /*提示*/
+        #hint{
+            width: 100%;
+            line-height: 70px;
+            background: linear-gradient(-90deg, #9b494d, #bf5853);
+            text-align: center;
+            font-size: 25px;
+            color: #fff;
+            box-shadow: 0 0 20px #733544;
+            display: none;
+            opacity: 0;
+            transition: .5s;
+            position: absolute;
+            top: 0;
+            z-index: 999;
+        }
+    </style>
 </head>
 <body lang="zh">
+<div id="hint"><!-- 提示框 -->
+    <p id="hintmsg">提示信息</p>
+</div>
 <img style="width:100%;height:100%" src="images/bg.jpg">
 <div class="abs cover contaniner">
     <div class="abs cover pnl">
@@ -21,13 +42,13 @@
         <div class="abs cover pnl-body" id="pnlBody">
             <div class="abs cover pnl-left">
                 <div class="abs cover pnl-msgs scroll" id="show">
-                    <div class="msg min time" id="histStart">加载历史消息</div>
+                    <div class="msg min time" id="histStart">加载历史消息(正在开发)</div>
                     <div class="pnl-list" id="hists">
                         <!-- 历史消息 -->
                     </div>
                     <div class="pnl-list" id="msgs">
-                        <div class="msg robot">
-                            <!--worker就是对方的用户名-->
+                       <!-- <div class="msg robot">
+                            &lt;!&ndash;worker就是对方的用户名&ndash;&gt;
                             <div class="msg-left" worker="蓝猫">
                                 <div class="msg-ball" title="今天 17:52:06">你好</div>
                             </div>
@@ -37,7 +58,7 @@
                                 <div class="msg-host headDefault"></div>
                                 <div class="msg-ball" title="今天 17:52:06">你好</div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="pnl-list hide" id="unreadLine">
                         <div class="msg min time unread">未读消息</div>
@@ -75,28 +96,39 @@
 </body>
 <script src="libs/jquery-2.1.4/jquery.js"></script>
 <script src="js/chat.js"></script>
+<script src="js/common.js"></script>
 <script>
+    var username;
+    var targetUsername;
     $(document).ready(function () {
         connect();
     });
     var websocket=null;
     function connect() {
+        var hit = document.getElementById("hint").getElementsByTagName("p")[0];
         if ('WebSocket'in window) {
+             username=GetPar("username");
+             targetUsername=GetPar("targetUsername");
+            console.log(username+"   "+targetUsername);
             //判断是否支持websocket
-            websocket = new WebSocket("ws://localhost:8080/chat/2017/sessionID5");
+            websocket = new WebSocket("ws://localhost:8080/chat/"+username+"/"+targetUsername);
         } else {
-            alert('Not support websocket')
+            hit.innerText = "你的浏览器不支持该功能";
+            hint();
         }
 
         websocket.onerror = function() {
-            alert('error')
+            hit.innerText = "连接错误，请重试";
+            hint();
         };
 
         /**
          * 连接关闭的回调
          */
         websocket.onclose = function() {
-            alert("Loc MSG:关闭连接");
+            hit.innerText = "连接已断开";
+            hint();
+
         };
 
 
@@ -112,7 +144,8 @@
          * @param event
          */
         websocket.onopen = function(event) {
-            alert("Loc MSG: 成功建立连接");
+            hit.innerText = "连接已建立";
+            hint();
         };
 
         /**
@@ -131,15 +164,15 @@
     function send() {
        var message =$('#text').val();
        if(message===''){
-           alert("发送信息为空，请输入！");
+           hit.innerText = "输入信息为空，请输入内容";
+           hint();
            return;
        }
        //构造消息格式
        var msg={
-           senderId:'2017',
-           sessionId:'sessionID5',
+           senderId:username,
            message:message,
-           addressee:'2017'
+           addressee:targetUsername
 
        };
         websocket.send(JSON.stringify(msg));
@@ -149,6 +182,16 @@
 
 
 
+    var hit = document.getElementById("hint");
+    /**
+     * 引用hint()在最上方弹出提示
+     */
+    function hint() {
+        hit.style.display = "block";
+        setTimeout("hit.style.opacity = 1", 0);
+        setTimeout("hit.style.opacity = 0", 2000);
+        setTimeout('hit.style.display = "block"', 3000);
+    }
 
 
 

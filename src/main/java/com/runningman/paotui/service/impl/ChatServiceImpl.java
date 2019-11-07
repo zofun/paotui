@@ -16,4 +16,9 @@ public class ChatServiceImpl implements ChatService {
     public void addChat(Chat chat) {
         chatMapper.insert(chat);
     }
+
+    @Override
+    public void changeStatus(int id, String status) {
+        chatMapper.changeChatStatus(id,status);
+    }
 }

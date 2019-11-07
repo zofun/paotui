@@ -5,5 +5,8 @@
         insert into chat (id,sender,addressee,`time`,info,status)
         values (#{id},#{sender},#{addressee},#{time},#{info},#{status})
     </insert>
+    <update id="changeChatStatus">
+        UPDATE chat set `status`=#{status} where id=#{id}
+    </update>
 
 </mapper>

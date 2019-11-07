@@ -21,16 +21,28 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.concurrent.ConcurrentHashMap;
 
-@ServerEndpoint(value = "/chat/{username}/{sessionId}")
+@ServerEndpoint(value = "/chat/{username}/{targetUsername}")
 @Component
 public class webSocket {
 
-    //所有对象共享
+    /**
+     * 存储会话对象的map，该类的所有实例共享
+     */
     private static ConcurrentHashMap<String,webSocket> map=new ConcurrentHashMap<>();
     private Session session;
+    /**
+     * 自身用户名
+     */
     private String username;
-    private String sessionId; //会话id
 
+    /**
+     * 会话目标用户名
+     */
+    private String targetUsername;
+
+    /**
+     * 用于注入service
+     */
     private static ApplicationContext applicationContext;
     private ChatService chatService;
 
@@ -44,14 +56,14 @@ public class webSocket {
      * @param session
      */
     @OnOpen
-    public void connect(@PathParam("username") String username, @PathParam("sessionId") String sessionId, Session session){
+    public void connect(@PathParam("username") String username, @PathParam("targetUsername") String targetUsername, Session session){
         this.chatService = applicationContext.getBean(ChatService.class);
-        this.sessionId=sessionId;
+        this.targetUsername=targetUsername;
         this.username=username;
         this.session=session;
 
-        map.put(username+":"+sessionId,this);
-        System.out.println(username+"已经连接到"+sessionId+" "+username+":"+sessionId);
+        map.put(username+":"+targetUsername,this);
+        System.out.println(username+"已经连接到"+targetUsername);
     }
 
     /**
@@ -59,8 +71,8 @@ public class webSocket {
      */
     @OnClose
     public void close(){
-        map.remove(username+":"+sessionId);
-        System.out.println(username+"已经断开到"+sessionId+"的连接");
+        map.remove(username+":"+targetUsername);
+        System.out.println(username+"已经断开到"+targetUsername+"的连接");
     }
 
     @OnMessage
@@ -70,19 +82,22 @@ public class webSocket {
         ChatMsg chatMsg = mapper.readValue(message, ChatMsg.class);
 
         System.out.println(chatMsg.toString());
-        webSocket ws=map.get(chatMsg.getAddressee()+":"+chatMsg.getSessionId());
-        if(ws==null){
-            return;
-        }
+        webSocket ws=map.get(chatMsg.getAddressee()+":"+chatMsg.getSenderId());
         //持久化聊天信息
         Chat chat = new Chat();
         chat.setSender(chatMsg.getSenderId());
         chat.setAddressee(chatMsg.getAddressee());
         chat.setInfo(chatMsg.getMessage());
         chat.setTime(new Date());
-        chat.setStatus("n");
+        if(ws==null){
+            //对方不在线，标记信息为未读状态，持久化到数据库
+            chat.setStatus("n");
+            chatService.addChat(chat);
+            return;
+        }
+        //对方在线，将消息标记为已读，持久化到数据库
+        chat.setStatus("y");
         chatService.addChat(chat);
-
 
         //异步发送消息
         ws.session.getAsyncRemote().sendText(mapper.writeValueAsString(chatMsg));

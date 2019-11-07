@@ -40,4 +40,15 @@ public class AuthController {
         }
         return new Result().success("用户的信誉积分",0,authService.getAuthStart(user.getUsername()));
     }
+
+    @RequestMapping("getUserInfo")
+    public Result getUserInfo(HttpSession session){
+        User user=(User)session.getAttribute("user");
+        if(user==null){
+            return new Result().success("未登录",1006);
+        }
+        //清除密码信息
+        user.setPassword("");
+        return new Result().success("已登录",0,user);
+    }
 }

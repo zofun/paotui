@@ -9,7 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 public class ChatMsg {
     private String senderId;
-    private String sessionId;
     private String message;
     private String addressee;
 }

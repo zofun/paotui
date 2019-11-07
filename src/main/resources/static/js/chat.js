@@ -33,7 +33,7 @@ function CreadMsg(user, content)
     var str = "";
     if(user == 'default')
     {
-        str = "<div class=\"msg guest\"><div class=\"msg-right\"><div class=\"msg-host headDefault\"></div><div class=\"msg-ball\" title=\"今天 17:52:06\">" + content +"</div></div></div>"
+        str = "<div class=\"msg guest\"><div class=\"msg-right\"><div class=\"msg-host headDefault\"></div><div class=\"msg-ball\" title=\"消息时间，正在开发\">" + content +"</div></div></div>"
     }
     else
     {
