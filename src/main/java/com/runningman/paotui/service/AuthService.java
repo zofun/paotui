@@ -19,4 +19,18 @@ public interface AuthService {
      * @param stuId
      */
     void makeAuth(User user,String realName,String stuId);
+
+    /**
+     * 修改跑腿员信誉积分
+     * @param user
+     * @param start
+     */
+    void changeAuthStart(String user,int start);
+
+    /**
+     * 根据用户名获取用户信誉积分
+     * @param user
+     * @return
+     */
+    int getAuthStart(String user);
 }

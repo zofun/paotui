@@ -56,10 +56,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public String getAllOrderList(int page,int limit) {
+    public List<Order> getAllOrderList(int page,int limit) {
         List<Order> orders = orderMapper.getAllOrder((page-1)*limit,limit);
 
-        int count= orderMapper.getOrderCount();
+        /*int count= orderMapper.getOrderCount();
 
         Map<String,Object> result=new HashMap<>();
         result.put("code",0);
@@ -74,13 +74,14 @@ public class OrderServiceImpl implements OrderService {
         } catch (IOException e) {
             e.printStackTrace();
             return "";
-        }
+        }*/
+        return orders;
     }
 
     @Override
-    public String getUserOrders(String user,int page, int limit) {
+    public List<OrdersUser> getUserOrders(String user,int page, int limit) {
         List<OrdersUser> ordersUsers = orderMapper.getUserOrders(user,(page-1)*limit,limit);
-        int count= orderMapper.getUserOrderCount(user);
+        /*int count= orderMapper.getUserOrderCount(user);
 
         Map<String,Object> result=new HashMap<>();
         result.put("code",0);
@@ -95,13 +96,14 @@ public class OrderServiceImpl implements OrderService {
         } catch (IOException e) {
             e.printStackTrace();
             return "";
-        }
+        }*/
+        return ordersUsers;
     }
 
     @Override
-    public String getOrderInfo(int id) {
+    public OrderInfo getOrderInfo(int id) {
         OrderInfo orderInfo = orderMapper.getOrderInfo(id);
-        Map<String,Object> result = new HashMap<>();
+        /*Map<String,Object> result = new HashMap<>();
         result.put("code",0);
         result.put("msg", "订单的详细信息");
         ObjectMapper mapper = new ObjectMapper();
@@ -112,6 +114,27 @@ public class OrderServiceImpl implements OrderService {
         }catch (IOException e){
             e.printStackTrace();
             return "";
-        }
+        }*/
+        return orderInfo;
+    }
+
+    @Override
+    public void setDelivery(int id, String delivery) {
+        orderMapper.setDelivery(id,delivery);
+    }
+
+    @Override
+    public Date getOrderEndTime(int id) {
+        return orderMapper.getOrderEndTime(id);
+    }
+
+    @Override
+    public int getOrderCount() {
+        return orderMapper.getOrderCount();
+    }
+
+    @Override
+    public int getUserOrderCount(String user) {
+        return orderMapper.getUserOrderCount(user);
     }
 }

@@ -31,4 +31,13 @@ public class AuthController {
         return new Result().success("认证成功",0,null);
 
     }
+
+    @RequestMapping("getStart")
+    public Result getStart(HttpSession session){
+        User user = (User)session.getAttribute("user");
+        if(user==null) {
+            return new Result().fail("nologin","未登录",0);
+        }
+        return new Result().success("用户的信誉积分",0,authService.getAuthStart(user.getUsername()));
+    }
 }

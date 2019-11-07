@@ -43,4 +43,14 @@ public class AuthServiceImpl implements AuthService {
 
 
     }
+
+    @Override
+    public void changeAuthStart(String user, int start) {
+        authMapper.changeAuthStart(user,start);
+    }
+
+    @Override
+    public int getAuthStart(String user) {
+        return authMapper.getAuthStart(user);
+    }
 }
