@@ -83,7 +83,7 @@
     function connect() {
         if ('WebSocket'in window) {
             //判断是否支持websocket
-            websocket = new WebSocket("ws://localhost:8080/chat/tom/sessionID5");
+            websocket = new WebSocket("ws://localhost:8080/chat/2017/sessionID5");
         } else {
             alert('Not support websocket')
         }
@@ -139,7 +139,7 @@
            senderId:'2017',
            sessionId:'sessionID5',
            message:message,
-           addressee:'tom'
+           addressee:'2017'
 
        };
         websocket.send(JSON.stringify(msg));
