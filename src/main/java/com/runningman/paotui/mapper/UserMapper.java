@@ -23,9 +23,16 @@ public interface UserMapper {
     /**
      * 更新认证信息
      *
-     * @param id
-     * @param AuthId
+     * @param username
+     * @param authId
      */
-    void updateAuth(@Param("username") String usernmae, @Param("authId") Integer authId);
+    void updateAuth(@Param("username") String username, @Param("authId") Integer authId);
+
+    /**
+     * 根据用户名获取其认证信息
+     * @param username
+     * @return
+     */
+    int getUserAuth(String username);
 }
 

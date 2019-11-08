@@ -1,9 +1,6 @@
 package com.runningman.paotui.pojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -14,11 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderTitle {
     private int id;
-    private String user;
+    private String name;
+    private String username;
+    private String title;
     private String begin;
     private String end;
     private String reward;

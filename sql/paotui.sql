@@ -106,7 +106,7 @@ CREATE TABLE `user` (
   `username` varchar(20) NOT NULL,
   `password` varchar(50) NOT NULL,
   `name` varchar(10) NOT NULL,
-  `auth` int(11) DEFAULT NULL,
+  `auth` int(11) DEFAULT 0,
   PRIMARY KEY (`username`),
   KEY `user_auth_to_auth_id` (`auth`),
   CONSTRAINT `user_auth_to_auth_id` FOREIGN KEY (`auth`) REFERENCES `auth_info` (`id`)

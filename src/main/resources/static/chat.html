@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<!--<html lang="en">-->
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <base target="_blank">
+    <title>会话</title>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/chat.css">
+    <script src="libs/jquery-2.1.4/jquery.min.js"></script>
+    <style>
+        /*提示*/
+        #hint{
+            width: 100%;
+            line-height: 70px;
+            background: linear-gradient(-90deg, #9b494d, #bf5853);
+            text-align: center;
+            font-size: 25px;
+            color: #fff;
+            box-shadow: 0 0 20px #733544;
+            display: none;
+            opacity: 0;
+            transition: .5s;
+            position: absolute;
+            top: 0;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body lang="zh">
+<div id="hint"><!-- 提示框 -->
+    <p id="hintmsg">提示信息</p>
+</div>
+<img style="width:100%;height:100%" src="images/bg.jpg">
+<div class="abs cover contaniner">
+    <div class="abs cover pnl">
+        <div class="top pnl-head"></div>
+        <div class="abs cover pnl-body" id="pnlBody">
+            <div class="abs cover pnl-left">
+                <div class="abs cover pnl-msgs scroll" id="show">
+                    <div class="msg min time" id="histStart">加载历史消息(正在开发)</div>
+                    <div class="pnl-list" id="hists">
+                        <!-- 历史消息 -->
+                    </div>
+                    <div class="pnl-list" id="msgs">
+                       <!-- <div class="msg robot">
+                            &lt;!&ndash;worker就是对方的用户名&ndash;&gt;
+                            <div class="msg-left" worker="蓝猫">
+                                <div class="msg-ball" title="今天 17:52:06">你好</div>
+                            </div>
+                        </div>
+                        <div class="msg guest">
+                            <div class="msg-right">
+                                <div class="msg-host headDefault"></div>
+                                <div class="msg-ball" title="今天 17:52:06">你好</div>
+                            </div>
+                        </div>-->
+                    </div>
+                    <div class="pnl-list hide" id="unreadLine">
+                        <div class="msg min time unread">未读消息</div>
+                    </div>
+                </div>
+                <div class="abs bottom pnl-text">
+                    <div class="abs top pnl-warn" id="pnlWarn">
+                        <div class="fl btns rel pnl-warn-free">
+                            <img src="images/icon-smile.png" class="kh warn-btn" title="表情" id="emojiBtn" />
+                        </div>
+                    </div>
+                    <div class="abs cover pnl-input">
+                        <textarea class="scroll" id="text" wrap="hard" placeholder="在此输入文字信息..."></textarea>
+                        <div class="abs atcom-pnl scroll hide" id="atcomPnl">
+                            <ul class="atcom" id="atcom"></ul>
+                        </div>
+                    </div>
+                    <div class="abs br pnl-btn" id="submit" style="background-color: rgb(32, 196, 202); color: rgb(255, 255, 255);" onclick="send()">发送</div>
+                    <div class="pnl-support" id="copyright"><a href="#">请不要发送违反的字节</a></div>
+                </div>
+            </div>
+            <div class="abs right pnl-right">
+                <div class="pnl-right-msg">
+                    <!--弄个图片在这里好看而已-->
+                    <div class="chat-head"><img src="images/2.jpg" alt=""></div>
+                    <br>
+                    <div class="chat-username">用户：</div>
+                    <br>
+                    <div class="chat-xinyu">信誉积分:</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="libs/jquery-2.1.4/jquery.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/common.js"></script>
+<script>
+    var username;
+    var targetUsername;
+    $(document).ready(function () {
+        connect();
+    });
+    var websocket=null;
+    function connect() {
+        var hit = document.getElementById("hint").getElementsByTagName("p")[0];
+        if ('WebSocket'in window) {
+             username=GetPar("username");
+             targetUsername=GetPar("targetUsername");
+            console.log(username+"   "+targetUsername);
+            //判断是否支持websocket
+            websocket = new WebSocket("ws://localhost:8080/chat/"+username+"/"+targetUsername);
+        } else {
+            hit.innerText = "你的浏览器不支持该功能";
+            hint();
+        }
+
+        websocket.onerror = function() {
+            hit.innerText = "连接错误，请重试";
+            hint();
+        };
+
+        /**
+         * 连接关闭的回调
+         */
+        websocket.onclose = function() {
+            hit.innerText = "连接已断开";
+            hint();
+
+        };
+
+
+        /**
+         * 窗口关闭，断开连接
+         */
+        window.onbeforeunload = function() {
+            websocket.close();
+        };
+
+        /**
+         * 连接成功建立
+         * @param event
+         */
+        websocket.onopen = function(event) {
+            hit.innerText = "连接已建立";
+            hint();
+        };
+
+        /**
+         *接收到消息的回调
+         */
+        websocket.onmessage = function (event) {
+            var obj=JSON.parse(event.data);
+            AddMsg(obj.senderId,obj.message);
+        }
+
+    }
+
+    /**
+     * 发送消息
+     */
+    function send() {
+       var message =$('#text').val();
+       if(message===''){
+           hit.innerText = "输入信息为空，请输入内容";
+           hint();
+           return;
+       }
+       //构造消息格式
+       var msg={
+           senderId:username,
+           message:message,
+           addressee:targetUsername
+
+       };
+        websocket.send(JSON.stringify(msg));
+        AddMsg('default',message);
+        document.getElementById("text").value='';
+    }
+
+
+
+    var hit = document.getElementById("hint");
+    /**
+     * 引用hint()在最上方弹出提示
+     */
+    function hint() {
+        hit.style.display = "block";
+        setTimeout("hit.style.opacity = 1", 0);
+        setTimeout("hit.style.opacity = 0", 2000);
+        setTimeout('hit.style.display = "block"', 3000);
+    }
+
+
+
+
+</script>
+</html>

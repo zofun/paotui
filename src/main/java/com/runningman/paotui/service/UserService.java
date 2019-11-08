@@ -9,4 +9,6 @@ public interface UserService {
     void addUser(User user);
 
     boolean checkUser(User user);
+
+    int getUserAuth(String username);
 }

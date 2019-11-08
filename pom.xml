@@ -101,6 +101,7 @@
             <scope>test</scope>
         </dependency>
 
+<<<<<<< HEAD
         <!-- 点对点聊天webSocket -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -136,6 +137,13 @@
             <version>3.1.0</version>
         </dependency>
 
+=======
+        <!--websocket依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+>>>>>>> 209b3411e1f26113028628aa9663d9ce2841c1a1
     </dependencies>
 
     <build>

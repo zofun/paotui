@@ -13,4 +13,7 @@
         update user set auth=#{authId} where username=#{username}
     </update>
 
+    <select id="getUserAuth" parameterType="String" resultType="int">
+        select auth from user where username = #{username}
+    </select>
 </mapper>

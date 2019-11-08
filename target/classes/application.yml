@@ -44,7 +44,11 @@ mybatis:
   type-aliases-package: com.runningman.paotui.pojo
 
 server:
+<<<<<<< HEAD
   port: 8081
+=======
+  port: 8080
+>>>>>>> 209b3411e1f26113028628aa9663d9ce2841c1a1
 
 
 
