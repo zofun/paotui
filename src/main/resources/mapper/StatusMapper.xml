@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.runningman.paotui.mapper.StatusMapper">
+    <insert id="insertStatus" parameterType="status" useGeneratedKeys="true" keyProperty="id">
+        insert into status(order_id,info,time) values (#{order_id},#{info},#{time})
+    </insert>
+
+    <update id="changeStatusInfo" >
+        update `status` set info = #{arg0} where order_id = #{arg1}
+    </update>
+
+    <select id="getStatusInfo" parameterType="int" resultType="String">
+        select info from `status` where order_id = #{id}
+    </select>
+</mapper>

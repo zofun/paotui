@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.runningman.paotui.mapper.UserMapper">
+    <select id="getUserByUsername" parameterType="string" resultType="user">
+        select * from user  where username=#{username}
+    </select>
+    <insert id="insert" parameterType="user">
+        insert into user (`name`,username,password,auth)
+        values(#{name},#{username},#{password},#{auth})
+    </insert>
+
+    <update id="updateAuth">
+        update user set auth=#{authId} where username=#{username}
+    </update>
+
+    <select id="getUserAuth" parameterType="String" resultType="int">
+        select auth from user where username = #{username}
+    </select>
+</mapper>

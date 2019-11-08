@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.runningman.paotui.mapper.AuthMapper">
+
+    <select id="queryCountByStudentId" resultType="int">
+        select count(*) from auth_info where student_id=#{stuId}
+    </select>
+    <insert id="insert" parameterType="authInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into auth_info (start,real_name,student_id,`time`)
+        values (#{start},#{realName},#{studentId},#{time})
+    </insert>
+
+    <update id="changeAuthStart">
+        update auth_info a set a.start = a.start+#{start}
+        where a.id = (select auth from user where username=#{user})
+    </update>
+
+    <select id="getAuthStart" parameterType="String" resultType="int">
+        select a.start from auth_info a
+        where a.id = (select u.auth from user u where u.username=#{user})
+    </select>
+</mapper>
