@@ -8,7 +8,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 
 @SpringBootApplication
-@ComponentScan(basePackages="com.runningman.paotui")
 public class PaotuiApplication {
 
     public static void main(String[] args) {

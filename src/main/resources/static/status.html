@@ -52,10 +52,10 @@
         <div class="container">
             <span class="top-left"><a href="index.html"><i class="flaticon-hotel"></i>&nbsp;&nbsp;首页</a></span>
             <div class="top-right-text">
-               <span><a href="#" class="nav-link">
+               <span><a href="login.html" class="nav-link">
                    <i class="flaticon-logout"></i>&nbsp;&nbsp;登录
                </a></span>
-                <span class=""><a href="" class="nav-link link-color">
+                <span class=""><a href="personal.html" class="nav-link link-color">
                    <i class="flaticon-user"></i>&nbsp;&nbsp;个人中心
                </a></span>
             </div>
@@ -72,12 +72,12 @@
                 <div id="status">已接单</div>
             </div>
             <div class="status-bom-r">
-               <span>修改状态</span>
-            <select class="status-sel" name="" id="" lay-filter="myselect">
-                <option value="1">已接单，未开始</option>
-                <option value="2">订单派送中</option>
-                <option value="3">派送结束</option>
-            </select>
+                <span onclick="changeStatus()">修改状态</span>
+                <select class="status-sel" name="" id="selectBox" lay-filter="myselect">
+                    <option value="已接单">已接单，未开始</option>
+                    <option value="派送中">订单派送中</option>
+                    <option value="派送结束">派送结束</option>
+                </select>
             </div>
         </div>
     </div>
@@ -85,4 +85,51 @@
 </body>
 <script src="libs/jquery-2.1.4/jquery.js"></script>
 <script src="js/common.js"></script>
+<script>
+    var orderId;
+    $(document).ready(function () {
+        //获取跳转链接中携带的orderId
+        orderId=GetPar("orderId");
+        //获取跳转链接中携带的status（即订单状态）
+        $('#status').text(GetPar("status"));
+    });
+
+    function changeStatus() {
+        var selectBoxVal = $("#selectBox").val();
+
+        $.ajax({
+            type:'post',
+            url:'delivery/changeState',
+            data:{
+                state:selectBoxVal,
+                id:orderId
+            },
+            success:function (d) {
+                $('#status').text(selectBoxVal);
+                hit.innerText = d.message;
+                hint();
+
+            },
+            error:function () {
+                hit.innerText = '出错了';
+                hint();
+            }
+
+        })
+    }
+
+
+    var hit = document.getElementById("hint");
+
+    /**
+     * 引用hint()在最上方弹出提示
+     */
+    function hint() {
+        hit.style.display = "block";
+        setTimeout("hit.style.opacity = 1", 0);
+        setTimeout("hit.style.opacity = 0", 2000);
+        setTimeout('hit.style.display = "none"', 3000);
+    }
+
+</script>
 </html>
