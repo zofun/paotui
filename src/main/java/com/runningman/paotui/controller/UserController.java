@@ -1,6 +1,8 @@
 package com.runningman.paotui.controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.runningman.paotui.dto.Result;
 import com.runningman.paotui.pojo.User;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -48,5 +52,40 @@ public class UserController {
             return new Result().success("登录成功",0,"pass");
         }
         return new Result().fail("nopass","登录失败",0);
+    }
+
+    @RequestMapping(value = "/getUserInfo",produces = "application/json;charset=utf-8")
+    public String checkUser(HttpSession session){
+        User user=(User)session.getAttribute("user");
+        Map<String,Object> result=new HashMap<>();
+        ObjectMapper mapper=new ObjectMapper();
+        String json= null;
+        if(user!=null){
+            User user1= this.userService.getUser(user.getUsername());
+            Map<String,Object> userList=new HashMap<>();
+            userList.put("username", user1.getUsername());
+            userList.put("name", user1.getName());
+
+            result.put("code",0 );
+            result.put("msg","已经登录" );
+            result.put("data", userList);
+            try {
+                json = mapper.writeValueAsString(result);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
+        else{
+            result.put("code",1006 );
+            result.put("msg","未登录" );
+            result.put("data", null);
+            try {
+                json = mapper.writeValueAsString(result);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
     }
 }

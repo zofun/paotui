@@ -4,4 +4,12 @@
     <insert id="insertStatus" parameterType="status" useGeneratedKeys="true" keyProperty="id">
         insert into status(order_id,info,time) values (#{order_id},#{info},#{time})
     </insert>
+
+    <update id="changeStatusInfo" >
+        update `status` set info = #{arg0} where order_id = #{arg1}
+    </update>
+
+    <select id="getStatusInfo" parameterType="int" resultType="String">
+        select info from `status` where order_id = #{id}
+    </select>
 </mapper>

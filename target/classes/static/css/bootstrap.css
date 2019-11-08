@@ -1097,11 +1097,7 @@ textarea {
   line-height: inherit;
 }
 a {
-<<<<<<< HEAD
-  color: #337ab7;
-=======
   color: whitesmoke;
->>>>>>> 209b3411e1f26113028628aa9663d9ce2841c1a1
   text-decoration: none;
 }
 a:hover,
@@ -4808,48 +4804,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
-<<<<<<< HEAD
-.pager {
-  padding-left: 0;
-  margin: 20px 0;
-  text-align: center;
-  list-style: none;
-}
-.pager li {
-  display: inline;
-}
-.pager li > a,
-.pager li > span {
-  display: inline-block;
-  padding: 5px 14px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 15px;
-}
-.pager li > a:hover,
-.pager li > a:focus {
-  text-decoration: none;
-  background-color: #eee;
-}
-.pager .next > a,
-.pager .next > span {
-  float: right;
-}
-.pager .previous > a,
-.pager .previous > span {
-  float: left;
-}
-.pager .disabled > a,
-.pager .disabled > a:hover,
-.pager .disabled > a:focus,
-.pager .disabled > span {
-  color: #777;
-  cursor: not-allowed;
-  background-color: #fff;
-}
-=======
 
->>>>>>> 209b3411e1f26113028628aa9663d9ce2841c1a1
 .label {
   display: inline;
   padding: .2em .6em .3em;

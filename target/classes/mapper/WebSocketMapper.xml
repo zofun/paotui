@@ -15,7 +15,7 @@
     </select>
 
     <insert id="saveChatMessage">
-        insert into chat (sender, addressee,time,info) values (#{from},#{to},#{time}#{content})
+        insert into chat (sender, addressee,time,info,status) values (#{from},#{to},#{time}#{content},1)
     </insert>
 
 

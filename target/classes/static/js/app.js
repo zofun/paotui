@@ -20,20 +20,18 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
+        /*订阅其他用户的消息*/
         stompClient.subscribe('/chat/single/'+from, function (result) {
         	showContent(JSON.parse(result.body));
         });
+        /*订阅自己的消息，用于回显*/
         stompClient.subscribe('/chat/single/'+to, function (result) {
             showMyContent(JSON.parse(result.body));
         });
     });
 }
 
-/*function disconnect() {
-
-}*/
-
-function sendName() {/*送给对方的消息,传递到controller的/app/v3/single/chat*/
+function sendName() {/*送给对方的消息,传递到controller的/app/single/chat*/
 	
     stompClient.send("/app/single/chat", {}, JSON.stringify({'content': $("#content").val(), 'to':$("#to").val(), 'from':$("#from").val()}));
     
@@ -44,21 +42,20 @@ function showMyContent(body) {/*接收到自己发的消息*/
     $("#notice").append("<tr><td>" + body.content + "</td> <td>"+new Date(body.time).toLocaleString()+"</td></tr>");
 }
 
-function showContent(body) {/*自己接收到的消息*/
+function showContent(body) {/*接收别人发的消息*/
     $("#notice").append("<tr><td>" + body.content + "</td> <td>"+new Date(body.time).toLocaleString()+"</td></tr>");
 }
 
 $(function () {
-/*
-    $( "#connect" ).click(function() { connect(); });*/
     connect();
-   /* $( "#disconnect" ).click(function() { disconnect(); });*/
+    /*防止重复点击*/
     $("form").on('submit', function (e) {
         e.preventDefault();
     });
     $( "#send" ).click(function() { sendName(); });
 });
 
+/*当窗口关闭时关闭连接*/
 window.addEventListener('unload', function() {
     if (stompClient !== null) {
         stompClient.disconnect();

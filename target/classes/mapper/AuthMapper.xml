@@ -9,4 +9,14 @@
         insert into auth_info (start,real_name,student_id,`time`)
         values (#{start},#{realName},#{studentId},#{time})
     </insert>
+
+    <update id="changeAuthStart">
+        update auth_info a set a.start = a.start+#{start}
+        where a.id = (select auth from user where username=#{user})
+    </update>
+
+    <select id="getAuthStart" parameterType="String" resultType="int">
+        select a.start from auth_info a
+        where a.id = (select u.auth from user u where u.username=#{user})
+    </select>
 </mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.runningman.paotui.mapper.StartMapper">
+
+    <select id="queryReputation"  resultType="CommentUser">
+        select o.id,o.title,c.time,o.reward,
+        case  when c.start =10 then '好评'
+        when c.start=0 then '中评'
+        when c.start=-10 then '差评'
+        else null end  as 'start'
+        from `order` o inner join comment c on o.id=c.order_id
+        where o.delivery=#{arg0}
+        order by o.id limit #{arg1},#{arg2}
+    </select>
+
+
+    <select id="getUserStartCount" resultType="int">
+      select count(*) from `order` where delivery=#{username}
+    </select>
+
+    <select id="SumUserStart" resultType="int">
+        select a.start from auth_info a
+        inner join user u on a.id=u.auth
+        where u.username=#{username}
+    </select>
+</mapper>
