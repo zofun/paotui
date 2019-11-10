@@ -1,5 +1,6 @@
 package com.runningman.paotui.mapper;
 
+import com.runningman.paotui.pojo.AuthInfo;
 import com.runningman.paotui.pojo.CommentUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -28,5 +29,5 @@ public interface StartMapper {
      * 显示用户总信誉分
      * @return
      */
-    int SumUserStart(String username);
+    List<AuthInfo> SumUserStart(String username);
 }

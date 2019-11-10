@@ -18,8 +18,8 @@
       select count(*) from `order` where delivery=#{username}
     </select>
 
-    <select id="SumUserStart" resultType="int">
-        select a.start from auth_info a
+    <select id="SumUserStart" resultType="AuthInfo">
+        select * from auth_info a
         inner join user u on a.id=u.auth
         where u.username=#{username}
     </select>

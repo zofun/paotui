@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import com.runningman.paotui.mapper.StartMapper;
+import com.runningman.paotui.pojo.AuthInfo;
 import com.runningman.paotui.pojo.CommentUser;
 import com.runningman.paotui.service.StartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class StartServiceImpl implements StartService {
         }
 
     }
-    public int SumUserStart(String username){
+    public List<AuthInfo> SumUserStart(String username){
         return this.startMapper.SumUserStart(username);
     }
 }

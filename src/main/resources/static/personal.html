@@ -103,7 +103,7 @@
             </h1>
             <div class="resume-item d-flex flex-column flex-md-row mb-5">
                 <div class="myreputation">
-                    <h3> <a href="#">当前的信誉为：<span>150</span></a></h3>
+                    <h3> 当前的信誉为：<span id="sumReputation"></span></h3>
                 </div>
             </div>
 
@@ -294,11 +294,27 @@
                 if (d.code === 0) {
                     username=d.data.username;
                     /*window.location.href = "personal.html";*/
+
                 } else {
                     window.location.href = "login.html";
                 }
             }
         });
+
+        $.ajax({
+            type:'get',
+            url:'/personal/getSumStart',
+            datatype:'json',
+/*            data:{
+                username:username
+            },*/
+            success:function (data) {
+                $("#sumReputation").html(data[0].start);
+/*                console.log(data);
+                console.log(data[0].start);*/
+            }
+        })
+
     })
 </script>
 
