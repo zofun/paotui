@@ -96,10 +96,13 @@ public class OrderController {
     @RequestMapping(value = "/takeOrder",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public Result takeOrder(int id,HttpSession session){
         User user = (User)session.getAttribute("user");
+        if(user==null){
+            return new Result().fail(1000,"你还没有登录，请先登录");
+        }
         if(userService.getUserAuth(user.getUsername())==0){
             return new Result().fail(1002,"你不是跑腿员，没有接单权限");
         }
-        if(statusService.getStatusInfo(id)!="已发布"){
+        if("已发布".equals(statusService.getStatusInfo(id))){
             return new Result().fail(1003,"接单失败");
         }
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
