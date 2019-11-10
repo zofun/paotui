@@ -24,6 +24,7 @@ public class Order {
     private int id;  //订单id
     private String title;
     private String user;
+    private String info;
     private String delivery;
     private String begin;
     private String end;
