@@ -1,5 +1,9 @@
 package com.runningman.paotui.service;
 
+import com.runningman.paotui.pojo.AuthInfo;
+
+import java.util.List;
+
 public interface StartService {
 
     /**
@@ -9,7 +13,7 @@ public interface StartService {
      */
     String queryReputation(String username, int page, int limit);
 
-    int SumUserStart(String username);
+    List<AuthInfo> SumUserStart(String username);
 
 
 }

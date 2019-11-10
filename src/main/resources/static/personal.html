@@ -20,7 +20,7 @@
 
 <body id="page-top">
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-    <a class="navbar-brand js-scroll-trigger" href="index.html">
+    <a class="navbar-brand js-scroll-trigger" href="#index">
         <span class="d-none d-lg-block">
           <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="images/profile.jpg" alt="">
         </span>
@@ -95,7 +95,7 @@
             </h1>
             <div class="resume-item d-flex flex-column flex-md-row mb-5">
                 <div class="myreputation">
-                    <h3> <a href="#">当前的信誉为：<span>150</span></a></h3>
+                    <h3> 当前的信誉为：<span id="sumReputation"></span></h3>
                 </div>
             </div>
 
@@ -158,13 +158,9 @@
 <!-- Custom scripts for this template -->
 <script src="js/resume.js"></script>
 <script src="libs/layui/layui.js"></script>
-<script src="js/common.js"></script>
 <script>
 
     var layer;
-    var userInfo; //用户信息
-    var orderId=-1;//正在进行的订单id
-    var orderStatus;//当前正在运行的订单的状态
     // 订单部分的js
     layui.use(['table','layer'], function(){
         var table = layui.table;
@@ -275,6 +271,21 @@
             }
 
         }
+
+        $.ajax({
+            type:'get',
+            url:'/personal/getSumStart',
+            datatype:'json',
+/*            data:{
+                username:username
+            },*/
+            success:function (data) {
+                $("#sumReputation").html(data[0].start);
+/*                console.log(data);
+                console.log(data[0].start);*/
+            }
+        })
+
     })
 
     function gotoChangeOrderStatus() {

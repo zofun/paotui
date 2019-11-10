@@ -1,5 +1,6 @@
 package com.runningman.paotui.mapper;
 
+import com.runningman.paotui.pojo.AuthInfo;
 import com.runningman.paotui.pojo.CommentUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -31,4 +32,5 @@ public interface StartMapper {
      */
     int SumUserStart(String username);
 
+    List<AuthInfo> SumUserStart(String username);
 }
