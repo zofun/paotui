@@ -2,6 +2,7 @@ package com.runningman.paotui.mapper;
 
 import com.runningman.paotui.pojo.CommentUser;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,4 +30,5 @@ public interface StartMapper {
      * @return
      */
     int SumUserStart(String username);
+
 }

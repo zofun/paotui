@@ -28,7 +28,7 @@
                <span><a href="login.html" class="nav-link">
                    <i class="flaticon-logout"></i>&nbsp;&nbsp;登录
                </a></span>
-                <span class="personal.html"><a href="" class="nav-link link-color">
+                <span ><a href="personal.html" class="nav-link link-color">
                    <i class="flaticon-user"></i>&nbsp;&nbsp;个人中心
                </a></span>
             </div>
@@ -108,7 +108,7 @@
         var hit = document.getElementById("hint").getElementsByTagName("p")[0];
         $.ajax({
             type:'post',
-            url:'order/takeOrder',
+            url:'/order/takeOrder',
             data:{
                 id:id
             },

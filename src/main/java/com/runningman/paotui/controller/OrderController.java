@@ -102,7 +102,7 @@ public class OrderController {
         if(userService.getUserAuth(user.getUsername())==0){
             return new Result().fail(1002,"你不是跑腿员，没有接单权限");
         }
-        if("已发布".equals(statusService.getStatusInfo(id))){
+        if("已完成".equals(statusService.getStatusInfo(id))){
             return new Result().fail(1003,"接单失败");
         }
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     public boolean checkUser(User user) {
         User u = userMapper.getUserByUsername(user.getUsername());
 
-        if(user.getPassword()==null||!user.getPassword().equals(u.getPassword())){
+        if(u==null||user.getPassword()==null||!user.getPassword().equals(u.getPassword())){
             return  false;
         }
         user.setName(u.getName());

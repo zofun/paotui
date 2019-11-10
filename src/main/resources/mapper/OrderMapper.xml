@@ -49,4 +49,6 @@
         from `order` o join `status` s on o.id = s.order_id
         where o.delivery = #{username} and s.info != "已完成"
     </select>
+
+
 </mapper>

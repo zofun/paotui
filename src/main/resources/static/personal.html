@@ -20,7 +20,7 @@
 
 <body id="page-top">
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-    <a class="navbar-brand js-scroll-trigger" href="#index">
+    <a class="navbar-brand js-scroll-trigger" href="index.html">
         <span class="d-none d-lg-block">
           <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="images/profile.jpg" alt="">
         </span>
@@ -42,9 +42,7 @@
             <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="#mine">认证成为跑腿员</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="#awards">修改资料</a>
-            </li>
+
         </ul>
     </div>
 </nav>
@@ -57,8 +55,8 @@
                 <span class="text-primary">Order</span>
             </h1>
             <div class="subheading mb-5"> ·查看自己当前的订单的状态 ·
-                <div class="searchOrder-now">
-                    <a href="#">当前的订单状态为：<span>未接单</span></a>
+                <div class="searchOrder-now" onclick="gotoChangeOrderStatus()">
+                    <a href="#">当前的订单状态为：<span id="status"></span></a>
                 </div>
             </div>
             <div class="subheading mb-5"> ·查看自己的历史订单 ·</div>
@@ -68,8 +66,9 @@
 
     <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="mymsg">
         <div class="my-auto">
-            <h2 class="mb-5">会话窗口</h2>
+            <h2 class="mb-5">我的消息（正在开发）</h2>
 
+            <!--消息开始-->
             <div class="resume-item d-flex flex-column flex-md-row mb-5">
                 <div class="resume-content mr-auto">
                     <h3 class="mb-0">收到了一条新消息</h3>
@@ -81,16 +80,9 @@
                 </div>
             </div>
 
-            <div class="resume-item d-flex flex-column flex-md-row mb-5">
-                <div class="resume-content mr-auto">
-                    <h3 class="mb-0">Web Developer</h3>
-                    <div class="subheading mb-3">Intelitec Solutions</div>
-                    <p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p>
-                </div>
-                <div class="resume-date text-md-right">
-                    <span class="text-primary">December 2011 - March 2013</span>
-                </div>
-            </div>
+            <!--消息结束-->
+
+
 
         </div>
 
@@ -153,41 +145,6 @@
         </div>
     </section>
 
-    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="awards">
-        <div class="my-auto">
-            <h2 class="mb-5">Awards &amp; Certifications</h2>
-            <ul class="fa-ul mb-0">
-                <li>
-                    <i class="fa-li fa fa-trophy text-warning"></i>
-                    Google Analytics Certified Developer</li>
-                <li>
-                    <i class="fa-li fa fa-trophy text-warning"></i>
-                    Mobile Web Specialist - Google Certification</li>
-                <li>
-                    <i class="fa-li fa fa-trophy text-warning"></i>
-                    1<sup>st</sup>
-                    Place - University of Colorado Boulder - Emerging Tech Competition 2009</li>
-                <li>
-                    <i class="fa-li fa fa-trophy text-warning"></i>
-                    1<sup>st</sup>
-                    Place - University of Colorado Boulder - Adobe Creative Jam 2008 (UI Design Category)</li>
-                <li>
-                    <i class="fa-li fa fa-trophy text-warning"></i>
-                    2<sup>nd</sup>
-                    Place - University of Colorado Boulder - Emerging Tech Competition 2008</li>
-                <li>
-                <li>
-                    <i class="fa-li fa fa-trophy text-warning"></i>
-                    1<sup>st</sup>
-                    Place - James Buchanan High School - Hackathon 2006</li>
-                <li>
-                    <i class="fa-li fa fa-trophy text-warning"></i>
-                    3<sup>rd</sup>
-                    Place - James Buchanan High School - Hackathon 2005</li>
-                <li>More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></li>
-            </ul>
-        </div>
-    </section>
 
 </div>
 
@@ -201,9 +158,13 @@
 <!-- Custom scripts for this template -->
 <script src="js/resume.js"></script>
 <script src="libs/layui/layui.js"></script>
+<script src="js/common.js"></script>
 <script>
 
     var layer;
+    var userInfo; //用户信息
+    var orderId=-1;//正在进行的订单id
+    var orderStatus;//当前正在运行的订单的状态
     // 订单部分的js
     layui.use(['table','layer'], function(){
         var table = layui.table;
@@ -283,23 +244,45 @@
 
     //若未登录，点击个人中心重新跳转回登录页面
     $(document).ready(function () {
-        /*
-                connect();
-        */
-        var username;
+
+        /*获取用户信息*/
         $.ajax({
             type: 'get',
             url: '/user/getUserInfo',
             success: function (d) {
                 if (d.code === 0) {
-                    username=d.data.username;
-                    /*window.location.href = "personal.html";*/
+                    userInfo=d.data;
                 } else {
                     window.location.href = "login.html";
                 }
             }
         });
+
+    });
+    /*获取用户的当前订单状态*/
+    $.ajax({
+        type:'get',
+        url:'/order/getStatus',
+        success:function (d) {
+            if(d.data.length>0){
+                console.log(d.data[0].info);
+                $('#status').text(d.data[0].info);
+                orderId=d.data[0].id;
+                orderStatus=d.data[0].info;
+            }else {
+                console.log('没有订单');
+                orderId=-1; //没有正在进行订单，则设置为-1
+            }
+
+        }
     })
+
+    function gotoChangeOrderStatus() {
+        if(orderId!=-1){
+            goto('/status.html?orderId='+orderId+"&status="+orderStatus);
+        }
+
+    }
 </script>
 
 </body>
