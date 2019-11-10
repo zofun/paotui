@@ -97,6 +97,8 @@ class PaotuiApplicationTests {
         System.out.println(userService.getUserAuth("1"));
         System.out.println(statusService.getStatusInfo(10));*/
 
+        System.out.println(orderService.getAllOrderList(1,100));
+        System.out.println(orderService.getUserOrders("1",1,10));
         System.out.println(orderService.getOrderStatus("1"));
     }
 

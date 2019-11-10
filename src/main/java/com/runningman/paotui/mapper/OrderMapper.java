@@ -36,7 +36,7 @@ public interface OrderMapper {
      * @param limit
      * @return
      */
-    List<OrderTitle> getAllOrder(int page,int limit);
+    List<OrderTitle> getAllOrder(@Param("page") int page,@Param("limit") int limit);
 
     /**
      * 显示订单数
@@ -51,7 +51,7 @@ public interface OrderMapper {
      * @param limit
      * @return
      */
-    List<OrdersUser> getUserOrders(String user,int page,int limit);
+    List<OrdersUser> getUserOrders(@Param("user") String user,@Param("page") int page,@Param("limit") int limit);
 
     /**
      * 显示用户订单数
