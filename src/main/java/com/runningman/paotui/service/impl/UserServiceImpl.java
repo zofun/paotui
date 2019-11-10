@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int getUserAuth(String username) {
+    public Integer getUserAuth(String username) {
         return userMapper.getUserAuth(username);
     }
 }

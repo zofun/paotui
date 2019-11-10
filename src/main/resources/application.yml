@@ -44,7 +44,7 @@ mybatis:
   type-aliases-package: com.runningman.paotui.pojo
 
 server:
-  port: 3000
+  port: 8080
 
 
 

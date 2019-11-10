@@ -99,7 +99,7 @@ public class OrderController {
         if(user==null){
             return new Result().fail(1000,"你还没有登录，请先登录");
         }
-        if(userService.getUserAuth(user.getUsername())==0){
+        if(userService.getUserAuth(user.getUsername())==null){
             return new Result().fail(1002,"你不是跑腿员，没有接单权限");
         }
         if("已完成".equals(statusService.getStatusInfo(id))){

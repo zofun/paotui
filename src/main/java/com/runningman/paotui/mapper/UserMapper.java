@@ -33,6 +33,6 @@ public interface UserMapper {
      * @param username
      * @return
      */
-    int getUserAuth(String username);
+    Integer getUserAuth(String username);
 }
 

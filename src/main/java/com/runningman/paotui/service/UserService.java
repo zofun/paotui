@@ -10,5 +10,5 @@ public interface UserService {
 
     boolean checkUser(User user);
 
-    int getUserAuth(String username);
+    Integer getUserAuth(String username);
 }
