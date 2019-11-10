@@ -30,7 +30,7 @@ public interface StartMapper {
      * 显示用户总信誉分
      * @return
      */
-    int SumUserStart(String username);
+    //int SumUserStart(String username);
 
     List<AuthInfo> SumUserStart(String username);
 }

@@ -7,8 +7,8 @@ spring:
       enabled: true
   datasource:
     username: root
-    password: root
-    url: jdbc:mysql://localhost:3306/paotui?useUnicode=true&characterEncoding=UTF-8&amp;useSSL=false
+    password: ###
+    url: jdbc:mysql://121.199.76.80:3306/paotui?useUnicode=true&characterEncoding=UTF-8
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     # ????????????
@@ -44,7 +44,7 @@ mybatis:
   type-aliases-package: com.runningman.paotui.pojo
 
 server:
-  port: 8080
+  port: 3000
 
 
 

@@ -254,39 +254,46 @@
             }
         });
 
-    });
-    /*获取用户的当前订单状态*/
-    $.ajax({
-        type:'get',
-        url:'/order/getStatus',
-        success:function (d) {
-            if(d.data.length>0){
-                console.log(d.data[0].info);
-                $('#status').text(d.data[0].info);
-                orderId=d.data[0].id;
-                orderStatus=d.data[0].info;
-            }else {
-                console.log('没有订单');
-                orderId=-1; //没有正在进行订单，则设置为-1
-            }
-
-        }
 
         $.ajax({
             type:'get',
             url:'/personal/getSumStart',
             datatype:'json',
-/*            data:{
-                username:username
-            },*/
+            /*            data:{
+                            username:username
+                        },*/
             success:function (data) {
                 $("#sumReputation").html(data[0].start);
-/*                console.log(data);
-                console.log(data[0].start);*/
+                /*                console.log(data);
+                                console.log(data[0].start);*/
             }
-        })
+        });
 
-    })
+
+        /*获取用户的当前订单状态*/
+        $.ajax({
+            type:'get',
+            url:'/order/getStatus',
+            success:function (d) {
+                if (d.data.length > 0) {
+                    console.log(d.data[0].info);
+                    $('#status').text(d.data[0].info);
+                    orderId = d.data[0].id;
+                    orderStatus = d.data[0].info;
+                } else {
+                    console.log('没有订单');
+                    orderId = -1; //没有正在进行订单，则设置为-1
+                }
+            }
+
+        });
+
+    });
+
+
+
+
+
 
     function gotoChangeOrderStatus() {
         if(orderId!=-1){
