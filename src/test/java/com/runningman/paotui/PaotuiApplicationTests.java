@@ -123,7 +123,7 @@ class PaotuiApplicationTests {
 
         //authService.changeAuthStart("1",-2);
 
-        System.out.println(authService.getAuthStart("1"));
+       // System.out.println(authService.getAuthStart("1"));
     }
 
 
