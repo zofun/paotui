@@ -70,6 +70,7 @@ CREATE TABLE `order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
   `user` varchar(20) NOT NULL,
+  `info` varchar(60) NOT NULL,
   `delivery` varchar(20) DEFAULT NULL,
   `begin` varchar(60) NOT NULL,
   `end` varchar(60) NOT NULL,
@@ -106,7 +107,7 @@ CREATE TABLE `user` (
   `username` varchar(20) NOT NULL,
   `password` varchar(50) NOT NULL,
   `name` varchar(10) NOT NULL,
-  `auth` int(11) DEFAULT 0,
+  `auth` int(11) DEFAULT NULL,
   PRIMARY KEY (`username`),
   KEY `user_auth_to_auth_id` (`auth`),
   CONSTRAINT `user_auth_to_auth_id` FOREIGN KEY (`auth`) REFERENCES `auth_info` (`id`)

@@ -19,7 +19,7 @@ public class OrderInfo {
     private String username;
     private String name;
     private String title;
-    //private String info;
+    private String info;
     private String begin;
     private String end;
     private String reward;

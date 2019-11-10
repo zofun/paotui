@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.runningman.paotui.mapper.OrderMapper">
     <insert id="insertOrder" parameterType="order" useGeneratedKeys="true" keyProperty="id">
-      INSERT INTO `order`( `title`, `user`, `begin`, `end`, `start_Lnglat`, `end_lnglat`, `reward`, `endtime`) VALUES (#{title},#{user},#{begin},#{end},#{start_Lnglat},#{end_lnglat},#{reward},#{endtime})
+      INSERT INTO `order`( `title`, `user`,`info`, `begin`, `end`, `start_Lnglat`, `end_lnglat`, `reward`, `endtime`) VALUES (#{title},#{user},#{info},#{begin},#{end},#{start_Lnglat},#{end_lnglat},#{reward},#{endtime})
     </insert>
 
     <select id="selectOrderByUser" parameterType="String" resultType="Order">
@@ -31,7 +31,7 @@
     </select>
 
     <select id="getOrderInfo" parameterType="int" resultType="OrderInfo">
-        select u.username,u.name,o.title,o.begin,o.end,o.reward,o.start_Lnglat,o.end_lnglat,o.endtime
+        select u.username,u.name,o.title,o.begin,o.end,o.reward,o.start_Lnglat,o.end_lnglat,o.endtime,o.info
         from `order` o join `user` u on o.user = u.username
         where o.id = #{0}
     </select>
