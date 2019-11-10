@@ -12,7 +12,7 @@
     <select id="getAllOrder" resultType="OrderTitle">
         select o.id,u.name,u.username,o.title,o.reward,o.begin,o.end
         from `order` o join user u on o.user = u.username
-        order by id limit #{arg0},#{arg1}
+        order by id limit #{page},#{limit}
     </select>
 
     <select id="getOrderCount" resultType="int">
@@ -22,8 +22,8 @@
     <select id="getUserOrders" resultType="OrdersUser">
         select o.id,o.title,o.begin,o.end,o.reward,s.info as status
         from `order` o join `status` s on o.id = s.order_id
-        where o.user=#{arg0}
-        order by id limit #{arg1},#{arg2}
+        where o.user=#{user}
+        order by id limit #{page},#{limit}
     </select>
 
     <select id="getUserOrderCount" resultType="int">
