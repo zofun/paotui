@@ -31,7 +31,7 @@
     </select>
 
     <select id="getOrderInfo" parameterType="int" resultType="OrderInfo">
-        select u.username,u.name,o.title,o.begin,o.end,o.reward,o.start_Lnglat,o.end_lnglat,o.endtime
+        select u.username,u.name,o.title,o.begin,o.end,o.reward,o.start_Lnglat,o.end_lnglat,o.endtime,o.info
         from `order` o join `user` u on o.user = u.username
         where o.id = #{0}
     </select>
