@@ -13,14 +13,14 @@
         select o.id,u.name,u.username,o.title,o.reward,o.begin,o.end
         from `order` o join user u on o.user = u.username
         join `status` s on s.order_id = o.id
-        where s.info != "已完成"
+        where s.info != "派送结束"
         order by id limit #{page},#{limit}
     </select>
 
     <select id="getOrderCount" resultType="int">
         SELECT COUNT(*) from `order` o join user u on o.user = u.username
         join `status` s on s.order_id = o.id
-        where s.info != "已完成"
+        where s.info != "派送结束"
     </select>
 
     <select id="getUserOrders" resultType="OrdersUser">
@@ -51,7 +51,7 @@
     <select id="getOrderStatus" parameterType="String" resultType="OrderStatus">
         select o.id,s.info
         from `order` o join `status` s on o.id = s.order_id
-        where o.delivery = #{username} and s.info != "已完成"
+        where o.delivery = #{username} and s.info != "派送结束"
     </select>
 
 
