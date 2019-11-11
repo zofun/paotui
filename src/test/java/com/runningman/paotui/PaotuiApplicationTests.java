@@ -74,7 +74,7 @@ class PaotuiApplicationTests {
 
     @Test
     void orderServiceTest(){
-        Order order = new Order();
+        /*Order order = new Order();
         order.setTitle("Titile");
         //order.setUser("1");
         order.setBegin("Begin");
@@ -84,8 +84,8 @@ class PaotuiApplicationTests {
         order.setReward("Reward");
         order.setEnd_lnglat("End_lnglat");
         order.setEndtime(now());
-        orderService.makeOrder("1",order);
-        System.out.println(order.getId());
+        orderService.makeOrder("2017",order);
+        System.out.println(order.getId());*/
         //orderService.selectOrderByUser("1");
         /*System.out.println(orderService.getAllOrderList(1,10));
         System.out.println(orderService.getUserOrders("2",1,10));
@@ -97,10 +97,10 @@ class PaotuiApplicationTests {
         System.out.println(orderService.getOrderInfo(16));
         System.out.println(userService.getUserAuth("1"));
         System.out.println(statusService.getStatusInfo(10));*/
-
+        System.out.println(orderService.getOrderCount());
         System.out.println(orderService.getAllOrderList(1,100));
-        System.out.println(orderService.getUserOrders("1",1,10));
-        System.out.println(orderService.getOrderStatus("1"));
+        System.out.println(orderService.getUserOrders("2017",1,10));
+        System.out.println(orderService.getOrderStatus("2017"));
     }
 
 

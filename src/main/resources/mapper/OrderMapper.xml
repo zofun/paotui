@@ -12,11 +12,15 @@
     <select id="getAllOrder" resultType="OrderTitle">
         select o.id,u.name,u.username,o.title,o.reward,o.begin,o.end
         from `order` o join user u on o.user = u.username
+        join `status` s on s.order_id = o.id
+        where s.info != "已完成"
         order by id limit #{page},#{limit}
     </select>
 
     <select id="getOrderCount" resultType="int">
-        SELECT count(*) FROM `order`
+        SELECT COUNT(*) from `order` o join user u on o.user = u.username
+        join `status` s on s.order_id = o.id
+        where s.info != "已完成"
     </select>
 
     <select id="getUserOrders" resultType="OrdersUser">
