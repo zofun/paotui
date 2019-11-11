@@ -41,7 +41,7 @@
     </select>
 
     <update id="setDelivery">
-        update `order` set delivery = #{arg1} where id = #{arg0}
+        update `order` set delivery = #{delivery} where id = #{id}
     </update>
 
     <select id="getOrderEndTime" parameterType="int" resultType="Date">

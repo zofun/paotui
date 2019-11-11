@@ -18,7 +18,7 @@ public interface StartMapper {
      * @param limit
      * @return
      */
-    List<CommentUser> queryReputation(String username, int page, int limit);
+    List<CommentUser> queryReputation(@Param("username") String username, @Param("page") int page, @Param("limit") int limit);
 
     /**
      * 显示用户被星级评价数

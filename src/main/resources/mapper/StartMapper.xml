@@ -5,8 +5,8 @@
     <select id="queryReputation"  resultType="CommentUser">
         select o.id,o.title,c.time,o.reward,c.start
         from `order` o inner join comment c on o.id=c.order_id
-        where o.delivery=#{arg0}
-        order by o.id limit #{arg1},#{arg2}
+        where o.delivery=#{username}
+        order by o.id limit #{page},#{limit}
     </select>
 
 

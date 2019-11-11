@@ -2,6 +2,7 @@ package com.runningman.paotui.mapper;
 
 import com.runningman.paotui.pojo.Status;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -24,7 +25,7 @@ public interface StatusMapper {
      * 改变订单的状态
      * @param order_id,info
      */
-    void changeStatusInfo(String info,int order_id);
+    void changeStatusInfo(@Param("info") String info,@Param("id") int order_id);
 
     /**
      * 获取该订单的状态

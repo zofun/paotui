@@ -6,7 +6,7 @@
     </insert>
 
     <update id="changeStatusInfo" >
-        update `status` set info = #{arg0} where order_id = #{arg1}
+        update `status` set info = #{info} where order_id = #{id}
     </update>
 
     <select id="getStatusInfo" parameterType="int" resultType="String">

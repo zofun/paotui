@@ -70,7 +70,7 @@ public interface OrderMapper {
      * 设置订单的配送员
      * @param id
      */
-    void setDelivery(int id,String delivery);
+    void setDelivery(@Param("id") int id,@Param("delivery") String delivery);
 
     /**
      * 获取订单截止时间
