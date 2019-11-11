@@ -3,11 +3,7 @@
 <mapper namespace="com.runningman.paotui.mapper.StartMapper">
 
     <select id="queryReputation"  resultType="CommentUser">
-        select o.id,o.title,c.time,o.reward,
-        case  when c.start =10 then '好评'
-        when c.start=0 then '中评'
-        when c.start=-10 then '差评'
-        else null end  as 'start'
+        select o.id,o.title,c.time,o.reward,c.start
         from `order` o inner join comment c on o.id=c.order_id
         where o.delivery=#{arg0}
         order by o.id limit #{arg1},#{arg2}

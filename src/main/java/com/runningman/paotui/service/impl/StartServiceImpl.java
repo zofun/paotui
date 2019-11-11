@@ -21,31 +21,20 @@ public class StartServiceImpl implements StartService {
     private StartMapper startMapper;
 
     @Override
-    public String queryReputation(String username,int page,int limit) {
-       List<CommentUser> orderList=this.startMapper.queryReputation(username,(page-1)*limit,limit);
-       int count=this.startMapper.getUserStartCount(username);
-        Map<String,Object> result=new HashMap<>();
-        result.put("code",0 );
-        result.put("msg","其它数据" );
-        result.put("count", count);
-
-        ObjectMapper mapper=new ObjectMapper();
-        result.put("data", orderList);
-        //更改时间解析方式
-        /*mapper.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS, false);
-        SimpleDateFormat myDateFormat=new SimpleDateFormat("yyyy-MM-dd-HH:mm");
-        mapper.getSerializationConfig().setDateFormat(myDateFormat);*/
-
-        try {
-            String json=mapper.writeValueAsString(result);
-            return  json;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return "";
-        }
+    public List<CommentUser> queryReputation(String username,int page,int limit) {
+       List<CommentUser> commentUsers=this.startMapper.queryReputation(username,(page-1)*limit,limit);
+       return commentUsers;
 
     }
-    public List<AuthInfo> SumUserStart(String username){
-        return this.startMapper.SumUserStart(username);
+
+    @Override
+    public List<AuthInfo> SumUserStart(String username) {
+        return startMapper.SumUserStart(username);
     }
+
+    @Override
+    public int getUserStartCount(String username) {
+        return startMapper.getUserStartCount(username);
+    }
+
 }

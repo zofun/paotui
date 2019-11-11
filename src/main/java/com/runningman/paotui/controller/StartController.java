@@ -1,6 +1,8 @@
 package com.runningman.paotui.controller;
 
+import com.runningman.paotui.dto.Result;
 import com.runningman.paotui.pojo.AuthInfo;
+import com.runningman.paotui.pojo.CommentUser;
 import com.runningman.paotui.pojo.User;
 import com.runningman.paotui.service.StartService;
 import com.runningman.paotui.service.UserService;
@@ -22,17 +24,20 @@ public class StartController {
     private UserService userService;
 
     @RequestMapping(value = "/getUserStart",produces = "application/json;charset=utf-8")
-    public String queryReputation(HttpSession session,int page,int limit){
+    public Result queryReputation(HttpSession session, int page, int limit){
         User user=(User)session.getAttribute("user");
-        String json=this.startService.queryReputation(user.getUsername(),page,limit);
-        return json;
+        List<CommentUser> commentUsers = startService.queryReputation(user.getUsername(),page,limit);
+        if(user==null){
+            return new Result().fail("nologin","未登录",0);
+        }
+        return new Result().success("用户",0,commentUsers,startService.getUserStartCount(user.getUsername()));
     }
 
     @RequestMapping(value = "/getSumStart",produces = "application/json;charset=utf-8")
     @ResponseBody
     public List<AuthInfo> sumReputation(HttpSession session){
         User user=(User)session.getAttribute("user");
-        List<AuthInfo> authInfoList= this.startService.SumUserStart(user.getUsername());
+        List<AuthInfo> authInfoList= startService.SumUserStart(user.getUsername());
         //String json=this.startService.queryReputation(user.getUsername(),page,limit);
         return authInfoList;
     }

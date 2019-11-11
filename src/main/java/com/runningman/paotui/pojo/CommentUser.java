@@ -15,7 +15,7 @@ public class CommentUser {
     Integer id;
     String title;
     Date time;
-    Integer reward;
-    String start;
+    String reward;
+    int start;
 
 }
