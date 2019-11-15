@@ -2,9 +2,12 @@ package com.runningman.paotui.service.impl;
 
 import com.runningman.paotui.mapper.ChatMapper;
 import com.runningman.paotui.pojo.Chat;
+import com.runningman.paotui.pojo.ChatHistory;
 import com.runningman.paotui.service.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ChatServiceImpl implements ChatService {
@@ -20,5 +23,10 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public void changeStatus(int id, String status) {
         chatMapper.changeChatStatus(id,status);
+    }
+
+    @Override
+    public List<ChatHistory> getChatHistory(String username, String targetUsername) {
+        return chatMapper.getChatHistory(username,targetUsername);
     }
 }

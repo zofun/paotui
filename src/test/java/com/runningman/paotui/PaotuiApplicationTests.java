@@ -4,6 +4,7 @@ import ch.qos.logback.core.net.SyslogOutputStream;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.runningman.paotui.mapper.OrderMapper;
+import com.runningman.paotui.pojo.ChatHistory;
 import com.runningman.paotui.pojo.Comment;
 import com.runningman.paotui.pojo.Order;
 import com.runningman.paotui.pojo.User;
@@ -46,6 +47,9 @@ class PaotuiApplicationTests {
 
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    private ChatService chatService;
 
     @Test
     void contextLoads() {
@@ -126,5 +130,11 @@ class PaotuiApplicationTests {
        // System.out.println(authService.getAuthStart("1"));
     }
 
-
+    @Test
+    public void chatTest(){
+        List<ChatHistory> histories = chatService.getChatHistory("2018","2017");
+        for(ChatHistory c:histories){
+            System.out.println(c.toString());
+        }
+    }
 }

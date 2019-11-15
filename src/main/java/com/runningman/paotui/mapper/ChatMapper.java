@@ -1,6 +1,7 @@
 package com.runningman.paotui.mapper;
 
 import com.runningman.paotui.pojo.Chat;
+import com.runningman.paotui.pojo.ChatHistory;
 import com.runningman.paotui.pojo.ChatMsg;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -28,4 +29,12 @@ public interface ChatMapper {
      * @return
      */
     List<ChatMsg> queryChatMsg(@Param("username") String username,@Param("targetUsername") String targetUsername);
+
+    /**
+     * 获取用户的历史聊天记录
+     * @param username
+     * @param targetUsername
+     * @return
+     */
+    List<ChatHistory> getChatHistory(@Param("username") String username,@Param("targetUsername") String targetUsername);
 }

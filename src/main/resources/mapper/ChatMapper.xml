@@ -9,4 +9,9 @@
         UPDATE chat set `status`=#{status} where id=#{id}
     </update>
 
+    <select id="getChatHistory" resultType="ChatHistory">
+        select sender,addressee,time,info
+        from chat where (sender = #{username} and addressee = #{targetUsername}) or (sender = #{targetUsername} and addressee = #{username})
+        order by time
+    </select>
 </mapper>
