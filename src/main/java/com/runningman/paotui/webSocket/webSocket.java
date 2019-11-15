@@ -18,7 +18,9 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 
 @ServerEndpoint(value = "/chat/{username}/{targetUsername}")
@@ -88,6 +90,7 @@ public class webSocket {
         chat.setSender(chatMsg.getSenderId());
         chat.setAddressee(chatMsg.getAddressee());
         chat.setInfo(chatMsg.getMessage());
+
         chat.setTime(new Date());
         if(ws==null){
             //对方不在线，标记信息为未读状态，持久化到数据库

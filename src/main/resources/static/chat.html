@@ -42,23 +42,12 @@
         <div class="abs cover pnl-body" id="pnlBody">
             <div class="abs cover pnl-left">
                 <div class="abs cover pnl-msgs scroll" id="show">
-                    <div class="msg min time" id="histStart">加载历史消息(正在开发)</div>
-                    <div class="pnl-list" id="hists">
-                        <!-- 历史消息 -->
-                    </div>
+                    <div class="msg min time" id="histStart" onclick="getChatHis()">点击加载历史消息</div>
+                   <!-- <div class="pnl-list" id="hists">
+                        &lt;!&ndash; 历史消息 &ndash;&gt;
+                    </div>-->
                     <div class="pnl-list" id="msgs">
-                       <!-- <div class="msg robot">
-                            &lt;!&ndash;worker就是对方的用户名&ndash;&gt;
-                            <div class="msg-left" worker="蓝猫">
-                                <div class="msg-ball" title="今天 17:52:06">你好</div>
-                            </div>
-                        </div>
-                        <div class="msg guest">
-                            <div class="msg-right">
-                                <div class="msg-host headDefault"></div>
-                                <div class="msg-ball" title="今天 17:52:06">你好</div>
-                            </div>
-                        </div>-->
+                      <!--显示聊天记录的-->
                     </div>
                     <div class="pnl-list hide" id="unreadLine">
                         <div class="msg min time unread">未读消息</div>
@@ -111,7 +100,7 @@
              targetUsername=GetPar("targetUsername");
             console.log(username+"   "+targetUsername);
             //判断是否支持websocket
-            websocket = new WebSocket("ws://localhost:8080chat/"+username+"/"+targetUsername);
+            websocket = new WebSocket("ws://localhost:8080/chat/"+username+"/"+targetUsername);
         } else {
             hit.innerText = "你的浏览器不支持该功能";
             hint();
@@ -153,7 +142,7 @@
          */
         websocket.onmessage = function (event) {
             var obj=JSON.parse(event.data);
-            AddMsg(obj.senderId,obj.message);
+            AddMsg(obj.senderId,obj.message,getFormatDate());
         }
 
     }
@@ -176,7 +165,7 @@
 
        };
         websocket.send(JSON.stringify(msg));
-        AddMsg('default',message);
+        AddMsg('default',message,getFormatDate());
         document.getElementById("text").value='';
     }
 
@@ -191,6 +180,58 @@
         setTimeout("hit.style.opacity = 1", 0);
         setTimeout("hit.style.opacity = 0", 2000);
         setTimeout('hit.style.display = "block"', 3000);
+    }
+
+
+    /**
+     * 获取当前时间的标准格式
+     * @returns {string}
+     */
+    function getFormatDate() {
+        var date = new Date();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentDate = date.getFullYear() + "-" + month + "-" + strDate
+            + "_" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        return currentDate;
+    }
+
+    function getChatHis() {
+        var hit = document.getElementById("hint").getElementsByTagName("p")[0];
+        $.ajax({
+            type:'get',
+            url:'/chat/getChatHis',
+            data:{
+                username:username,
+                targetUsername:targetUsername
+            },
+            success:function (d) {
+                if(d.code!==0){
+                    //如果出现异常，就直接返回
+                    return;
+                }
+                //清除原有的聊天记录
+                var msgs = document.getElementById("msgs").innerHTML='';
+                for(var i=0;i<d.data.length;i++){
+                    var item=d.data[i];
+                    if(item.sender===username){
+                        AddMsg('default',item.info,item.time);
+                    }else {
+                        AddMsg(item.sender,item.info,item.time);
+                    }
+                }
+            },
+            error:function () {
+                hit.innerText = "历史消息加载失败";
+                hint();
+            }
+        })
     }
 
 
