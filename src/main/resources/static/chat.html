@@ -74,7 +74,7 @@
                     <!--弄个图片在这里好看而已-->
                     <div class="chat-head"><img src="images/2.jpg" alt=""></div>
                     <br>
-                    <div class="chat-username">用户：</div>
+                    <div class="chat-username" id="username">用户：</div>
                     <br>
                     <div class="chat-xinyu">信誉积分:100</div>
                 </div>
@@ -91,6 +91,9 @@
     var targetUsername;
     $(document).ready(function () {
         connect();
+
+        //获取聊天的用户信息，左侧显示
+        getUserInfo( GetPar("targetUsername"));
     });
     var websocket=null;
     function connect() {
@@ -235,6 +238,20 @@
             error:function () {
                 hit.innerText = "历史消息加载失败";
                 hint();
+            }
+        })
+    }
+
+    function getUserInfo(username) {
+        $.ajax({
+            type:'get',
+            url:'/user/getUserInfoByUsername',
+            data:{
+                username:username
+            },
+            success:function (d) {
+                $('#username').text('用户：'+d.data.name);
+
             }
         })
     }

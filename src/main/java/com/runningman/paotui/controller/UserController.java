@@ -89,5 +89,12 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "getUserInfoByUsername")
+    public Result getUserInfoByUsername(String username){
+        User user = userService.getUser(username);
+        user.setPassword("");
+        return  new Result().success("用户信息",0,user);
+    }
+
 
 }
