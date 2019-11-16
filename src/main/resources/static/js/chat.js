@@ -37,7 +37,7 @@ function CreadMsg(user, content,time)
     }
     else
     {
-        str = "<div class=\"msg robot\"><div class=\"msg-left\" worker=\"" + user + "\"><div class=\"msg-host photo\" style=\"background-image: url(../images/1.jpg)\"></div><div class=\"msg-ball\" title="+time+">" + content + "</div></div></div>";
+        str = "<div class=\"msg robot\"><div class=\"msg-left\" worker=\"" + user + "\"><div class=\"msg-host photo\" style=\"background-image: url(../images/2.jpg)\"></div><div class=\"msg-ball\" title="+time+">" + content + "</div></div></div>";
     }
     return str;
 }

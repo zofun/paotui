@@ -3,6 +3,7 @@ package com.runningman.paotui.mapper;
 import com.runningman.paotui.pojo.Chat;
 import com.runningman.paotui.pojo.ChatHistory;
 import com.runningman.paotui.pojo.ChatMsg;
+import com.runningman.paotui.pojo.LeaveWord;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -22,6 +23,8 @@ public interface ChatMapper {
      */
     void changeChatStatus(@Param("id") int id, @Param("status") String status);
 
+    void changeChatStatusOfSession(@Param("username") String username,@Param("targetUsername") String targetUsername,@Param("status") String status);
+
     /**
      * 查询聊天记录
      * @param username
@@ -37,4 +40,6 @@ public interface ChatMapper {
      * @return
      */
     List<ChatHistory> getChatHistory(@Param("username") String username,@Param("targetUsername") String targetUsername);
+
+    List<LeaveWord> queryLeaveWord(@Param("username") String username);
 }

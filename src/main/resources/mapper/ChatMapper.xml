@@ -14,4 +14,21 @@
         from chat where (sender = #{username} and addressee = #{targetUsername}) or (sender = #{targetUsername} and addressee = #{username})
         order by time
     </select>
+
+    <select id="queryLeaveWord" resultType="leaveWord">
+       SELECT `user`.`name`,r.count,`user`.`username` from `user`
+      INNER JOIN
+      (SELECT COUNT(*) as count,sender FROM chat
+      WHERE addressee=#{username} AND status='n'
+      GROUP BY sender
+      ) AS r
+      on r.sender=`user`.username
+
+    </select>
+
+    <update id="changeChatStatusOfSession">
+        update chat set status=#{status}
+        where sender=#{username} and addressee=#{targetUsername}
+    </update>
+
 </mapper>

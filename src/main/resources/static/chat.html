@@ -76,7 +76,7 @@
                     <br>
                     <div class="chat-username">用户：</div>
                     <br>
-                    <div class="chat-xinyu">信誉积分:</div>
+                    <div class="chat-xinyu">信誉积分:100</div>
                 </div>
             </div>
         </div>
@@ -135,6 +135,11 @@
         websocket.onopen = function(event) {
             hit.innerText = "连接已建立";
             hint();
+            //根据标记，决定是否在窗口打开的时候就加载聊天记录
+            var state=GetPar('state');
+            if(state==='l'){
+                getChatHis();
+            }
         };
 
         /**
