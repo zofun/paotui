@@ -17,6 +17,22 @@
         order by id limit #{page},#{limit}
     </select>
 
+    <select id="getAllOrderByReward" resultType="OrderTitle">
+        select o.id,u.name,u.username,o.title,o.reward,o.begin,o.end
+        from `order` o join user u on o.user = u.username
+        join `status` s on s.order_id = o.id
+        where s.info = "已发布" and o.endtime > now()
+        order by reward desc limit #{page},#{limit}
+    </select>
+
+    <select id="getAllOrderByBegin" resultType="OrderTitle">
+        select o.id,u.name,u.username,o.title,o.reward,o.begin,o.end
+        from `order` o join user u on o.user = u.username
+        join `status` s on s.order_id = o.id
+        where s.info = "已发布" and o.endtime > now()
+        order by `begin` limit #{page},#{limit}
+    </select>
+
     <select id="getOrderCount" resultType="int">
         select COUNT(*)
 				from `order` o join user u on o.user = u.username

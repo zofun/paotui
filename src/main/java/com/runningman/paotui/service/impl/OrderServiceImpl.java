@@ -79,6 +79,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<OrderTitle> getAllOrderListByReward(int page,int limit) {
+        List<OrderTitle> orderTitles = orderMapper.getAllOrderByReward((page-1)*limit,limit);
+        return orderTitles;
+    }
+
+    @Override
+    public List<OrderTitle> getAllOrderListByBegin(int page,int limit) {
+        List<OrderTitle> orderTitles = orderMapper.getAllOrderByBegin((page-1)*limit,limit);
+        return orderTitles;
+    }
+
+    @Override
     public List<OrdersUser> getUserOrders(String user,int page, int limit) {
         List<OrdersUser> ordersUsers = orderMapper.getUserOrders(user,(page-1)*limit,limit);
         /*int count= orderMapper.getUserOrderCount(user);
