@@ -4,6 +4,6 @@
 
     <insert id="insertComment" parameterType="Comment" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO `comment`( `user`, `order_id`, `info`, `time`, `start`)
-        VALUES (#{user},#{order_id},#{info},#{time},#{start})
+        VALUES (#{user},#{orderId},#{info},#{time},#{start})
     </insert>
 </mapper>

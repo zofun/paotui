@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
@@ -21,8 +22,8 @@ import java.util.Date;
  * @Description: com.runningman.paotui.controller
  * @versio: 1.0
  */
-@Controller
-@RequestMapping("/comment")
+@RestController
+@RequestMapping("comment")
 public class CommentController {
     @Autowired
     private CommentService commentService;
@@ -30,7 +31,7 @@ public class CommentController {
     @Autowired
     private AuthService authService;
 
-    @RequestMapping(value = "/makeComment",method = RequestMethod.POST)
+    @RequestMapping(value = "makeComment",method = RequestMethod.POST)
     public Result makeComment(Comment comment, HttpSession session) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date time = null;
@@ -44,6 +45,8 @@ public class CommentController {
         if(user==null){
             return new Result().fail("nologin","未登录",0);
         }
+        comment.setUser(user.getUsername());
+        comment.setInfo("评分"+comment.getStart());
         commentService.insertComment(comment);
         authService.changeAuthStart(comment.getUser(),comment.getStart());
         return new Result().success("评价成功",0,"ok");

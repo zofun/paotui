@@ -175,7 +175,23 @@
                 // 订单类型为发布订单方和接受订单方两个
                 , {field: 'status', title: '订单状态', width: 120}
                 , {field: 'reward', title: '酬金', width: 80, sort: true}
+                ,{title:'评分', width:80, templet: '#bar', unresize: true}
             ]]
+        });
+
+        //监听评分按钮
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'comment'){
+                layer.msg('ID：'+ data.id + ' 的查看操作');
+            } else if(obj.event === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit'){
+                layer.alert('编辑行：<br>'+ JSON.stringify(data))
+            }
         });
 
 
@@ -206,13 +222,14 @@
                 , {field: 'title', title: '订单内容', width: 120}
                 , {field: 'time', title: '时间', width: 80, sort: true}
                 , {field: 'reward', title: '酬金', width: 80, sort: true}
-                , {field: 'start', title: '评分', width: 80, sort: true}
+                , {field: 'start', title: '评分', width: 100, sort: true}
+
             ]]
         });
     });
 
-    // 认证成为跑腿员部分js
 
+    // 认证成为跑腿员部分js
 
     function submitAuthInfo() {
         var real_name = $('#real_name').val();
@@ -358,6 +375,11 @@
         </div>
     </div>
     {{#  }); }}
+</script>
+
+<!--评分按钮-->
+<script type="text/html" id="bar">
+    <button type="button" class={{ d.status == '派送结束' ? '"layui-btn  layui-btn-xs"': '"layui-btn  layui-btn-xs layui-btn-disabled"' }} onclick="goto('/commet.html?id='+{{d.id}})">评分</button>
 </script>
 
 </body>

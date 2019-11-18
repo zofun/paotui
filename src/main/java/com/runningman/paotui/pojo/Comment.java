@@ -19,7 +19,7 @@ import java.util.Date;
 public class Comment {
     private int id;
     private String user;
-    private int order_id;
+    private int orderId;
     private String info;
     private Date time;
     private int start;
