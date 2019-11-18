@@ -103,7 +103,7 @@
              targetUsername=GetPar("targetUsername");
             console.log(username+"   "+targetUsername);
             //判断是否支持websocket
-            websocket = new WebSocket("ws://localhost:8080/chat/"+username+"/"+targetUsername);
+            websocket = new WebSocket("ws://121.199.76.80:3000/chat/"+username+"/"+targetUsername);
         } else {
             hit.innerText = "你的浏览器不支持该功能";
             hint();
