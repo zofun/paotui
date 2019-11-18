@@ -167,8 +167,8 @@
                 hit.innerText = "请输入密码";
                 hint();
                 return;
-            }else if(password.length<8){
-                hit.innerText = "密码强度过低";
+            }else if(password.length<6){
+                hit.innerText = "密码强度过低(密码不得少于6个字符)";
                 hint();
                 return;
             }else {

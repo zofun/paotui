@@ -294,8 +294,10 @@
                         },*/
             success: function (data) {
 
-                //这个地方报错
-                //$("#sumReputation").text(data[0].start);
+                if(data.length>0){
+                    $("#sumReputation").text(data[0].start);
+                }
+
 
             }
         });
@@ -360,6 +362,12 @@
             }
         })
     }
+
+    function gotoComment(id,status) {
+        if(status==='派送结束'){
+            goto('/commet.html?id='+id)
+        }
+    }
 </script>
 
 <!--消息中心模板-->
@@ -379,8 +387,9 @@
 
 <!--评分按钮-->
 <script type="text/html" id="bar">
-    <button type="button" class={{ d.status == '派送结束' ? '"layui-btn  layui-btn-xs"': '"layui-btn  layui-btn-xs layui-btn-disabled"' }} onclick="goto('/commet.html?id='+{{d.id}})">评分</button>
+    <button type="button" class={{ d.status == '派送结束' ? '"layui-btn  layui-btn-xs"': '"layui-btn  layui-btn-xs layui-btn-disabled"' }} onclick="gotoComment({{d.id}},'{{d.status}}')">评分</button>
 </script>
+
 
 </body>
 
