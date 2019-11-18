@@ -114,6 +114,18 @@
             },
             success:function (d) {
                     hit.innerText = d.message;
+                var count = 4;
+                var speed = 1000;
+                setTimeout(goIndexPage,speed);    //1秒钟之后执行goIndexPage函数
+                function goIndexPage(){
+                    count--;
+                    if(count <=0){
+                        window.location.href = "shop.html";  //js页面跳转
+                    }else{
+                        setTimeout(goIndexPage,speed);   //递归调用,自己调用自己
+                    }
+                }
+
                     hint();
             },
             error:function () {

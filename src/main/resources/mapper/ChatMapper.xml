@@ -19,7 +19,7 @@
        SELECT `user`.`name`,r.count,`user`.`username` from `user`
       INNER JOIN
       (SELECT COUNT(*) as count,sender FROM chat
-      WHERE addressee=#{username} AND status='n'
+      WHERE addressee=#{username}
       GROUP BY sender
       ) AS r
       on r.sender=`user`.username

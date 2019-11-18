@@ -278,7 +278,7 @@
             success: function (data) {
 
                 //这个地方报错
-               // $("#sumReputation").text(data[0].start);
+                //$("#sumReputation").text(data[0].start);
 
             }
         });
@@ -354,7 +354,7 @@
             <div class="subheading mb-3">来自 <span id="mymsg_name">{{item.name}}</span></div>
         </div>
         <div class="resume-date text-md-right">
-            <button class="layui-btn layui-btn-sm" onclick="gotoChat({{item.username}})" >回复消息</button>
+            <button class="layui-btn layui-btn-sm" onclick="gotoChat('{{item.username}}')" >回复消息</button>
         </div>
     </div>
     {{#  }); }}

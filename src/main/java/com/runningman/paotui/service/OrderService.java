@@ -38,6 +38,18 @@ public interface OrderService {
     List<OrderTitle> getAllOrderList(int page,int limit);
 
     /**
+     * 显示所有的订单列表，按金额降序
+     * @return
+     */
+    List<OrderTitle> getAllOrderListByReward(int page,int limit);
+
+    /**
+     * 显示所有的订单列表，按起始地分类
+     * @return
+     */
+    List<OrderTitle> getAllOrderListByBegin(int page,int limit);
+
+    /**
      * 用户查看自己发布的订单列表
      * @param page
      * @param limit
