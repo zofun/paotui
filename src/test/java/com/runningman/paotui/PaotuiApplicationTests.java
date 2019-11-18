@@ -103,8 +103,8 @@ class PaotuiApplicationTests {
         System.out.println(statusService.getStatusInfo(10));*/
         System.out.println(orderService.getOrderCount());
         System.out.println(orderService.getAllOrderList(1,100));
-        System.out.println(orderService.getUserOrders("2017",1,10));
-        System.out.println(orderService.getOrderStatus("2017"));
+        /*System.out.println(orderService.getUserOrders("2017",1,10));
+        System.out.println(orderService.getOrderStatus("2017"));*/
     }
 
 
