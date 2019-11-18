@@ -104,7 +104,11 @@
             };
             // 弹出用户打的分
             aLi[i].onmousedown = function () {
-                alert('提交成功:' + (this.index -2) + '分');
+                var hit = document.getElementById("hint").getElementsByTagName("p")[0];
+                // alert('提交成功:' + (this.index -2) + '分');
+                hit.innerText='提交成功:' + (this.index -2) + '分';
+                hint();
+                console.log("11111111");
             };
             //start则是后端得到的用户打得分
             start=this.index-2;
@@ -129,6 +133,16 @@
             }
         })
     };
+    /**
+     * 引用hint()在最上方弹出提示
+     */
+    var hit = document.getElementById("hint");
+    function hint() {
+        hit.style.display = "block";
+        setTimeout("hit.style.opacity = 1", 0);
+        setTimeout("hit.style.opacity = 0", 2000);
+        setTimeout('hit.style.display = "block"', 3000);
+    }
 
 </script>
 </html>
