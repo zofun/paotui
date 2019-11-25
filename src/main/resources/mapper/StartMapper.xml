@@ -11,7 +11,9 @@
 
 
     <select id="getUserStartCount" resultType="int">
-      select count(*) from `order` where delivery=#{username}
+        select count(*)
+        from `order` o inner join comment c on o.id=c.order_id
+        where o.delivery="2018"
     </select>
 
     <select id="SumUserStart" resultType="AuthInfo">
