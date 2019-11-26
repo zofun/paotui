@@ -1,6 +1,9 @@
 package com.runningman.paotui.service;
 
+import com.runningman.paotui.pojo.AuthInfo;
 import com.runningman.paotui.pojo.User;
+
+import java.util.List;
 
 public interface AuthService {
 
@@ -33,4 +36,11 @@ public interface AuthService {
      * @return
      */
     int getAuthStart(String user);
+
+    /**
+     * 根据用户名获取用户认证信息
+     * @param user
+     * @return
+     */
+    List<AuthInfo> getAuthInfo(String user);
 }

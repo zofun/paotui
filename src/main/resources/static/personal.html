@@ -106,14 +106,14 @@
             <div class="subheading mb-5"> ·用学生身份认证成为跑腿员 ·</div>
             <div class="login-box">
                 <form class="layui-form layui-form-pane" method="get" action="/auth/auth">
-                    <div class="layui-form-item">
+<!--                    <div class="layui-form-item">
                         <label class="layui-form-label">学校：</label>
 
                         <div class="layui-input-inline">
                             <input type="text" name="account" class="layui-input" lay-verify="school" placeholder="学校"
                                    autocomplete="on" maxlength="20"/>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="layui-form-item">
                         <label class="layui-form-label">姓名：</label>
 
@@ -234,12 +234,12 @@
     function submitAuthInfo() {
         var real_name = $('#real_name').val();
         var student_id = $('#student_id').val();
-        if (real_name === '' || student_id === '') {
+/*        if (real_name == "" || student_id == "") {
             layer.open({
                 title: '提示'
                 , content: '请填写完整的信息'
             });
-        }
+        }*/
         $.ajax({
             type: 'post',
             url: '/auth/auth',
@@ -284,7 +284,7 @@
             }
         });
 
-
+        //显示信誉总积分
         $.ajax({
             type: 'get',
             url: '/personal/getSumStart',
@@ -302,6 +302,25 @@
             }
         });
 
+        //显示用户认证信息
+        $.ajax({
+            type: 'get',
+            url: '/auth/getAuthInfo',
+            datatype: 'json',
+            /*            data:{
+                            username:username
+                        },*/
+            success: function (data) {
+                console.log(data);
+                alert(data);
+                if(data.length>0){
+                    document.getElementById("real_name").value=data[0].realName;
+                    document.getElementById("student_id").value=data[0].studentId;
+                }
+
+
+            }
+        });
 
         /*获取用户的当前订单状态*/
         $.ajax({

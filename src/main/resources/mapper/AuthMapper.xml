@@ -19,4 +19,10 @@
         select a.start from auth_info a
         where a.id = (select u.auth from user u where u.username=#{user})
     </select>
+
+    <select id="getAuthInfo" parameterType="String" resultType="AuthInfo">
+        select * from auth_info a
+        where a.id = (select u.auth from user u where u.username=#{user})
+    </select>
+
 </mapper>
