@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Auther: http://www.tanwei.com
  * @Date: 2019/11/7
@@ -22,5 +24,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void insertComment(Comment comment) {
         commentMapper.insertComment(comment);
+    }
+
+    @Override
+    public List<Comment> qurryCommentByOrder_Id(int order_id) {
+        return commentMapper.qurryCommentByOrder_Id(order_id);
     }
 }

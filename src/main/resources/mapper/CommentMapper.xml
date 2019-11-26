@@ -6,4 +6,8 @@
         INSERT INTO `comment`( `user`, `order_id`, `info`, `time`, `start`)
         VALUES (#{user},#{orderId},#{info},#{time},#{start})
     </insert>
+
+    <select id="qurryCommentByOrder_Id" parameterType="int" resultType="Comment">
+        select * from comment where order_id = #{order_id}
+    </select>
 </mapper>
