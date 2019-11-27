@@ -101,10 +101,15 @@ class PaotuiApplicationTests {
         System.out.println(orderService.getOrderInfo(16));
         System.out.println(userService.getUserAuth("1"));
         System.out.println(statusService.getStatusInfo(10));*/
-        System.out.println(orderService.getOrderCount());
-        System.out.println(orderService.getAllOrderList(1,100));
+        //System.out.println(orderService.getOrderCount());
+        //System.out.println(orderService.getAllOrderList(1,100));
         /*System.out.println(orderService.getUserOrders("2017",1,10));
         System.out.println(orderService.getOrderStatus("2017"));*/
+        System.out.println(userService.getUser("2018"));
+        System.out.println(userService.getUserAuthInfo("2018"));
+        System.out.println(userService.getUser("1111"));
+        userService.changeUserInfo("1111","小白","1111");
+        System.out.println(userService.getUser("1111"));
     }
 
 
