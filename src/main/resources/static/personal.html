@@ -130,7 +130,7 @@
                     </div>
                     <div class="layui-form-item">
                         <button type="reset" class="layui-btn layui-btn-danger btn-reset">重置</button>
-                        <button type="button" class="layui-btn btn-submit" lay-submit="" lay-filter="sub"
+                        <button type="button" class="layui-btn btn-submit" lay-submit="" lay-filter="sub" id="authButton"
                                 onclick="submitAuthInfo()">立即认证
                         </button>
                     </div>
@@ -252,6 +252,9 @@
                     title: '提示'
                     , content: d.message
                 });
+                setInterval(function() {
+                    window.location.href='/personal.html';
+                }, 2500);
 
             },
             error: function () {
@@ -311,11 +314,12 @@
                             username:username
                         },*/
             success: function (data) {
-                console.log(data);
-                alert(data);
                 if(data.length>0){
                     document.getElementById("real_name").value=data[0].realName;
                     document.getElementById("student_id").value=data[0].studentId;
+                    document.getElementById("authButton").disabled=true;
+                    $("#authButton").removeClass("layui-btn btn-submit");
+                    $("#authButton").addClass("layui-btn btn-submit layui-btn-disabled");
                 }
 
 
