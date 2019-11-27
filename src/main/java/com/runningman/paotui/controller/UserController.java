@@ -78,6 +78,20 @@ public class UserController {
         if(user == null){
             return new Result().fail("nologin","未登录",0);
         }else {
+            if(userService.getUserAuthInfo(user.getUsername())==null)
+            {
+                return new Result().success("认证信息",0,false);
+            }
+            return new Result().success("认证信息",0,true);
+        }
+    }
+
+    @RequestMapping(value = "getUserAuth",method = RequestMethod.GET)
+    public Result getUserAuth(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if(user == null){
+            return new Result().fail("nologin","未登录",0);
+        }else {
             return new Result().success("认证信息",0,userService.getUserAuthInfo(user.getUsername()));
         }
     }
