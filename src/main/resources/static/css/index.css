@@ -389,6 +389,7 @@ nav.navbar.navbar-expand-lg.navbar-light {
     top:290px;
     left: 12em;
     min-height: 160px;
+    min-width: max-content;
 }
 .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
     color:#000;
