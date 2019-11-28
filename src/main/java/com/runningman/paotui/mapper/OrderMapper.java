@@ -39,6 +39,22 @@ public interface OrderMapper {
     List<OrderTitle> getAllOrder(@Param("page") int page,@Param("limit") int limit);
 
     /**
+     * 显示所有的订单列表，按金额降序
+     * @param page
+     * @param limit
+     * @return
+     */
+    List<OrderTitle> getAllOrderByReward(@Param("page") int page,@Param("limit") int limit);
+
+    /**
+     * 显示所有的订单列表，按起始地分类
+     * @param page
+     * @param limit
+     * @return
+     */
+    List<OrderTitle> getAllOrderByBegin(@Param("page") int page,@Param("limit") int limit);
+
+    /**
      * 显示订单数
      * @return
      */

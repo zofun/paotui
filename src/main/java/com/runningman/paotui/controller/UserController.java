@@ -55,37 +55,51 @@ public class UserController {
     }
 
     @RequestMapping(value = "/getUserInfo",produces = "application/json;charset=utf-8")
-    public String checkUser(HttpSession session){
-        User user=(User)session.getAttribute("user");
-        Map<String,Object> result=new HashMap<>();
-        ObjectMapper mapper=new ObjectMapper();
-        String json= null;
-        if(user!=null){
-            User user1= this.userService.getUser(user.getUsername());
-            Map<String,Object> userList=new HashMap<>();
-            userList.put("username", user1.getUsername());
-            userList.put("name", user1.getName());
-
-            result.put("code",0 );
-            result.put("msg","已经登录" );
-            result.put("data", userList);
-            try {
-                json = mapper.writeValueAsString(result);
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-            return json;
+    public Result getUserInfo(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if(user == null){
+            return new Result().fail("nologin","未登录",0);
+        }else {
+            return new Result().success("用户信息",0,userService.getUser(user.getUsername()));
         }
-        else{
-            result.put("code",1006 );
-            result.put("msg","未登录" );
-            result.put("data", null);
-            try {
-                json = mapper.writeValueAsString(result);
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
+
+    }
+
+    @RequestMapping(value = "getUserInfoByUsername")
+    public Result getUserInfoByUsername(String username){
+        User user = userService.getUser(username);
+        user.setPassword("");
+        return  new Result().success("用户信息",0,user);
+    }
+
+    @RequestMapping(value = "getUserAuthInfo" ,method = RequestMethod.GET)
+    public Result getUserAuthInfo(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if(user == null){
+            return new Result().fail("nologin","未登录",0);
+        }else {
+            if(userService.getUserAuthInfo(user.getUsername())==null)
+            {
+                return new Result().success("认证信息",0,false);
             }
-            return json;
+            return new Result().success("认证信息",0,true);
         }
     }
+
+    @RequestMapping(value = "getUserAuth",method = RequestMethod.GET)
+    public Result getUserAuth(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if(user == null){
+            return new Result().fail("nologin","未登录",0);
+        }else {
+            return new Result().success("认证信息",0,userService.getUserAuthInfo(user.getUsername()));
+        }
+    }
+
+    @RequestMapping(value = "changeUserInfo",method = RequestMethod.POST)
+    public Result changeUserInfo(User user){
+        userService.changeUserInfo(user.getUsername(),user.getName(),user.getPassword());
+        return new Result().success("修改成功",0);
+    }
+
 }

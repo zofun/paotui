@@ -28,7 +28,7 @@
                 <span>
                     <form action="#">
                         <p class="form confirm"><input type="text" id="name" placeholder="用户名"></p>
-                        <p class="form"><input type="text" id="username" placeholder="邮箱/手机号"></p>
+                        <p class="form"><input type="text" id="username" placeholder="手机号"></p>
                         <p class="form"><input type="password" id="password" placeholder="密码"></p>
                         <input type="button" value="登录" class="btn" onclick="login()" style="margin-right: 20px;">
                         <input type="button" value="注册" class="btn" onclick='signin()' id="btn">
@@ -159,11 +159,19 @@
                 hit.innerText = "请输入登录账号（您的手机或者邮箱）";
                 hint();
                 return;
+            }else if(!(/^1[3456789]\d{9}$/.test(username))){
+                hit.innerText = "请输入有效的手机号";
+                hint();
+                return;
             } else if (password === '') {
                 hit.innerText = "请输入密码";
                 hint();
                 return;
-            } else {
+            }else if(password.length<6){
+                hit.innerText = "密码强度过低(密码不得少于6个字符)";
+                hint();
+                return;
+            }else {
                 //表单完整，进行注册
                 $.ajax({
                     type: "post",

@@ -66,12 +66,13 @@
                 <h3>当前的订单编号为: <span id="id"></span></h3>
             </div>
             <div id="pingfen">
-                <ul>
-                    <li>-2</li>
-                    <li>-1</li>
-                    <li>0</li>
-                    <li>1</li>
-                    <li>2</li>
+                <ul >
+                    <!--下次可以重构这段代码 lj-->
+                    <li onclick="makeCommit(-2)">-2</li>
+                    <li onclick="makeCommit(-1)">-1</li>
+                    <li onclick="makeCommit(0)">0</li>
+                    <li onclick="makeCommit(1)">1</li>
+                    <li onclick="makeCommit(2)">2</li>
                 </ul>
             </div>
         </div>
@@ -82,12 +83,13 @@
 <script src="js/common.js"></script>
 <script>
     // 星星特效
+    var id=0;
     window.onload = function () {
         var oPf = document.getElementById('pingfen');
         var aLi = oPf.getElementsByTagName('li');
-        var start=0;
+
         // 在界面上显示编号
-        var id = GetPar('id');
+         id = GetPar('id');
         $("#id").text(id);
         var i = 0;
         for (i = 0; i < aLi.length; i++) {
@@ -102,23 +104,20 @@
                     }
                 }
             };
-            // 弹出用户打的分
-            aLi[i].onmousedown = function () {
-                var hit = document.getElementById("hint").getElementsByTagName("p")[0];
-                // alert('提交成功:' + (this.index -2) + '分');
-                hit.innerText='提交成功:' + (this.index -2) + '分';
-                hint();
-                console.log("11111111");
-            };
-            //start则是后端得到的用户打得分
-            start=this.index-2;
+
         }
+
+    };
+
+
+    function makeCommit(start) {
         $.ajax({
             type: "post",
-            url: '/user/makeComment',
+            url: '/comment/makeComment',
             data: {
                 'start': start,
                 'id':id
+
             },
             success: function (d) {
                 //根据返回，进行下一步的处理
@@ -131,9 +130,15 @@
                     hit.innerText="评分失败";
                     hint();
                 }
+            },
+            error:function () {
+                hit.innerText="出错了";
+                hint();
             }
         })
-    };
+    }
+
+
     /**
      * 引用hint()在最上方弹出提示
      */
@@ -142,7 +147,7 @@
         hit.style.display = "block";
         setTimeout("hit.style.opacity = 1", 0);
         setTimeout("hit.style.opacity = 0", 2000);
-        setTimeout('hit.style.display = "block"', 3000);
+        setTimeout('hit.style.display = "none"', 3000);
     }
 
 </script>

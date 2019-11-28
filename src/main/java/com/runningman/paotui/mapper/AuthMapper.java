@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @Mapper
 public interface AuthMapper {
@@ -25,4 +27,6 @@ public interface AuthMapper {
      * @return
      */
     int getAuthStart(@Param("user") String user);
+
+    List<AuthInfo> getAuthInfo(@Param("user") String user);
 }

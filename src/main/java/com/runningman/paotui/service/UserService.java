@@ -1,5 +1,6 @@
 package com.runningman.paotui.service;
 
+import com.runningman.paotui.pojo.AuthInfo;
 import com.runningman.paotui.pojo.User;
 
 public interface UserService {
@@ -11,4 +12,8 @@ public interface UserService {
     boolean checkUser(User user);
 
     Integer getUserAuth(String username);
+
+    AuthInfo getUserAuthInfo(String username);
+
+    void changeUserInfo(String username,String name ,String password);
 }

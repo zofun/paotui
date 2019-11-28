@@ -16,4 +16,12 @@
     <select id="getUserAuth" parameterType="String" resultType="int">
         select auth from user where username = #{username}
     </select>
+
+    <select id="getUserAuthInfo" parameterType="String" resultType="AuthInfo">
+        select * from auth_info a where a.id = (select u.auth from user u where username = #{username})
+    </select>
+
+    <update id="changeUserInfo" >
+        update user set name = #{name},password = #{password} where username = #{username}
+    </update>
 </mapper>

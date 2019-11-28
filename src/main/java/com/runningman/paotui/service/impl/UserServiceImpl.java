@@ -1,6 +1,7 @@
 package com.runningman.paotui.service.impl;
 
 import com.runningman.paotui.mapper.UserMapper;
+import com.runningman.paotui.pojo.AuthInfo;
 import com.runningman.paotui.pojo.User;
 import com.runningman.paotui.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer getUserAuth(String username) {
         return userMapper.getUserAuth(username);
+    }
+
+    @Override
+    public AuthInfo getUserAuthInfo(String username) {
+        return userMapper.getUserAuthInfo(username);
+    }
+
+    @Override
+    public void changeUserInfo(String username, String name, String password) {
+        userMapper.changeUserInfo(username,name,password);
     }
 }

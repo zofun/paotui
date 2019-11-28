@@ -151,12 +151,18 @@
                     //禁用按钮一段时间，避免重复提交
                     var subBtn=$('#submitBtn');
                     subBtn.attr("disabled", true);
-                    var time=6;
+                    var time=3;
                     var hander=setInterval(function() {
                         if (time <= 0) {
                             clearInterval(hander); //清除倒计时
                             subBtn.text("提交");
                             subBtn.attr("disabled", false);
+                            hit.innerText="正在跳转首页...";
+                            hint();
+                            setInterval(function() {
+                                window.location.href='/index.html';
+                            }, 2000);
+
                             return false;
                         }else {
                             subBtn.text("" + (time--) + "秒后可用");

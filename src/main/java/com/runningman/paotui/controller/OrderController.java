@@ -122,6 +122,7 @@ public class OrderController {
         orderService.setDelivery(id,user.getUsername());
         statusService.changeStatusInfo("已接单",id);
         return new Result().success("接单成功，请及时完成",0,null);
+
     }
 
     @RequestMapping(value = "/getStatus",method = RequestMethod.GET)

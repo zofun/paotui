@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -52,5 +53,10 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public int getAuthStart(String user) {
         return authMapper.getAuthStart(user);
+    }
+
+    @Override
+    public List<AuthInfo> getAuthInfo(String user) {
+        return authMapper.getAuthInfo(user);
     }
 }

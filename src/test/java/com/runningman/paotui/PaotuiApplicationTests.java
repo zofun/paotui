@@ -4,6 +4,7 @@ import ch.qos.logback.core.net.SyslogOutputStream;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.runningman.paotui.mapper.OrderMapper;
+import com.runningman.paotui.pojo.ChatHistory;
 import com.runningman.paotui.pojo.Comment;
 import com.runningman.paotui.pojo.Order;
 import com.runningman.paotui.pojo.User;
@@ -46,6 +47,9 @@ class PaotuiApplicationTests {
 
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    private ChatService chatService;
 
     @Test
     void contextLoads() {
@@ -97,10 +101,15 @@ class PaotuiApplicationTests {
         System.out.println(orderService.getOrderInfo(16));
         System.out.println(userService.getUserAuth("1"));
         System.out.println(statusService.getStatusInfo(10));*/
-        System.out.println(orderService.getOrderCount());
-        System.out.println(orderService.getAllOrderList(1,100));
-        System.out.println(orderService.getUserOrders("2017",1,10));
-        System.out.println(orderService.getOrderStatus("2017"));
+        //System.out.println(orderService.getOrderCount());
+        //System.out.println(orderService.getAllOrderList(1,100));
+        /*System.out.println(orderService.getUserOrders("2017",1,10));
+        System.out.println(orderService.getOrderStatus("2017"));*/
+        System.out.println(userService.getUser("2018"));
+        System.out.println(userService.getUserAuthInfo("2018"));
+        System.out.println(userService.getUser("1111"));
+        userService.changeUserInfo("1111","小白","1111");
+        System.out.println(userService.getUser("1111"));
     }
 
 
@@ -124,7 +133,14 @@ class PaotuiApplicationTests {
         //authService.changeAuthStart("1",-2);
 
        // System.out.println(authService.getAuthStart("1"));
+        System.out.println(commentService.qurryCommentByOrder_Id(1));
     }
 
-
+    @Test
+    public void chatTest(){
+        List<ChatHistory> histories = chatService.getChatHistory("2018","2017");
+        for(ChatHistory c:histories){
+            System.out.println(c.toString());
+        }
+    }
 }
