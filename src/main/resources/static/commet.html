@@ -117,14 +117,15 @@
             type: "post",
             url: '/user/makeComment',
             data: {
-                start: start,
-                id:id
+                'start': start,
+                'id':id
             },
             success: function (d) {
                 //根据返回，进行下一步的处理
                 if (d.data === 'ok') {
                     hit.innerText="评分成功";
                     hint();
+                    window.location.href='personal.html'
                 }
                 else {
                     hit.innerText="评分失败";

@@ -13,14 +13,11 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/resume.css" rel="stylesheet">
     <link rel="stylesheet" href="libs/layui/css/layui.css">
-    <!--<link rel="stylesheet" href="css/login.css">-->
-    <!--<link rel="stylesheet" href="css/makeorder.css">-->
-
 </head>
 
 <body id="page-top">
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-    <a class="navbar-brand js-scroll-trigger" href="/index.html">
+    <a class="navbar-brand js-scroll-trigger" href="/index.html" title="返回主页">
         <span class="d-none d-lg-block">
           <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="images/profile.jpg" alt="">
         </span>
@@ -41,6 +38,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="#mine">认证成为跑腿员</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#myinfo">个人信息</a>
             </li>
 
         </ul>
@@ -83,8 +83,6 @@
             </div>
 
             <!--消息结束-->
-
-
 
         </div>
 
@@ -146,6 +144,58 @@
             </div>
         </div>
     </section>
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="myinfo">
+        <div class="my-auto">
+            <h1 class="mb-0">信息
+                <span class="text-primary">information</span>
+            </h1>
+            <br>
+            <br>
+        </div>
+            <div class="resume-item d-flex flex-column flex-md-row mb-5">
+                <form class="layui-form" >
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">用户名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name=""  autocomplete="off" class="layui-input" id="myinfo_name">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">账号</label>
+                        <div class="layui-input-block">
+                            <input type="text" name=""  autocomplete="off" class="layui-input" id="myinfo_username" readonly="readonly">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">身份</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" id="shenfenuser" title="用户" checked disabled="disabled">
+                            <input type="checkbox" id="shenfenrunman" title="跑腿员" disabled="disabled" >
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">当前密码</label>
+                        <div class="layui-input-block">
+                            <input type="text" name=""  autocomplete="off" class="layui-input" id="myinfo_password">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">修改密码</label>
+                        <div class="layui-input-block">
+                            <input type="text" name=""  autocomplete="off" class="layui-input" id="myinfo_passwordchange">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit lay-filter="*" onclick="change()">立即提交</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+        </section>
 
 
 </div>
@@ -156,7 +206,6 @@
 
 <!-- Plugin JavaScript -->
 <script src="js/jquery.easing.min.js"></script>
-
 <!-- Custom scripts for this template -->
 <script src="js/resume.js"></script>
 <script src="libs/layui/layui.js"></script>
@@ -292,15 +341,59 @@
 
     });
 
+    // 获取数据个人信息显示在页面上
+    $.ajax({
+        type:'get',
+        url:'/user/getUserInfo',
+        success:function (d) {
+            if (d.code === 0) {
+                $('#myinfo_name').value(d.data.name);
+                $('#myinfo_username').value(d.data.username);
+                $('#myinfo_password').value(d.data.password);
+            } else {
+                alert("获取个人信息失败")
+            }
+        }
 
-
-
+    });
+    //用户修改信息
+    function change() {
+        var name=$("#myinfo_name").val();
+        var username=$("#myinfo_username").val();
+        var passwordchanege=$("#myinfo_passwordchange").val();
+        $.ajax({
+            type: "post",
+            url: '/user/changeUserInfo',
+            data: {
+                'name': name,
+                'username': username,
+                'password':passwordchanege,
+            },
+        })
+    }
+    // 修改用户身份,如果用户认证是跑腿员，则跑腿员复选框打勾勾
+    $(document).ready(function () {
+        var message=true;
+        $.ajax({
+            type:'get',
+            url:'user/getUserAuthInfo',
+            data:{meseage: message},
+            success:function () {
+                if (message)
+                {
+                    $('#shenfenrunman').attr("checked", true); //注意这里使用的是attr()
+                    layui.form.render();
+                }
+            }
+        })
+    })
 
 
     function gotoChangeOrderStatus() {
         if(orderId!=-1){
             goto('/status.html?orderId='+orderId+"&status="+orderStatus);
         }
+
 
     }
 </script>
