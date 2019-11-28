@@ -58,7 +58,7 @@ public class UserController {
     public Result getUserInfo(HttpSession session){
         User user = (User) session.getAttribute("user");
         if(user == null){
-            return new Result().fail("nologin","未登录",0);
+            return new Result().fail("nologin","未登录",1006);
         }else {
             return new Result().success("用户信息",0,userService.getUser(user.getUsername()));
         }

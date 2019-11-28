@@ -74,6 +74,7 @@
 
                 <!--消息结束-->
             </div>
+        </div>
 
 
     </section>
@@ -146,24 +147,24 @@
             <br>
         </div>
             <div class="resume-item d-flex flex-column flex-md-row mb-5">
-                <form class="layui-form" >
+                <form class="layui-form" lay-filter="userInfoForm" >
                     <div class="layui-form-item">
                         <label class="layui-form-label">用户名</label>
                         <div class="layui-input-block">
-                            <input type="text" name=""  autocomplete="off" class="layui-input" id="myinfo_name">
+                            <input type="text" name="name"  autocomplete="off" class="layui-input" id="myinfo_name">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">账号</label>
                         <div class="layui-input-block">
-                            <input type="text" name=""  autocomplete="off" class="layui-input" id="myinfo_username" readonly="readonly">
+                            <input type="text" name="username"  autocomplete="off" class="layui-input" id="myinfo_username" readonly="readonly">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">身份</label>
                         <div class="layui-input-block">
-                            <input type="checkbox" id="shenfenuser" title="用户" checked disabled="disabled">
-                            <input type="checkbox" id="shenfenrunman" title="跑腿员" disabled="disabled" >
+                            <input type="radio" name="auth" title="用户"  value="user">
+                            <input type="radio" name="auth" title="跑腿员" value="paotui" >
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -206,11 +207,13 @@
 <script>
 
     var layer;
+    var form;
     // 订单部分的js
-    layui.use(['table', 'layer', 'laytpl'], function () {
+    layui.use(['table', 'layer', 'laytpl','form'], function () {
         var table = layui.table;
         layer = layui.layer;
          laytpl = layui.laytpl;
+         form =layui.form;
 
         table.render({
             elem: '#demo'
@@ -324,7 +327,7 @@
     //若未登录，点击个人中心重新跳转回登录页面
     $(document).ready(function () {
 
-        /*获取用户信息*/
+       /* /!*获取用户信息*!/
         $.ajax({
             type: 'get',
             url: '/user/getUserInfo',
@@ -335,7 +338,7 @@
                     window.location.href = "login.html";
                 }
             }
-        });
+        });*/
 
         //显示信誉总积分
         $.ajax({
@@ -347,7 +350,7 @@
                         },*/
             success: function (data) {
 
-                if(data.length>0){
+                if (data.length > 0) {
                     $("#sumReputation").text(data[0].start);
                 }
 
@@ -364,10 +367,10 @@
                             username:username
                         },*/
             success: function (data) {
-                if(data.length>0){
-                    document.getElementById("real_name").value=data[0].realName;
-                    document.getElementById("student_id").value=data[0].studentId;
-                    document.getElementById("authButton").disabled=true;
+                if (data.length > 0) {
+                    document.getElementById("real_name").value = data[0].realName;
+                    document.getElementById("student_id").value = data[0].studentId;
+                    document.getElementById("authButton").disabled = true;
                     $("#authButton").removeClass("layui-btn btn-submit");
                     $("#authButton").addClass("layui-btn btn-submit layui-btn-disabled");
                 }
@@ -395,95 +398,103 @@
         });
 
 
-    // 获取数据个人信息显示在页面上
-    $.ajax({
-        type:'get',
-        url:'/user/getUserInfo',
-        success:function (d) {
-            if (d.code === 0) {
-                $('#myinfo_name').value(d.data.name);
-                $('#myinfo_username').value(d.data.username);
-                $('#myinfo_password').value(d.data.password);
-            } else {
-                alert("获取个人信息失败")
+        // 获取数据个人信息显示在页面上
+        $.ajax({
+            type: 'get',
+            url: '/user/getUserInfo',
+            success: function (d) {
+                if (d.code === 0) {
+                    form.val("userInfoForm",{
+                        "name":d.data.name,
+                        "username":d.data.username,
+                        "auth":d.data.auth==null?'用户':'跑腿员'
+                    }) ;
+                    form.render()
+
+                } else {
+                    window.location.href="login.html";
+                }
             }
-        }
+
+        });
 
     });
 
-    //用户修改信息
-    function change() {
-        var name=$("#myinfo_name").val();
-        var username=$("#myinfo_username").val();
-        var passwordchanege=$("#myinfo_passwordchange").val();
-        $.ajax({
-            type: "post",
-            url: '/user/changeUserInfo',
-            data: {
-                'name': name,
-                'username': username,
-                'password':passwordchanege,
-            },
-        })
-    }
-    // 修改用户身份,如果用户认证是跑腿员，则跑腿员复选框打勾勾
-    $(document).ready(function () {
-        var message=true;
-        $.ajax({
-            type:'get',
-            url:'user/getUserAuthInfo',
-            data:{meseage: message},
-            success:function () {
-                if (message)
-                {
-                    $('#shenfenrunman').attr("checked", true); //注意这里使用的是attr()
-                    layui.form.render();
+        //用户修改信息
+        function change() {
+            var name = $("#myinfo_name").val();
+            var username = $("#myinfo_username").val();
+            var passwordchanege = $("#myinfo_passwordchange").val();
+            $.ajax({
+                type: "post",
+                url: '/user/changeUserInfo',
+                data: {
+                    'name': name,
+                    'username': username,
+                    'password': passwordchanege,
+                },
+            })
+        }
+
+        // 修改用户身份,如果用户认证是跑腿员，则跑腿员复选框打勾勾
+        $(document).ready(function () {
+            var message = true;
+            $.ajax({
+                type: 'get',
+                url: 'user/getUserAuthInfo',
+                data: {meseage: message},
+                success: function () {
+                    if (message) {
+                        $('#shenfenrunman').attr("checked", true); //注意这里使用的是attr()
+                        layui.form.render();
+                    }
                 }
+            })
+        });
+
+
+        function gotoChangeOrderStatus() {
+            if (orderId != -1) {
+                goto('/status.html?orderId=' + orderId + "&status=" + orderStatus);
             }
-        })
-    })
-
-
-    function gotoChangeOrderStatus() {
-        if (orderId != -1) {
-            goto('/status.html?orderId=' + orderId + "&status=" + orderStatus);
         }
-    }
 
-    /**
-     * 跳转到聊天
-     * @param targetUsername
-     */
-    function gotoChat(targetUsername) {
-        if(userInfo==null){
-            return;
-        }
-        //更改消息的状态
-        chatMsgStats(targetUsername,userInfo.username);
-        goto('/chat.html?username='+userInfo.username+"&targetUsername="+targetUsername+"&state=l")
-
-    }
-
-    /**
-     * 更改消息的状态为已读
-     * @param username
-     * @param targetUsername
-     */
-    function chatMsgStats(username,targetUsername) {
-        $.ajax({
-            type:'post',
-            url:'/chat/changeMsgState',
-            data:{
-                username:username,
-                targetUsername:targetUsername
+        /**
+         * 跳转到聊天
+         * @param targetUsername
+         */
+        function gotoChat(targetUsername) {
+            if (userInfo == null) {
+                return;
             }
-        })
-    }
+            //更改消息的状态
+            chatMsgStats(targetUsername, userInfo.username);
+            goto('/chat.html?username=' + userInfo.username + "&targetUsername=" + targetUsername + "&state=l")
 
-    function gotoComment(id,status) {
-        if(status==='派送结束'){
-            goto('/commet.html?id='+id)
         }
+
+        /**
+         * 更改消息的状态为已读
+         * @param username
+         * @param targetUsername
+         */
+        function chatMsgStats(username, targetUsername) {
+            $.ajax({
+                type: 'post',
+                url: '/chat/changeMsgState',
+                data: {
+                    username: username,
+                    targetUsername: targetUsername
+                }
+            })
+        }
+
+        function gotoComment(id, status) {
+            if (status === '派送结束') {
+                goto('/commet.html?id=' + id)
+            }
+        }
+
 
 </script>
 
