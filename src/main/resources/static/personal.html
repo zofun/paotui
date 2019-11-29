@@ -106,14 +106,14 @@
             <div class="subheading mb-5"> ·用学生身份认证成为跑腿员 ·</div>
             <div class="login-box">
                 <form class="layui-form layui-form-pane" method="get" action="/auth/auth">
-<!--                    <div class="layui-form-item">
-                        <label class="layui-form-label">学校：</label>
+                    <!--                    <div class="layui-form-item">
+                                            <label class="layui-form-label">学校：</label>
 
-                        <div class="layui-input-inline">
-                            <input type="text" name="account" class="layui-input" lay-verify="school" placeholder="学校"
-                                   autocomplete="on" maxlength="20"/>
-                        </div>
-                    </div>-->
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="account" class="layui-input" lay-verify="school" placeholder="学校"
+                                                       autocomplete="on" maxlength="20"/>
+                                            </div>
+                                        </div>-->
                     <div class="layui-form-item">
                         <label class="layui-form-label">姓名：</label>
 
@@ -130,7 +130,8 @@
                     </div>
                     <div class="layui-form-item">
                         <button type="reset" class="layui-btn layui-btn-danger btn-reset">重置</button>
-                        <button type="button" class="layui-btn btn-submit" lay-submit="" lay-filter="sub" id="authButton"
+                        <button type="button" class="layui-btn btn-submit" lay-submit="" lay-filter="sub"
+                                id="authButton"
                                 onclick="submitAuthInfo()">立即认证
                         </button>
                     </div>
@@ -146,50 +147,52 @@
             <br>
             <br>
         </div>
-            <div class="resume-item d-flex flex-column flex-md-row mb-5">
-                <form class="layui-form" lay-filter="userInfoForm" >
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">用户名</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="name"  autocomplete="off" class="layui-input" id="myinfo_name">
-                        </div>
+        <div class="resume-item d-flex flex-column flex-md-row mb-5">
+            <form class="layui-form" lay-filter="userInfoForm">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" autocomplete="off" class="layui-input" id="myinfo_name">
                     </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">账号</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="username"  autocomplete="off" class="layui-input" id="myinfo_username" readonly="readonly">
-                        </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">账号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="username" autocomplete="off" class="layui-input" id="myinfo_username"
+                               readonly="readonly">
                     </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">身份</label>
-                        <div class="layui-input-block">
-                            <input type="radio" name="auth" title="用户"  value="user">
-                            <input type="radio" name="auth" title="跑腿员" value="paotui" >
-                        </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">身份</label>
+                    <div class="layui-input-block">
+
+                        <input type="checkbox" name="auth[user]" title="用户" >
+                        <input type="checkbox" name="auth[paotui]" title="跑腿员">
                     </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">当前密码</label>
-                        <div class="layui-input-block">
-                            <input type="text" name=""  autocomplete="off" class="layui-input" id="myinfo_password">
-                        </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">当前密码</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" autocomplete="off" class="layui-input" id="myinfo_password">
                     </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">修改密码</label>
-                        <div class="layui-input-block">
-                            <input type="text" name=""  autocomplete="off" class="layui-input" id="myinfo_passwordchange">
-                        </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">修改密码</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" autocomplete="off" class="layui-input" id="myinfo_passwordchange">
                     </div>
-                    <div class="layui-form-item">
-                        <div class="layui-input-block">
-                            <button class="layui-btn" lay-submit lay-filter="*" onclick="change()">立即提交</button>
-                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                        </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="*" onclick="change()">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
+        </div>
 
 
-        </section>
+    </section>
 
 
 </div>
@@ -208,153 +211,22 @@
 
     var layer;
     var form;
-    // 订单部分的js
-    layui.use(['table', 'layer', 'laytpl','form'], function () {
-        var table = layui.table;
-        layer = layui.layer;
-         laytpl = layui.laytpl;
-         form =layui.form;
-
-        table.render({
-            elem: '#demo'
-            , height: 350
-            , url: 'order/getUserOrders' //数据接口
-            , page: true //开启分页
-            , cols: [[ //表头
-                {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'}
-                , {field: 'title', title: '订单内容', width: 177}
-                , {field: 'begin', title: '起点', width: 80, sort: true}
-                , {field: 'end', title: '目的地', width: 80}
-                // 订单类型为发布订单方和接受订单方两个
-                , {field: 'status', title: '订单状态', width: 120}
-                , {field: 'reward', title: '酬金', width: 80, sort: true}
-                ,{title:'评分', width:80, templet: '#bar', unresize: true}
-            ]]
-        });
-
-        //监听评分按钮
-        table.on('tool(demo)', function(obj){
-            var data = obj.data;
-            if(obj.event === 'comment'){
-                layer.msg('ID：'+ data.id + ' 的查看操作');
-            } else if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    obj.del();
-                    layer.close(index);
-                });
-            } else if(obj.event === 'edit'){
-                layer.alert('编辑行：<br>'+ JSON.stringify(data))
-            }
-        });
-
-
-        //获取留言记录
-        $.ajax({
-            type: 'get',
-            url: '/chat/getMsgList',
-            success: function (d) {
-                var Tpl = tpl.innerHTML;
-                var view = document.getElementById('view');
-                laytpl(Tpl).render(d, function (html) {
-                    view.innerHTML = html;
-                });
-            }
-        })
-    });
-
-    // 信誉部分的js
-    layui.use('table', function () {
-        var table = layui.table;
-        table.render({
-            elem: '#demo1'
-            , height: 312
-            , url: '/personal/getUserStart' //数据接口
-            , page: true //开启分页
-            , cols: [[ //表头
-                {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'}
-                , {field: 'title', title: '订单内容', width: 120}
-                , {field: 'time', title: '时间', width: 80, sort: true}
-                , {field: 'reward', title: '酬金', width: 80, sort: true}
-                , {field: 'start', title: '评分', width: 100, sort: true}
-
-            ]]
-        });
-    });
-
-
-    // 认证成为跑腿员部分js
-
-    function submitAuthInfo() {
-        var real_name = $('#real_name').val();
-        var student_id = $('#student_id').val();
-/*        if (real_name == "" || student_id == "") {
-            layer.open({
-                title: '提示'
-                , content: '请填写完整的信息'
-            });
-        }*/
-        $.ajax({
-            type: 'post',
-            url: '/auth/auth',
-            data: {
-                real_name: real_name,
-                student_id: student_id
-            },
-            success: function (d) {
-                layer.open({
-                    title: '提示'
-                    , content: d.message
-                });
-                setInterval(function() {
-                    window.location.href='/personal.html';
-                }, 2500);
-
-            },
-            error: function () {
-                layer.open({
-                    title: '提示'
-                    , content: '网络错误'
-                });
-            }
-        });
-
-
-    }
 
 
 
-
-    //若未登录，点击个人中心重新跳转回登录页面
+    /*各种页面加载完成后要执行的js开始*/
     $(document).ready(function () {
 
-       /* /!*获取用户信息*!/
-        $.ajax({
-            type: 'get',
-            url: '/user/getUserInfo',
-            success: function (d) {
-                if (d.code === 0) {
-                    userInfo = d.data;
-                } else {
-                    window.location.href = "login.html";
-                }
-            }
-        });*/
 
         //显示信誉总积分
         $.ajax({
             type: 'get',
             url: '/personal/getSumStart',
             datatype: 'json',
-            /*            data:{
-                            username:username
-                        },*/
             success: function (data) {
-
                 if (data.length > 0) {
                     $("#sumReputation").text(data[0].start);
                 }
-
-
             }
         });
 
@@ -363,9 +235,6 @@
             type: 'get',
             url: '/auth/getAuthInfo',
             datatype: 'json',
-            /*            data:{
-                            username:username
-                        },*/
             success: function (data) {
                 if (data.length > 0) {
                     document.getElementById("real_name").value = data[0].realName;
@@ -374,8 +243,6 @@
                     $("#authButton").removeClass("layui-btn btn-submit");
                     $("#authButton").addClass("layui-btn btn-submit layui-btn-disabled");
                 }
-
-
             }
         });
 
@@ -397,6 +264,63 @@
 
         });
 
+    });
+    /*各种页面加载完成后要执行的js结束*/
+
+
+   /*各种layui相关的脚本开始*/
+    layui.use(['table', 'layer', 'laytpl', 'form'], function () {
+        var table = layui.table;
+        layer = layui.layer;
+        laytpl = layui.laytpl;
+        form = layui.form;
+
+        table.render({
+            elem: '#demo'
+            , height: 350
+            , url: 'order/getUserOrders' //数据接口
+            , page: true //开启分页
+            , cols: [[ //表头
+                {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'}
+                , {field: 'title', title: '订单内容', width: 177}
+                , {field: 'begin', title: '起点', width: 80, sort: true}
+                , {field: 'end', title: '目的地', width: 80}
+                // 订单类型为发布订单方和接受订单方两个
+                , {field: 'status', title: '订单状态', width: 120}
+                , {field: 'reward', title: '酬金', width: 80, sort: true}
+                , {title: '评分', width: 80, templet: '#bar', unresize: true}
+            ]]
+        });
+
+        //监听评分按钮
+        table.on('tool(demo)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'comment') {
+                layer.msg('ID：' + data.id + ' 的查看操作');
+            } else if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if (obj.event === 'edit') {
+                layer.alert('编辑行：<br>' + JSON.stringify(data))
+            }
+        });
+
+
+        //获取留言记录
+        $.ajax({
+            type: 'get',
+            url: '/chat/getMsgList',
+            success: function (d) {
+                var Tpl = tpl.innerHTML;
+                var view = document.getElementById('view');
+                laytpl(Tpl).render(d, function (html) {
+                    view.innerHTML = html;
+                });
+            }
+        })
+
 
         // 获取数据个人信息显示在页面上
         $.ajax({
@@ -404,15 +328,18 @@
             url: '/user/getUserInfo',
             success: function (d) {
                 if (d.code === 0) {
-                    form.val("userInfoForm",{
-                        "name":d.data.name,
-                        "username":d.data.username,
-                        "auth":d.data.auth==null?'用户':'跑腿员'
-                    }) ;
+                    form.val("userInfoForm", {
+                        "name": d.data.name,
+                        "username": d.data.username,
+                        "auth[user]":d.data.auth==null?true:false,
+                        "auth[paotui]":d.data.auth!=null?true:false
+                    });
+                   /* $("input[name=auth][value='user']").attr("checked", d.data.auth == null ? true : false);
+                    $("input[name=auth][value='paotui']").attr("checked", d.data.auth != null ? true : false);*/
                     form.render()
 
                 } else {
-                    window.location.href="login.html";
+                    window.location.href = "login.html";
                 }
             }
 
@@ -420,80 +347,128 @@
 
     });
 
-        //用户修改信息
-        function change() {
-            var name = $("#myinfo_name").val();
-            var username = $("#myinfo_username").val();
-            var passwordchanege = $("#myinfo_passwordchange").val();
-            $.ajax({
-                type: "post",
-                url: '/user/changeUserInfo',
-                data: {
-                    'name': name,
-                    'username': username,
-                    'password': passwordchanege,
-                },
-            })
-        }
+    // 信誉部分的js
+    layui.use('table', function () {
+        var table = layui.table;
+        table.render({
+            elem: '#demo1'
+            , height: 312
+            , url: '/personal/getUserStart' //数据接口
+            , page: true //开启分页
+            , cols: [[ //表头
+                {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'}
+                , {field: 'title', title: '订单内容', width: 120}
+                , {field: 'time', title: '时间', width: 80, sort: true}
+                , {field: 'reward', title: '酬金', width: 80, sort: true}
+                , {field: 'start', title: '评分', width: 100, sort: true}
 
-        // 修改用户身份,如果用户认证是跑腿员，则跑腿员复选框打勾勾
-        $(document).ready(function () {
-            var message = true;
-            $.ajax({
-                type: 'get',
-                url: 'user/getUserAuthInfo',
-                data: {meseage: message},
-                success: function () {
-                    if (message) {
-                        $('#shenfenrunman').attr("checked", true); //注意这里使用的是attr()
-                        layui.form.render();
-                    }
-                }
-            })
+            ]]
+        });
+    });
+
+    /*各种layui相关的脚本结束*/
+
+/*下面是各种方法实现*/
+
+    //用户修改信息
+    function change() {
+        var name = $("#myinfo_name").val();
+        var username = $("#myinfo_username").val();
+        var passwordchanege = $("#myinfo_passwordchange").val();
+        $.ajax({
+            type: "post",
+            url: '/user/changeUserInfo',
+            data: {
+                'name': name,
+                'username': username,
+                'password': passwordchanege
+            }
+        })
+    }
+
+
+    function gotoChangeOrderStatus() {
+        if (orderId != -1) {
+            goto('/status.html?orderId=' + orderId + "&status=" + orderStatus);
+        }
+    }
+
+    /**
+     * 跳转到聊天
+     * @param targetUsername
+     */
+    function gotoChat(targetUsername) {
+        if (userInfo == null) {
+            return;
+        }
+        //更改消息的状态
+        chatMsgStats(targetUsername, userInfo.username);
+        goto('/chat.html?username=' + userInfo.username + "&targetUsername=" + targetUsername + "&state=l")
+
+    }
+
+    /**
+     * 更改消息的状态为已读
+     * @param username
+     * @param targetUsername
+     */
+    function chatMsgStats(username, targetUsername) {
+        $.ajax({
+            type: 'post',
+            url: '/chat/changeMsgState',
+            data: {
+                username: username,
+                targetUsername: targetUsername
+            }
+        })
+    }
+
+    function gotoComment(id, status) {
+        if (status === '派送结束') {
+            goto('/commet.html?id=' + id)
+        }
+    }
+
+
+    // 认证成为跑腿员部分js
+
+    function submitAuthInfo() {
+        var real_name = $('#real_name').val();
+        var student_id = $('#student_id').val();
+        /*        if (real_name == "" || student_id == "") {
+                    layer.open({
+                        title: '提示'
+                        , content: '请填写完整的信息'
+                    });
+                }*/
+        $.ajax({
+            type: 'post',
+            url: '/auth/auth',
+            data: {
+                real_name: real_name,
+                student_id: student_id
+            },
+            success: function (d) {
+                layer.open({
+                    title: '提示'
+                    , content: d.message
+                });
+                setInterval(function () {
+                    window.location.href = '/personal.html';
+                }, 2500);
+
+            },
+            error: function () {
+                layer.open({
+                    title: '提示'
+                    , content: '网络错误'
+                });
+            }
         });
 
 
-        function gotoChangeOrderStatus() {
-            if (orderId != -1) {
-                goto('/status.html?orderId=' + orderId + "&status=" + orderStatus);
-            }
-        }
+    }
 
-        /**
-         * 跳转到聊天
-         * @param targetUsername
-         */
-        function gotoChat(targetUsername) {
-            if (userInfo == null) {
-                return;
-            }
-            //更改消息的状态
-            chatMsgStats(targetUsername, userInfo.username);
-            goto('/chat.html?username=' + userInfo.username + "&targetUsername=" + targetUsername + "&state=l")
-
-        }
-
-        /**
-         * 更改消息的状态为已读
-         * @param username
-         * @param targetUsername
-         */
-        function chatMsgStats(username, targetUsername) {
-            $.ajax({
-                type: 'post',
-                url: '/chat/changeMsgState',
-                data: {
-                    username: username,
-                    targetUsername: targetUsername
-                }
-            })
-        }
-
-        function gotoComment(id, status) {
-            if (status === '派送结束') {
-                goto('/commet.html?id=' + id)
-            }
-        }
 
 
 </script>
@@ -507,7 +482,7 @@
             <div class="subheading mb-3">来自 <span id="mymsg_name">{{item.name}}</span></div>
         </div>
         <div class="resume-date text-md-right">
-            <button class="layui-btn layui-btn-sm" onclick="gotoChat('{{item.username}}')" >回复消息</button>
+            <button class="layui-btn layui-btn-sm" onclick="gotoChat('{{item.username}}')">回复消息</button>
         </div>
     </div>
     {{#  }); }}
@@ -515,7 +490,8 @@
 
 <!--评分按钮-->
 <script type="text/html" id="bar">
-    <button type="button" class={{ d.status == '派送结束' ? '"layui-btn  layui-btn-xs"': '"layui-btn  layui-btn-xs layui-btn-disabled"' }} onclick="gotoComment({{d.id}},'{{d.status}}')">评分</button>
+    <button type="button" class={{
+            d.status== '派送结束' ? '"layui-btn  layui-btn-xs"': '"layui-btn  layui-btn-xs layui-btn-disabled"' }} onclick="gotoComment({{d.id}},'{{d.status}}')">评分</button>
 </script>
 
 
