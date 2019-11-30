@@ -110,6 +110,7 @@ class PaotuiApplicationTests {
         System.out.println(userService.getUser("1111"));
         userService.changeUserInfo("1111","小白","1111");
         System.out.println(userService.getUser("1111"));
+        System.out.println(commentService.qurryCommentByOrder_Id(96));
     }
 
 

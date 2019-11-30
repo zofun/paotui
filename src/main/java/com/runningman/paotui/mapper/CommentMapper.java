@@ -27,5 +27,5 @@ public interface CommentMapper {
      * @param order_id
      * @return
      */
-    List<Comment> qurryCommentByOrder_Id(@Param("order_id") int order_id);
+    Comment qurryCommentByOrder_Id(@Param("order_id") int order_id);
 }
