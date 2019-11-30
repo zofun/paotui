@@ -52,9 +52,10 @@
         <div class="container">
             <span class="top-left"><a href="index.html"><i class="flaticon-hotel"></i>&nbsp;&nbsp;首页</a></span>
             <div class="top-right-text">
-               <span><a href="login.html" class="nav-link">
-                   <i class="flaticon-logout"></i>&nbsp;&nbsp;登录
+                <span onclick="loginOrLoginOut()"><a href="#" class="nav-link" >
+                   <i class="flaticon-logout"></i>&nbsp;&nbsp;<i id="textarea">登录</i>
                </a></span>
+
                 <span class=""><a href="personal.html" class="nav-link link-color">
                    <i class="flaticon-user"></i>&nbsp;&nbsp;个人中心
                </a></span>
@@ -85,6 +86,7 @@
 </body>
 <script src="libs/jquery-2.1.4/jquery.js"></script>
 <script src="js/common.js"></script>
+<script src="js/LoginAndLoginOut.js"></script>
 <script>
     var orderId;
     $(document).ready(function () {

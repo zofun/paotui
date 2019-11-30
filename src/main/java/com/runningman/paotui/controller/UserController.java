@@ -102,4 +102,10 @@ public class UserController {
         return new Result().success("修改成功",0);
     }
 
+    @RequestMapping(value = "loginOut")
+    public Result loginOut(HttpSession session){
+        session.removeAttribute("user");
+        return new Result().success();
+    }
+
 }
