@@ -22,5 +22,5 @@ public interface CommentService {
      * @param order_id
      * @return
      */
-    List<Comment> qurryCommentByOrder_Id(int order_id);
+    Comment qurryCommentByOrder_Id(int order_id);
 }

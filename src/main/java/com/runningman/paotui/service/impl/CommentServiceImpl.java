@@ -27,7 +27,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> qurryCommentByOrder_Id(int order_id) {
+    public Comment qurryCommentByOrder_Id(int order_id) {
         return commentMapper.qurryCommentByOrder_Id(order_id);
     }
 }

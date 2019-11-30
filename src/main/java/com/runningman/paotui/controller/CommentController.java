@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Auther: http://www.tanwei.com
@@ -32,13 +33,14 @@ public class CommentController {
     private AuthService authService;
 
     @RequestMapping(value = "makeComment",method = RequestMethod.POST)
-    public Result makeComment(Comment comment, HttpSession session) {
+    public Result makeComment(int start ,int id, HttpSession session) {
         User user = (User)session.getAttribute("user");
         if(user==null){
             return new Result().fail("nologin","未登录",0);
         }
 
-        if(commentService.qurryCommentByOrder_Id(comment.getOrderId())==null){
+        Comment comment1 = commentService.qurryCommentByOrder_Id(id);
+        if(comment1==null){
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date time = null;
             try {
@@ -46,6 +48,9 @@ public class CommentController {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+            Comment comment = new Comment();
+            comment.setOrderId(id);
+            comment.setStart(start);
             comment.setTime(time);
             comment.setUser(user.getUsername());
             comment.setInfo("评分"+comment.getStart());
