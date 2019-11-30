@@ -58,9 +58,10 @@
                 <textarea id="info"> </textarea>
                 <h4>订单截止时间</h4>
                 <input type="text" id="endtime">
+
+                </form>
                 <button onclick="submitOrder()" id="submitBtn">提交</button>
                 <button onclick="goto('index.html')">取消</button>
-                </form>
             </div>
         </div>
     </div>
@@ -125,9 +126,33 @@
         var reward=$('#reward').val();
         var info=$('#info').val();
         var endtime=$('#endtime').val();
-        if(title===''||start===''||end===''||reward===''||info===''||endtime===''){
-            hit.innerText="请输入完整的订单信息";
-            console.log('请输入完整的订单信息');
+        if(title===''){
+            hit.innerText="请输入标题";
+            console.log('请输入标题');
+            hint();
+            return;
+        }
+        if(start===''){
+            hit.innerText="请输入起点";
+            console.log('请输入起点');
+            hint();
+            return;
+        }
+        if(end===''){
+            hit.innerText="请输入终点";
+            console.log('请输入终点');
+            hint();
+            return;
+        }
+        if(info===''){
+            hit.innerText="请输入备注";
+            console.log('请输入备注');
+            hint();
+            return;
+        }
+        if(endtime===''){
+            hit.innerText="请输入截止时间";
+            console.log('请输入截止时间');
             hint();
             return;
         }
