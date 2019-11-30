@@ -102,18 +102,12 @@
 
     <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="mine">
         <div class="my-auto">
+            <!--锚点-->
+            <a href="javascript:void(0);" data-url="authLocal"></a>
             <h2 class="mb-5">跑腿员认证</h2>
             <div class="subheading mb-5"> ·用学生身份认证成为跑腿员 ·</div>
             <div class="login-box">
                 <form class="layui-form layui-form-pane" method="get" action="/auth/auth">
-                    <!--                    <div class="layui-form-item">
-                                            <label class="layui-form-label">学校：</label>
-
-                                            <div class="layui-input-inline">
-                                                <input type="text" name="account" class="layui-input" lay-verify="school" placeholder="学校"
-                                                       autocomplete="on" maxlength="20"/>
-                                            </div>
-                                        </div>-->
                     <div class="layui-form-item">
                         <label class="layui-form-label">姓名：</label>
 
@@ -130,9 +124,9 @@
                     </div>
                     <div class="layui-form-item">
                         <button type="reset" class="layui-btn layui-btn-danger btn-reset">重置</button>
-                        <button type="button" class="layui-btn btn-submit" lay-submit="" lay-filter="sub"
-                                id="authButton"
-                                onclick="submitAuthInfo()">立即认证
+                        <button type="button" class="layui-btn btn-submit" lay-submit lay-filter="auth"
+                                id="authButton">
+                               立即认证
                         </button>
                     </div>
                 </form>
@@ -173,22 +167,21 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">当前密码</label>
                     <div class="layui-input-block">
-                        <input type="text" name="" autocomplete="off" class="layui-input" id="myinfo_password">
+                        <input type="password" name="" autocomplete="off" class="layui-input" id="myinfo_password">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">修改密码</label>
                     <div class="layui-input-block">
-                        <input type="text" name="" autocomplete="off" class="layui-input" id="myinfo_passwordchange">
+                        <input type="password" name="" autocomplete="off" class="layui-input" id="myinfo_passwordchange">
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit lay-filter="*" onclick="change()">立即提交</button>
-                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                    </div>
+                <div class="layui-input-block">
+                    <button class="layui-btn"  lay-submit lay-filter="info">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </form>
+
         </div>
 
 
@@ -210,13 +203,10 @@
 <script>
 
     var layer;
-    var form;
-
-
+    var userInfo;
 
     /*各种页面加载完成后要执行的js开始*/
     $(document).ready(function () {
-
 
         //显示信誉总积分
         $.ajax({
@@ -273,7 +263,27 @@
         var table = layui.table;
         layer = layui.layer;
         laytpl = layui.laytpl;
-        form = layui.form;
+        var form = layui.form;
+
+        // 获取数据个人信息显示在页面上
+        $.ajax({
+            type: 'get',
+            url: '/user/getUserInfo',
+            success: function (d) {
+                if (d.code === 0) {
+                    userInfo=d.data;
+                    form.val("userInfoForm", {
+                        "name": d.data.name,
+                        "username": d.data.username,
+                        "auth[user]":d.data.auth==null?true:false,
+                        "auth[paotui]":d.data.auth!=null?true:false
+                    });
+                    form.render()
+                } else {
+                    window.location.href = "login.html";
+                }
+            }
+        });
 
         table.render({
             elem: '#demo'
@@ -292,20 +302,7 @@
             ]]
         });
 
-        //监听评分按钮
-        table.on('tool(demo)', function (obj) {
-            var data = obj.data;
-            if (obj.event === 'comment') {
-                layer.msg('ID：' + data.id + ' 的查看操作');
-            } else if (obj.event === 'del') {
-                layer.confirm('真的删除行么', function (index) {
-                    obj.del();
-                    layer.close(index);
-                });
-            } else if (obj.event === 'edit') {
-                layer.alert('编辑行：<br>' + JSON.stringify(data))
-            }
-        });
+
 
 
         //获取留言记录
@@ -319,37 +316,11 @@
                     view.innerHTML = html;
                 });
             }
-        })
-
-
-        // 获取数据个人信息显示在页面上
-        $.ajax({
-            type: 'get',
-            url: '/user/getUserInfo',
-            success: function (d) {
-                if (d.code === 0) {
-                    form.val("userInfoForm", {
-                        "name": d.data.name,
-                        "username": d.data.username,
-                        "auth[user]":d.data.auth==null?true:false,
-                        "auth[paotui]":d.data.auth!=null?true:false
-                    });
-                   /* $("input[name=auth][value='user']").attr("checked", d.data.auth == null ? true : false);
-                    $("input[name=auth][value='paotui']").attr("checked", d.data.auth != null ? true : false);*/
-                    form.render()
-
-                } else {
-                    window.location.href = "login.html";
-                }
-            }
-
         });
 
-    });
 
-    // 信誉部分的js
-    layui.use('table', function () {
-        var table = layui.table;
+
+
         table.render({
             elem: '#demo1'
             , height: 312
@@ -364,27 +335,107 @@
 
             ]]
         });
+
+        //修改个人信息表单监听
+        form.on('submit(info)',function () {
+            var name = $("#myinfo_name").val();
+            var username = $("#myinfo_username").val();
+            var password=$("#myinfo_password").val();
+            var passwordchanege = $("#myinfo_passwordchange").val();
+            if(name===''){
+                layer.open({
+                    title: '提示'
+                    ,content: '请输入用户新用户名'
+                });
+                return false;
+            }else if(password===''){
+                layer.open({
+                    title: '提示'
+                    ,content: '请输入原密码'
+                });
+                return false;
+            }else if(passwordchanege===''){
+                layer.open({
+                    title: '提示'
+                    ,content: '请输入新密码'
+                });
+                return false;
+            }else{
+                $.ajax({
+                    type: "post",
+                    url: '/user/changeUserInfo',
+                    data: {
+                        'name': name,
+                        'username': username,
+                        'password': passwordchanege
+                    },
+                    success:function (d) {
+                        layer.open({
+                            title: '提示'
+                            ,content: '修改成功'
+                        });
+                    },
+                    error:function (d) {
+                        layer.open({
+                            title: '提示'
+                            ,content: '出错啦'
+                        });
+                    }
+                });
+                return false;
+            }
+
+        })
+
+        //认证表单提交
+        form.on('submit(auth)',function () {
+            var real_name = $('#real_name').val();
+            var student_id = $('#student_id').val();
+            if (real_name === '' || student_id === '') {
+                layer.open({
+                    title: '提示'
+                    , content: '请填写完整的信息'
+                });
+                return false;
+            }else{
+                $.ajax({
+                    type: 'post',
+                    url: '/auth/auth',
+                    data: {
+                        real_name: real_name,
+                        student_id: student_id
+                    },
+                    success: function (d) {
+                        layer.open({
+                            title: '提示'
+                            , content: d.message
+                            ,end : function() {
+                                window.location.href = '/personal.html';
+                            }
+                        });
+
+                    },
+                    error: function () {
+                        layer.open({
+                            title: '提示'
+                            , content: '网络错误'
+                        });
+
+                    }
+
+                });
+                return false;
+            }
+
+        })
+
     });
+
+
 
     /*各种layui相关的脚本结束*/
 
 /*下面是各种方法实现*/
-
-    //用户修改信息
-    function change() {
-        var name = $("#myinfo_name").val();
-        var username = $("#myinfo_username").val();
-        var passwordchanege = $("#myinfo_passwordchange").val();
-        $.ajax({
-            type: "post",
-            url: '/user/changeUserInfo',
-            data: {
-                'name': name,
-                'username': username,
-                'password': passwordchanege
-            }
-        })
-    }
 
 
     function gotoChangeOrderStatus() {
@@ -428,47 +479,6 @@
             goto('/commet.html?id=' + id)
         }
     }
-
-
-    // 认证成为跑腿员部分js
-
-    function submitAuthInfo() {
-        var real_name = $('#real_name').val();
-        var student_id = $('#student_id').val();
-        /*        if (real_name == "" || student_id == "") {
-                    layer.open({
-                        title: '提示'
-                        , content: '请填写完整的信息'
-                    });
-                }*/
-        $.ajax({
-            type: 'post',
-            url: '/auth/auth',
-            data: {
-                real_name: real_name,
-                student_id: student_id
-            },
-            success: function (d) {
-                layer.open({
-                    title: '提示'
-                    , content: d.message
-                });
-                setInterval(function () {
-                    window.location.href = '/personal.html';
-                }, 2500);
-
-            },
-            error: function () {
-                layer.open({
-                    title: '提示'
-                    , content: '网络错误'
-                });
-            }
-        });
-
-
-    }
-
 
 
 </script>
