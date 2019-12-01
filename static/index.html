@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="font/flaticon/font/flaticon.css">
+</head>
+<body>
+<div class="slider">
+    <div class="top-right">
+        <div class="container">
+            <span class="top-left"><a href="index.html"><i class="flaticon-hotel"></i>&nbsp;&nbsp;首页</a></span>
+            <div class="top-right-text">
+               <span onclick="loginOrLoginOut()"><a href="#" class="nav-link" >
+                   <i class="flaticon-logout"></i>&nbsp;&nbsp;<i id="textarea">登录</i>
+               </a></span>
+                <span class=""><a href="/personal.html" class="nav-link link-color" >
+                   <i class="flaticon-user"></i>&nbsp;&nbsp;个人中心
+               </a></span>
+            </div>
+        </div>
+
+    </div>
+    <div class="sreach" id="sreach">
+        <nav class="navbar navbar-expand-lg navbar-light text-center">
+            <div class="search-field">
+                <input type="button" class="publish-btn" id="publish-btn" value="发布订单" onclick="goto('/makeorder.html')" style="width: 250px">
+                <input type="button" class="accept-btn" id="accept-btn" value="接收订单" onclick="goto('/shop.html')" style="width: 250px">
+            </div>
+        </nav>
+    </div>
+    <div class="callbacks_container">
+        <ul class="rslides" id="slider4">
+            <li>
+                <div class="slider-img one-img">
+                    <div class="container">
+                        <div class="slider-info text-left">
+                            <h5>成为跑腿员</h5>
+                            <p>keep running running
+                            </p>
+                            <div class="outs_more-buttn" >
+                                <a href="#" data-toggle="modal"  data-blast="bgColor">More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="slider-img two-img">
+                    <div class="container">
+                        <div class="slider-info text-left">
+                            <h5>某某活动</h5>
+                            <p>每个人心中都有梦想
+                            </p>
+                            <div class="outs_more-buttn">
+                                <a href="#" data-toggle="modal" data-blast="bgColor">More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="slider-img three-img">
+                    <div class="container">
+                        <div class="slider-info text-left">
+                            <!--<h4>Class</h4>-->
+                            <h5>信誉排行</h5>
+                            <p>看看这月谁信誉最高
+                            </p>
+                            <div class="outs_more-buttn">
+                                <a href="#" data-toggle="modal"  data-blast="bgColor">More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="clearfix"></div>
+
+</div>
+</body>
+<script src="libs/jquery-2.1.4/jquery.min.js"></script>
+<script src="js/slider4.js"></script>
+<script src="js/responsiveslides.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/LoginAndLoginOut.js">
+
+</script>
+</html>

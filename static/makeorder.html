@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>发布订单</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <link href="css/makeorder.css" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="stylesheet" href="font/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="libs/layui/css/layui.css">
+</head>
+<body>
+<!-- main -->
+<!--发布订单，我用的表格的形式-->
+<div id="hint"><!-- 提示框 -->
+    <p id="hintmsg">提示信息</p>
+</div>
+<div class="bg">
+    <div class="top-right">
+        <div class="container">
+            <span class="top-left"><a href="index.html"><i class="flaticon-hotel"></i>&nbsp;&nbsp;首页</a></span>
+            <div class="top-right-text">
+                <span onclick="loginOrLoginOut()"><a href="#" class="nav-link" >
+                   <i class="flaticon-logout"></i>&nbsp;&nbsp;<i id="textarea">登录</i>
+               </a></span>
+                <span class=""><a href="/personal.html" class="nav-link link-color">
+                   <i class="flaticon-user"></i>&nbsp;&nbsp;个人中心
+               </a></span>
+            </div>
+        </div>
+
+    </div>
+    <div class="main">
+        <!--<h1>订单发布</h1>-->
+        <div class="main-row">
+            <h2>订单发布</h2>
+            <p>请根据您的要求填写信息表! </p>
+            <div class="w3ls-contact">
+                <form >
+                <h4>您的需求是？</h4>
+                <input type="text" id="title"  >
+                <h4>您的起点位置是？</h4>
+                <input type="text" id="start">
+                <h4>您的终点位置是？</h4>
+                <input type="text" id="end" >
+                <h4>您的酬金是？</h4>
+                <input type="text" id="reward" pattern="^\d{1,11}$">
+                <h4>具体任务说明</h4>
+                <textarea id="info"> </textarea>
+                <h4>订单截止时间</h4>
+                <input type="text" id="endtime">
+
+                </form>
+                <button onclick="submitOrder()" id="submitBtn">提交</button>
+                <button onclick="goto('index.html')">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- //main -->
+</body>
+<script src="libs/jquery-2.1.4/jquery.js"></script>
+<script src="libs/layui/layui.js"></script>
+<script src="js/common.js"></script>
+<script src="js/LoginAndLoginOut.js"></script>
+
+<script>
+    //日期选择组件
+    layui.use('laydate', function() {
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#endtime'
+            ,type: 'datetime'
+            ,theme: '#a64d4e'
+            ,min: getNowFormatDate()
+            ,max: 7
+        });
+
+    });
+
+
+    /**
+     * 获取当前时间
+     * @returns {string}
+     */
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+            + " " + date.getHours() + seperator2 + date.getMinutes()
+            + seperator2 + date.getSeconds();
+        return currentdate;
+    }
+
+</script>
+<script>
+    var hit = document.getElementById("hint");
+
+    function submitOrder() {
+
+        var hit = document.getElementById("hint").getElementsByTagName("p")[0];
+
+        var title=$('#title').val();
+        var start=$('#start').val();
+        var end=$('#end').val();
+        var reward=$('#reward').val();
+        var info=$('#info').val();
+        var endtime=$('#endtime').val();
+        if(title===''){
+            hit.innerText="请输入标题";
+            console.log('请输入标题');
+            hint();
+            return;
+        }
+        if(start===''){
+            hit.innerText="请输入起点";
+            console.log('请输入起点');
+            hint();
+            return;
+        }
+        if(end===''){
+            hit.innerText="请输入终点";
+            console.log('请输入终点');
+            hint();
+            return;
+        }
+        if(info===''){
+            hit.innerText="请输入备注";
+            console.log('请输入备注');
+            hint();
+            return;
+        }
+        if(endtime===''){
+            hit.innerText="请输入截止时间";
+            console.log('请输入截止时间');
+            hint();
+            return;
+        }
+        $.ajax({
+
+            type: "post",
+            url: baseUrl+'/order/makeorder',
+            data: {
+                'title': title,
+                'begin': start,
+                'end':end,
+                'reward':reward,
+                'info':info,
+                'endtime':endtime
+
+            },
+            success: function (d) {
+                //根据返回，进行下一步的处理
+                if (d.message === 'ok') {
+                    hit.innerText="订单发布成功";
+                    hint();
+                    //禁用按钮一段时间，避免重复提交
+                    var subBtn=$('#submitBtn');
+                    subBtn.attr("disabled", true);
+                    var time=3;
+                    var hander=setInterval(function() {
+                        if (time <= 0) {
+                            clearInterval(hander); //清除倒计时
+                            subBtn.text("提交");
+                            subBtn.attr("disabled", false);
+                            hit.innerText="正在跳转首页...";
+                            hint();
+                            setInterval(function() {
+                                window.location.href='/index.html';
+                            }, 2000);
+
+                            return false;
+                        }else {
+                            subBtn.text("" + (time--) + "秒后可用");
+
+                        }
+                    }, 1000);
+
+                } else {
+                    console.log(d.message);
+                    //出现错误
+                   hit.innerText=d.message;
+                   hint();
+                }
+
+            }
+
+        })
+
+    }
+
+    function hint() {
+        hit.style.display = "block";
+        setTimeout("hit.style.opacity = 1", 0);
+        setTimeout("hit.style.opacity = 0", 2000);
+        setTimeout('hit.style.display = "none"', 3000);
+    }
+</script>
+</html>

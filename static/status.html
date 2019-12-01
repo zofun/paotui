@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>查看订单详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="css/makeorder.css" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="stylesheet" href="font/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <!--<link rel="stylesheet" href="layui/css/layui.css">-->
+    <style>
+        .main-row {
+            width: 30%;
+            margin: 8em auto;
+            min-height: 400px;
+        }
+        #status{
+            font-size: 40px;
+            font-weight: bold;
+            color:mediumpurple;
+            text-align: center;
+        }
+        .status-bom-r{
+            margin-top: 80px ;
+        }
+        .status-bom-r span{
+            color: whitesmoke;
+            line-height: 40px;
+            width: 47%;
+            height: 40px;
+            background-color: #bf5853;
+            display: inline-block;
+            text-align: center;
+        }
+        .status-sel{
+            height: 40px;
+        }
+        .bg{
+            background: linear-gradient(45deg, #211136, #bf5853);
+        }
+
+    </style>
+<body>
+
+<!--查看，我用的表格的形式-->
+<div class="bg">
+    <div id="hint"><!-- 提示框 -->
+        <p id="hintmsg">提示信息</p>
+    </div>
+    <!--top部分-->
+    <div class="top-right">
+        <div class="container">
+            <span class="top-left"><a href="index.html"><i class="flaticon-hotel"></i>&nbsp;&nbsp;首页</a></span>
+            <div class="top-right-text">
+                <span onclick="loginOrLoginOut()"><a href="#" class="nav-link" >
+                   <i class="flaticon-logout"></i>&nbsp;&nbsp;<i id="textarea">登录</i>
+               </a></span>
+
+                <span class=""><a href="personal.html" class="nav-link link-color">
+                   <i class="flaticon-user"></i>&nbsp;&nbsp;个人中心
+               </a></span>
+            </div>
+        </div>
+
+    </div>
+    <div class="main">
+        <!--<h1>订单发布</h1>-->
+        <div class="main-row">
+            <h2>当前订单信息</h2>
+            <p>跑腿员可以随时更新订单状态</p>
+            <div class="w3ls-contact">
+                <h3>当前的订单状态为:</h3>
+                <div id="status">已接单</div>
+            </div>
+            <div class="status-bom-r">
+                <span onclick="changeStatus()">修改状态</span>
+                <select class="status-sel" name="" id="selectBox" lay-filter="myselect">
+                    <option value="已接单">已接单，未开始</option>
+                    <option value="派送中">订单派送中</option>
+                    <option value="派送结束">派送结束</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="libs/jquery-2.1.4/jquery.js"></script>
+<script src="js/common.js"></script>
+<script src="js/LoginAndLoginOut.js"></script>
+<script>
+    var orderId;
+    $(document).ready(function () {
+        //获取跳转链接中携带的orderId
+        orderId=GetPar("orderId");
+        //获取跳转链接中携带的status（即订单状态）
+        $('#status').text(GetPar("status"));
+    });
+
+    function changeStatus() {
+        var selectBoxVal = $("#selectBox").val();
+
+        $.ajax({
+            type:'post',
+            url:baseUrl+'/delivery/changeState',
+            data:{
+                state:selectBoxVal,
+                id:orderId
+            },
+            success:function (d) {
+                $('#status').text(selectBoxVal);
+                hit.innerText = d.message;
+                hint();
+
+            },
+            error:function () {
+                hit.innerText = '出错了';
+                hint();
+            }
+
+        })
+    }
+
+
+    var hit = document.getElementById("hint");
+
+    /**
+     * 引用hint()在最上方弹出提示
+     */
+    function hint() {
+        hit.style.display = "block";
+        setTimeout("hit.style.opacity = 1", 0);
+        setTimeout("hit.style.opacity = 0", 2000);
+        setTimeout('hit.style.display = "none"', 3000);
+    }
+
+</script>
+</html>

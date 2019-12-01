@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>评分</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="css/makeorder.css" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="stylesheet" href="font/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <style>
+        .main-row {
+            width: 30%;
+            margin: 8em auto;
+            min-height: 350px;
+        }
+        #pingfen{
+            width: 135px;
+            margin: 40px auto;
+            height: 28px;
+        }
+        #pingfen li{
+            width: 27px;
+            float: left;
+            height: 28px;
+            cursor: pointer;
+            background: url("images/star.gif") no-repeat 0 0;
+            list-style: none;
+        }
+        .bg {
+            background: linear-gradient(45deg, #211136, #bf5853);
+            /*height: 2000%;*/
+        }
+        #pingfen ul li{
+            line-height: 27px;
+            text-align: center;
+            font-size: 10px;
+            /*color: white;*/
+        }
+    </style>
+<body>
+<div class="bg">
+    <div id="hint"><!-- 提示框 -->
+        <p id="hintmsg">提示信息</p>
+    </div>
+    <!--top部分-->
+    <div class="top-right">
+        <div class="container">
+            <span class="top-left"><a href="index.html"><i class="flaticon-hotel"></i>&nbsp;&nbsp;首页</a></span>
+            <div class="top-right-text">
+                <span onclick="loginOrLoginOut()"><a href="#" class="nav-link" >
+                   <i class="flaticon-logout"></i>&nbsp;&nbsp;<i id="textarea">登录</i>
+               </a></span>
+                <span class=""><a href="personal.html" class="nav-link link-color">
+                   <i class="flaticon-user"></i>&nbsp;&nbsp;个人中心
+               </a></span>
+            </div>
+        </div>
+
+    </div>
+    <div class="main">
+        <!--<h1>订单发布</h1>-->
+        <div class="main-row">
+            <h2>跑腿评分</h2>
+            <p>您的评分可影响跑腿员的信誉噢</p>
+            <div class="w3ls-contact">
+                <h3>当前的订单编号为: <span id="id"></span></h3>
+            </div>
+            <div id="pingfen">
+                <ul >
+                    <!--下次可以重构这段代码 lj-->
+                    <li onclick="makeCommit(-2)">-2</li>
+                    <li onclick="makeCommit(-1)">-1</li>
+                    <li onclick="makeCommit(0)">0</li>
+                    <li onclick="makeCommit(1)">1</li>
+                    <li onclick="makeCommit(2)">2</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="libs/jquery-2.1.4/jquery.js"></script>
+<script src="js/common.js"></script>
+<script src="js/LoginAndLoginOut.js"></script>
+<script>
+    // 星星特效
+    var id=0;
+    window.onload = function () {
+        var oPf = document.getElementById('pingfen');
+        var aLi = oPf.getElementsByTagName('li');
+
+        // 在界面上显示编号
+         id = GetPar('id');
+        $("#id").text(id);
+        var i = 0;
+        for (i = 0; i < aLi.length; i++) {
+            aLi[i].index = i;
+            aLi[i].onmouseover = function () {
+                for (i = 0; i < aLi.length; i++) {
+                    if (i <= this.index) {
+                        aLi[i].style.background = "url(images/star.gif) no-repeat 0 -29px";
+                    }
+                    else {
+                        aLi[i].style.background = "url(images/star.gif) no-repeat 0 0";
+                    }
+                }
+            };
+
+        }
+
+    };
+
+
+    function makeCommit(start) {
+        $.ajax({
+            type: "post",
+            url: baseUrl+'/comment/makeComment',
+            data: {
+                'start': start,
+                'id':id
+
+            },
+            success: function (d) {
+                //根据返回，进行下一步的处理
+                if (d.data === 'ok') {
+                    hit.innerText="评分成功";
+                    hint();
+                    window.location.href='/personal.html'
+                }
+                else {
+                    hit.innerText="评分失败";
+                    hint();
+                }
+            },
+            error:function () {
+                hit.innerText="出错了";
+                hint();
+            }
+        })
+    }
+
+
+    /**
+     * 引用hint()在最上方弹出提示
+     */
+    var hit = document.getElementById("hint");
+    function hint() {
+        hit.style.display = "block";
+        setTimeout("hit.style.opacity = 1", 0);
+        setTimeout("hit.style.opacity = 0", 2000);
+        setTimeout('hit.style.display = "none"', 3000);
+    }
+
+</script>
+</html>

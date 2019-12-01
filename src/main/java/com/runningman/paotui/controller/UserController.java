@@ -97,9 +97,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "changeUserInfo",method = RequestMethod.POST)
-    public Result changeUserInfo(User user){
-        userService.changeUserInfo(user.getUsername(),user.getName(),user.getPassword());
-        return new Result().success("修改成功",0);
+    public Result changeUserInfo(String username,String name,String password,String passwordchanege){
+        User user1 = userService.getUser(username);
+        if(password.equals(user1.getPassword())){
+            userService.changeUserInfo(username,name,passwordchanege);
+            return new Result().success("修改成功",0);
+        }
+        return new Result().fail("修改失败,当前密码错误",1);
+
     }
 
     @RequestMapping(value = "loginOut")

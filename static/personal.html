@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>个人订单</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/resume.css" rel="stylesheet">
+    <link rel="stylesheet" href="libs/layui/css/layui.css">
+</head>
+
+<body id="page-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+    <a class="navbar-brand js-scroll-trigger" href="/index.html" title="返回主页">
+        <span class="d-none d-lg-block">
+          <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="images/profile.jpg" alt="">
+        </span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#searchOrder-now">当前订单</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#mymsg">消息中心</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#myreputation">个人信誉</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#mine">认证成为跑腿员</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#myinfo">个人信息</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid px-6">
+
+    <section class="resume-section p-3 p-lg-5 d-flex d-column" id="searchOrder-now">
+        <div class="my-auto">
+            <h1 class="mb-0">订单
+                <span class="text-primary">Order</span>
+            </h1>
+            <div class="subheading mb-5"> ·查看自己当前的订单的状态 ·
+                <div class="searchOrder-now" onclick="gotoChangeOrderStatus()">
+                    <a href="#">当前的订单状态为：<span id="status"></span></a>
+                </div>
+            </div>
+            <div class="subheading mb-5"> ·查看自己的历史订单 ·</div>
+            <table id="demo" lay-filter="test"></table>
+        </div>
+    </section>
+
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="mymsg">
+        <div class="my-auto">
+            <h2 class="mb-5">我的消息</h2>
+            <div id="view">
+                <!--消息开始-->
+
+
+                <!--消息结束-->
+            </div>
+        </div>
+
+
+    </section>
+
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="myreputation">
+        <div class="my-auto">
+            <h1 class="mb-0">信誉
+                <span class="text-primary">reputation</span>
+            </h1>
+            <div class="resume-item d-flex flex-column flex-md-row mb-5">
+                <div class="myreputation">
+                    <h3> 当前的信誉为：<span id="sumReputation"></span></h3>
+                </div>
+            </div>
+
+            <div class="resume-item d-flex flex-column flex-md-row">
+                <div class="resume-content mr-auto">
+                    <h3 class="mb-0">信誉得分明细如下：</h3>
+                    <table id="demo1" lay-filter="test"></table>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="mine">
+        <div class="my-auto">
+            <!--锚点-->
+            <a href="javascript:void(0);" data-url="authLocal"></a>
+            <h2 class="mb-5">跑腿员认证</h2>
+            <div class="subheading mb-5"> ·用学生身份认证成为跑腿员 ·</div>
+            <div class="login-box">
+                <form class="layui-form layui-form-pane" method="get" action="/auth/auth">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">姓名：</label>
+
+                        <div class="layui-input-inline">
+                            <input type="text" id="real_name" class="layui-input" placeholder="姓名" maxlength="20"/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">学号：</label>
+
+                        <div class="layui-input-inline">
+                            <input type="text" id="student_id" class="layui-input" placeholder="学号" maxlength="20"/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <button type="reset" class="layui-btn layui-btn-danger btn-reset">重置</button>
+                        <button type="button" class="layui-btn btn-submit" lay-submit lay-filter="auth"
+                                id="authButton">
+                               立即认证
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="myinfo">
+        <div class="my-auto">
+            <h1 class="mb-0">信息
+                <span class="text-primary">information</span>
+            </h1>
+            <br>
+            <br>
+        </div>
+        <div class="resume-item d-flex flex-column flex-md-row mb-5">
+            <form class="layui-form" lay-filter="userInfoForm">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" autocomplete="off" class="layui-input" id="myinfo_name">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">账号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="username" autocomplete="off" class="layui-input" id="myinfo_username"
+                               readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">身份</label>
+                    <div class="layui-input-block">
+
+                        <input type="checkbox" name="auth[user]" title="用户" >
+                        <input type="checkbox" name="auth[paotui]" title="跑腿员">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">当前密码</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="" autocomplete="off" class="layui-input" id="myinfo_password">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">修改密码</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="" autocomplete="off" class="layui-input" id="myinfo_passwordchange">
+                    </div>
+                </div>
+                <div class="layui-input-block">
+                    <button class="layui-btn"  lay-submit lay-filter="info">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </form>
+
+        </div>
+
+
+    </section>
+
+
+</div>
+
+<!-- Bootstrap core JavaScript -->
+<script src="libs/jquery-2.1.4/jquery.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="js/jquery.easing.min.js"></script>
+<!-- Custom scripts for this template -->
+<script src="js/resume.js"></script>
+<script src="libs/layui/layui.js"></script>
+<script src="js/common.js"></script>
+<script>
+
+    var layer;
+    var userInfo;
+
+    /*各种页面加载完成后要执行的js开始*/
+    $(document).ready(function () {
+
+        //显示信誉总积分
+        $.ajax({
+            type: 'get',
+            url: baseUrl+'/personal/getSumStart',
+            datatype: 'json',
+            success: function (data) {
+                if (data.length > 0) {
+                    $("#sumReputation").text(data[0].start);
+                }
+            }
+        });
+
+        //显示用户认证信息
+        $.ajax({
+            type: 'get',
+            url: baseUrl+'/auth/getAuthInfo',
+            datatype: 'json',
+            success: function (data) {
+                if (data.length > 0) {
+                    document.getElementById("real_name").value = data[0].realName;
+                    document.getElementById("student_id").value = data[0].studentId;
+                    document.getElementById("authButton").disabled = true;
+                    $("#authButton").removeClass("layui-btn btn-submit");
+                    $("#authButton").addClass("layui-btn btn-submit layui-btn-disabled");
+                }
+            }
+        });
+
+        /*获取用户的当前订单状态*/
+        $.ajax({
+            type: 'get',
+            url: baseUrl+'/order/getStatus',
+            success: function (d) {
+                if (d.data.length > 0) {
+                    console.log(d.data[0].info);
+                    $('#status').text(d.data[0].info);
+                    orderId = d.data[0].id;
+                    orderStatus = d.data[0].info;
+                } else {
+                    console.log('没有订单');
+                    orderId = -1; //没有正在进行订单，则设置为-1
+                }
+            }
+
+        });
+
+    });
+    /*各种页面加载完成后要执行的js结束*/
+
+
+   /*各种layui相关的脚本开始*/
+    layui.use(['table', 'layer', 'laytpl', 'form'], function () {
+        var table = layui.table;
+        layer = layui.layer;
+        laytpl = layui.laytpl;
+        var form = layui.form;
+
+        // 获取数据个人信息显示在页面上
+        $.ajax({
+            type: 'get',
+            url: baseUrl+'/user/getUserInfo',
+            success: function (d) {
+                if (d.code === 0) {
+                    userInfo=d.data;
+                    form.val("userInfoForm", {
+                        "name": d.data.name,
+                        "username": d.data.username,
+                        "auth[user]":d.data.auth==null?true:false,
+                        "auth[paotui]":d.data.auth!=null?true:false
+                    });
+                    form.render()
+                } else {
+                    window.location.href = "/login.html";
+                }
+            }
+        });
+
+        table.render({
+            elem: '#demo'
+            , height: 350
+            , url: baseUrl+'/order/getUserOrders' //数据接口
+            , page: true //开启分页
+            , cols: [[ //表头
+                {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'}
+                , {field: 'title', title: '订单内容', width: 177}
+                , {field: 'begin', title: '起点', width: 80, sort: true}
+                , {field: 'end', title: '目的地', width: 80}
+                // 订单类型为发布订单方和接受订单方两个
+                , {field: 'status', title: '订单状态', width: 120}
+                , {field: 'reward', title: '酬金', width: 80, sort: true}
+                , {title: '评分', width: 80, templet: '#bar', unresize: true}
+            ]]
+        });
+
+
+
+
+        //获取留言记录
+        $.ajax({
+            type: 'get',
+            url: baseUrl+'/chat/getMsgList',
+            success: function (d) {
+                var Tpl = tpl.innerHTML;
+                var view = document.getElementById('view');
+                laytpl(Tpl).render(d, function (html) {
+                    view.innerHTML = html;
+                });
+            }
+        });
+
+
+
+
+        table.render({
+            elem: '#demo1'
+            , height: 312
+            , url: baseUrl+'/personal/getUserStart' //数据接口
+            , page: true //开启分页
+            , cols: [[ //表头
+                {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'}
+                , {field: 'title', title: '订单内容', width: 120}
+                , {field: 'time', title: '时间', width: 80, sort: true}
+                , {field: 'reward', title: '酬金', width: 80, sort: true}
+                , {field: 'start', title: '评分', width: 100, sort: true}
+
+            ]]
+        });
+
+        //修改个人信息表单监听
+        form.on('submit(info)',function () {
+            var name = $("#myinfo_name").val();
+            var username = $("#myinfo_username").val();
+            var password=$("#myinfo_password").val();
+            var passwordchanege = $("#myinfo_passwordchange").val();
+            if(name===''){
+                layer.open({
+                    title: '提示'
+                    ,content: '请输入用户新用户名'
+                });
+                return false;
+            }else if(password===''){
+                layer.open({
+                    title: '提示'
+                    ,content: '请输入原密码'
+                });
+                return false;
+            }else if(passwordchanege===''){
+                layer.open({
+                    title: '提示'
+                    ,content: '请输入新密码'
+                });
+                return false;
+            }else{
+                $.ajax({
+                    type: "post",
+                    url: baseUrl+'/user/changeUserInfo',
+                    data: {
+                        'name': name,
+                        'username': username,
+                        'password':password,
+                        'passwordchanege': passwordchanege
+                    },
+                    success:function (d) {
+                        if(d.code===0){
+                            layer.open({
+                                title: '提示'
+                                ,content: '修改成功'
+                            });
+                        }
+                        else{
+                            layer.open({
+                                title: '提示'
+                                ,content: d.message
+                            });
+                        }
+                    },
+                    error:function (d) {
+                        layer.open({
+                            title: '提示'
+                            ,content: '出错啦'
+                        });
+                    }
+                });
+                return false;
+            }
+
+        })
+
+        //认证表单提交
+        form.on('submit(auth)',function () {
+            var real_name = $('#real_name').val();
+            var student_id = $('#student_id').val();
+            if (real_name === '' || student_id === '') {
+                layer.open({
+                    title: '提示'
+                    , content: '请填写完整的信息'
+                });
+                return false;
+            }else{
+                $.ajax({
+                    type: 'post',
+                    url: baseUrl+'/auth/auth',
+                    data: {
+                        real_name: real_name,
+                        student_id: student_id
+                    },
+                    success: function (d) {
+                        layer.open({
+                            title: '提示'
+                            , content: d.message
+                            ,end : function() {
+                                window.location.href = '/personal.html';
+                            }
+                        });
+
+                    },
+                    error: function () {
+                        layer.open({
+                            title: '提示'
+                            , content: '网络错误'
+                        });
+
+                    }
+
+                });
+                return false;
+            }
+
+        })
+
+    });
+
+
+
+    /*各种layui相关的脚本结束*/
+
+/*下面是各种方法实现*/
+
+
+    function gotoChangeOrderStatus() {
+        if (orderId != -1) {
+            goto('/status.html?orderId=' + orderId + "&status=" + orderStatus);
+        }
+    }
+
+    /**
+     * 跳转到聊天
+     * @param targetUsername
+     */
+    function gotoChat(targetUsername) {
+        if (userInfo == null) {
+            return;
+        }
+        //更改消息的状态
+        chatMsgStats(targetUsername, userInfo.username);
+        goto('/chat.html?username=' + userInfo.username + "&targetUsername=" + targetUsername + "&state=l")
+
+    }
+
+    /**
+     * 更改消息的状态为已读
+     * @param username
+     * @param targetUsername
+     */
+    function chatMsgStats(username, targetUsername) {
+        $.ajax({
+            type: 'post',
+            url: baseUrl+'/chat/changeMsgState',
+            data: {
+                username: username,
+                targetUsername: targetUsername
+            }
+        })
+    }
+
+    function gotoComment(id, status) {
+        if (status === '派送结束') {
+            goto('/commet.html?id=' + id)
+        }
+    }
+
+
+</script>
+
+<!--消息中心模板-->
+<script id="tpl" type="text/html">
+    {{#  layui.each(d.data, function(index, item){ }}
+    <div class="resume-item d-flex flex-column flex-md-row mb-5">
+        <div class="resume-content mr-auto">
+            <h3 class="mb-0">收到了{{item.count}}条消息</h3>
+            <div class="subheading mb-3">来自 <span id="mymsg_name">{{item.name}}</span></div>
+        </div>
+        <div class="resume-date text-md-right">
+            <button class="layui-btn layui-btn-sm" onclick="gotoChat('{{item.username}}')">回复消息</button>
+        </div>
+    </div>
+    {{#  }); }}
+</script>
+
+<!--评分按钮-->
+<script type="text/html" id="bar">
+    <button type="button" class={{
+            d.status== '派送结束' ? '"layui-btn  layui-btn-xs"': '"layui-btn  layui-btn-xs layui-btn-disabled"' }} onclick="gotoComment({{d.id}},'{{d.status}}')">评分</button>
+</script>
+
+
+</body>
+
+</html>

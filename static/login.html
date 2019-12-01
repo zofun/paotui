@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="#" />
+    <link type="text/css" rel="styleSheet"  href="css/login.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>账号登录</title>
+    <style>
+    </style>
+</head>
+
+
+<body>
+    <div id="bg">
+        <div id="hint"><!-- 提示框 -->
+            <p id="hintmsg">提示信息</p>
+        </div>
+        <div id="login_wrap">
+            <div id="login">
+                <!-- 登录注册切换动画 -->
+                <div id="status">
+                    <i  id="p1" style="top: 0">Log</i>
+                    <i  id="p2" style="top: 35px">Sign</i>
+                    <i style="right: 5px">in</i>
+                </div>
+                <span>
+                    <form action="#">
+                        <p class="form confirm"><input type="text" id="name" placeholder="用户名"></p>
+                        <p class="form"><input type="text" id="username" placeholder="手机号"></p>
+                        <p class="form"><input type="password" id="password" placeholder="密码"></p>
+                        <input type="button" value="登录" class="btn" onclick="login()" style="margin-right: 20px;">
+                        <input type="button" value="注册" class="btn" onclick='signin()' id="btn">
+                    </form>
+                    <a href="#">Forget your password?</a>
+                </span>
+            </div>
+
+            <div id="login_img"><!-- 图片绘制框 -->
+                <span class="logo">
+                    <img src="images/logo1.png" alt="">
+                    <!--<span></span>-->
+                </span>
+                <span class="star">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+                <span class="fly_star">
+                    <span></span>
+                    <span></span>
+                </span>
+                <p id="title">校 &nbsp园 &nbsp跑 &nbsp腿 &nbsp帮 &nbsp</p>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="libs/jquery-2.1.4/jquery.js"></script>
+<script src="js/common.js"></script>
+<script>
+
+
+
+    var onoff = true;
+    var confirm=$('.confirm');
+    var hit = document.getElementById("hint");
+    /**
+     * 处理登录逻辑
+     */
+    function login() {
+
+
+        var hit = document.getElementById("hint").getElementsByTagName("p")[0];
+        if (onoff) {
+            /*真正的登录逻辑*/
+            var username = $('#username').val();
+            var password = $('#password').val();
+            if (username === '') {
+                hit.innerText = "请输入账号";
+                hint();
+                return;
+            } else if (password === '') {
+                hit.innerText = "请输入密码";
+                hint();
+                return;
+            } else {
+                //表单完整,提交请求
+                $.ajax({
+                    type: "post",
+                    url: baseUrl+'/user/login',
+                    data: {
+                        'username': username,
+                        'password': password
+
+                    },
+                    success: function (d) {
+                        //根据返回，进行下一步的处理
+                        if (d.data === 'pass') {
+                            //登录成功的处理逻辑
+                            hit.innerText = "登录成功，正在跳转到首页...";
+                            hint();
+                            setInterval(function() {
+                                window.location.href='/index.html';
+                            }, 2000);
+
+
+
+                        } else {
+                            //登录失败的处理逻辑
+                            hit.innerText = d.message;
+                            hint();
+                        }
+
+                    }
+                })
+            }
+        } else {
+
+            /*页面切换*/
+            confirm.css("height","0px");
+            $('#p1').css("top","0px");
+            $('#p2').css("top","35px");
+            onoff = !onoff;
+
+        }
+    }
+
+    /**
+     *处理注册
+     */
+    function signin() {
+
+        status=$('#status');
+        var hit = document.getElementById("hint").getElementsByTagName("p")[0];
+
+        if (onoff) {
+            /*切换逻辑*/
+            confirm.css("height","51px");
+            $('#p1').css("top","35px");
+            $('#p2').css("top",0);
+            onoff = !onoff;
+
+        } else {
+
+            /*真正的注册逻辑*/
+            var name = $('#name').val();
+            var username = $('#username').val();
+            var password = $('#password').val();
+            if (name === '') {
+                hit.innerText = "请输入用户名";
+                hint();
+                return;
+            } else if (username === '') {
+                hit.innerText = "请输入登录账号（您的手机或者邮箱）";
+                hint();
+                return;
+            }else if(!(/^1[3456789]\d{9}$/.test(username))){
+                hit.innerText = "请输入有效的手机号";
+                hint();
+                return;
+            } else if (password === '') {
+                hit.innerText = "请输入密码";
+                hint();
+                return;
+            }else if(password.length<6){
+                hit.innerText = "密码强度过低(密码不得少于6个字符)";
+                hint();
+                return;
+            }else {
+                //表单完整，进行注册
+                $.ajax({
+                    type: "post",
+                    url: baseUrl+'/user/register',
+                    data: {
+                        'name': name,
+                        'username': username,
+                        'password': password
+
+                    },
+                    success: function (d) {
+                        //根据返回，进行下一步的处理
+                        if (d.data === 'ok') {
+                            //注册成功的处理逻辑
+                            hit.innerText = "注册成功，正在跳转到登录...";
+                            hint();
+
+                            setInterval(function() {
+                                /*页面切换*/
+                                confirm.css("height","0px");
+                                $('#p1').css("top","0px");
+                                $('#p2').css("top","35px");
+                                onoff = !onoff;
+                            }, 2000);
+
+                        } else {
+                            //登录失败的处理逻辑
+                            hit.innerText = d.message;
+                            hint();
+                        }
+
+                    }
+                })
+            }
+        }
+    }
+
+
+    /**
+     * 引用hint()在最上方弹出提示
+     */
+    function hint() {
+        hit.style.display = "block";
+        setTimeout("hit.style.opacity = 1", 0);
+        setTimeout("hit.style.opacity = 0", 2000);
+        setTimeout('hit.style.display = "block"', 3000);
+    }
+
+
+</script>
+
+</html>
