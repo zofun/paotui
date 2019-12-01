@@ -6,8 +6,8 @@ spring:
       charset: utf-8
       enabled: true
   datasource:
-    username: root
-    password: dontconnect
+    username: userofpaotui
+    password: runningman
     url: jdbc:mysql://121.199.76.80:3306/paotui?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
