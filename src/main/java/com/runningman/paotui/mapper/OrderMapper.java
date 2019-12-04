@@ -95,11 +95,7 @@ public interface OrderMapper {
      */
     Date getOrderEndTime(int id);
 
-    /**
-     * 获取跑腿员接了的单
-     * @param username
-     * @return
-     */
+
     List<OrderStatus> getOrderStatus(@Param("username") String username);
 
 
