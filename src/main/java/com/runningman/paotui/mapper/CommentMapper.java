@@ -22,10 +22,6 @@ public interface CommentMapper {
      */
     void insertComment(Comment comment);
 
-    /**
-     * 通过order的id查询是否做过该订单的评价
-     * @param order_id
-     * @return
-     */
+
     Comment qurryCommentByOrder_Id(@Param("order_id") int order_id);
 }
